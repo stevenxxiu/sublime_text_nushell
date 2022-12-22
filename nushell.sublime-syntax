@@ -1,0 +1,420 @@
+%YAML 1.2
+---
+# - https://www.sublimetext.com/docs/syntax.html
+# - https://www.nushell.sh/book/
+name: Nushell
+file_extensions: [nu]
+scope: source.nu
+
+contexts:
+  main:
+    - include: keywords
+    - include: interpolated_strings
+    - include: strings
+    - include: punctuation
+    - include: comment
+    - include: range
+    - include: parameter
+    - include: digit
+    - include: blockparam
+    - include: variable
+    - include: variable_keyword
+    - include: for_variable
+    - include: function
+    - include: type
+
+  keywords:
+    - match: \b(zip)\b
+      captures:
+        1: keyword.other.z
+
+    - match: \b(with-column|with-env|window|while|which|where|watch|wrap|when)\b
+      captures:
+        1: keyword.other.w
+
+    - match: \b(value-counts|view-source|version|var)\b
+      captures:
+        1: keyword.other.v
+
+    - match: \b(update)(\scells)\b
+      captures:
+        1: keyword.other.u
+        2: keyword.other.u_sub
+
+    - match: \b(url)(\sparse)\b
+      captures:
+        1: keyword.other.u
+        2: keyword.other.u_sub
+
+    - match: \b(uppercase|upsert|update|unique|uniq|use|url)\b
+      captures:
+        1: keyword.other.u
+
+    - match: \b(take)(\suntil|\swhile)\b
+      captures:
+        1: keyword.other.t
+        2: keyword.other.t_sub
+
+    - match: \b(term)(\ssize)\b
+      captures:
+        1: keyword.other.t
+        2: keyword.other.t_sub
+
+    - match: \b(to)(\sarrow|\scsv|\shtml|\sjson|\smd|\snuon|\sparquet|\stext|\stoml|\stsv|\surl|\sxml|\syaml)\b
+      captures:
+        1: keyword.other.t
+        2: keyword.other.t_sub
+
+    - match: \b(transpose|tutor|touch|table|take|try|to)\b
+      captures:
+        1: keyword.other.t
+
+    - match: \b(seq)(\schar|\sdate)\b
+      captures:
+        1: keyword.other.s
+        2: keyword.other.s_sub
+
+    - match: \b(skip)(\suntil|\swhile)\b
+      captures:
+        1: keyword.other.s
+        2: keyword.other.s_sub
+
+    - match: \b(split)(\schars|\scolumn|\slist|\srow|\swords)\b
+      captures:
+        1: keyword.other.s
+        2: keyword.other.s_sub
+
+    - match: \b(str)(\scamel-case|\scapitalize|\scollect|\scontains|\sdistance|\sdowncase|\sends-with|\sfind-replace|\sindex-of|\sjoin|\skebab-case|\slength|\slpad|\spascal-case|\sreplace|\sreverse|\srpad|\sscreaming-snake-case|\ssnake-case|\sstarts-with|\ssubstring|\stitle-case|\sto-datetime|\sto-decimal|\sto-int|\strim|\supcase)\b
+      captures:
+        1: keyword.other.s
+        2: keyword.other.s_sub
+
+    - match: \b(set-with-idx|str-lengths|source-env|str-slice|strftime|split-by|summary|sort-by|shuffle|source|shells|select|schema|sample|split|slice|sleep|shift|shape|sort|skip|size|save|sys|sum|str|std|set|seq)\b
+      captures:
+        1: keyword.other.s
+
+    - match: \b(random)(\sbool|\schars|\sdecimal|\sdice|\sinteger|\suuid)\b
+      captures:
+        1: keyword.other.r
+        2: keyword.other.r_sub
+
+    - match: \b(registry)(\squery)\b
+      captures:
+        1: keyword.other.r
+        2: keyword.other.r_sub
+
+    - match: \b(roll)(\sdown|\sleft|\sright|\sup)\b
+      captures:
+        1: keyword.other.r
+        2: keyword.other.r_sub
+
+    - match: \b(run-external|replace-all|register|rolling|reverse|replace|rotate|return|rename|reject|reduce|random|range|roll|rm)\b
+      captures:
+        1: keyword.other.r
+
+    - match: \b(query)(\sdb|\sdf|\sjson|\sweb|\sxml)\b
+      captures:
+        1: keyword.other.q
+        2: keyword.other.q_sub
+
+    - match: \b(quantile|query)\b
+      captures:
+        1: keyword.other.q
+
+    - match: \b(path)(\sbasename|\sdirname|\sexists|\sexpand|\sjoin|\sparse|\srelative-to|\ssplit|\stype)\b
+      captures:
+        1: keyword.other.p
+        2: keyword.other.p_sub
+
+    - match: \b(par-each|prepend|print|parse|post|port|path|ps|p)\b
+      captures:
+        1: keyword.other.p
+
+    - match: \b(overlay)(\shide|\slist|\snew|\suse)\b
+      captures:
+        1: keyword.other.o
+        2: keyword.other.o_sub
+
+    - match: \b(or|otherwise|open-df|open)\b
+      captures:
+        1: keyword.other.o
+
+    - match: \b(nu-highlight|nu-example-3|nu-example-2|nu-example-1|nu-check|n-unique|n)\b
+      captures:
+        1: keyword.other.n
+
+    - match: \b(math)(\sabs|\savg|\sceil|\seval|\sfloor|\smax|\smedian|\smin|\smode|\sproduct|\sround|\ssqrt|\sstddev|\ssum|\svariance)\b
+      captures:
+        1: keyword.other.m
+        2: keyword.other.m_sub
+
+    - match: \b(metadata|median|mkdir|merge|move|melt|mean|math|mut|min|max|mv)\b
+      captures:
+        1: keyword.other.m
+
+    - match: \b(lowercase|load-env|length|ls-df|lines|loop|list|last|lit|ls)\b
+      captures:
+        1: keyword.other.l
+
+    - match: \b(keybindings)(\sdefault|\slist|\slisten)\b
+      captures:
+        1: keyword.other.k
+        2: keyword.other.k_sub
+
+    - match: \b(keybindings|kill)\b
+      captures:
+        1: keyword.other.k
+
+    - match: \b(join)\b
+      captures:
+        1: keyword.other.j
+
+    - match: \b(into)(\sbinary|\sbool|\sdatetime|\sdecimal|\sdf|\sduration|\sfilesize|\sint|\slazy|\snu|\srecord|\ssqlite|\sstring)\b
+      captures:
+        1: keyword.other.i_sub
+
+    - match: \b(is-duplicated|is-not-null|is-unique|is-empty|is-admin|is-null|insert|ignore|is-in|input|into|inc|if)\b
+      captures:
+        1: keyword.other.i
+
+    - match: \b(hash)(\sbase64|\smd5|\ssha256)\b
+      captures:
+        1: keyword.other.h
+        2: keyword.other.h_sub
+
+    - match: \b(help)(\soperators)\b
+      captures:
+        1: keyword.other.h
+        2: keyword.other.h_sub
+
+    - match: \b(history)(\ssession)\b
+      captures:
+        1: keyword.other.h
+        2: keyword.other.h_sub
+
+    - match: \b(histogram|hide-env|history|headers|hide|help|hash)\b
+      captures:
+        1: keyword.other.h
+
+    - match: \b(get-nanosecond|get-weekday|get-ordinal|get-second|get-minute|get-month|group-by|get-year|get-week|get-hour|get-day|gstat|group|grid|glob|get|g)\b
+      captures:
+        1: keyword.other.g
+
+    - match: \b(format)(\sfilesize)\b
+      captures:
+        1: keyword.other.f
+        2: keyword.other.f_sub
+
+    - match: \b(from)(\scsv|\seml|\sics|\sini|\sjson|\snuon|\sods|\sparquet|\sssv|\stoml|\stsv|\surl|\svcf|\sxlsx|\sxml|\syaml|\syml)\b
+      captures:
+        1: keyword.other.f
+        2: keyword.other.f_sub
+
+    - match: \b(filter-with|fill-null|flatten|fill-na|format|filter|first|fetch|from|find|fmt|fn)\b
+      captures:
+        1: keyword.other.f
+
+    - match: \b(each)(\swhile)\b
+      captures:
+        1: keyword.other.e
+        2: keyword.other.e_sub
+
+    - match: \b(encode)(\sbase64)\b
+      captures:
+        1: keyword.other.e
+        2: keyword.other.e_sub
+
+    - match: \b(error)(\smake)\b
+      captures:
+        1: keyword.other.e
+        2: keyword.other.e_sub
+
+    - match: \b(export)(\salias|\sdef|\sdef-env|\sextern|\suse)\b
+      captures:
+        1: keyword.other.e
+        2: keyword.other.e_sub
+
+    - match: \b(export-env|expr-not|explode|export|encode|every|enter|exit|exec|echo|each|env|else)\b
+      captures:
+        1: keyword.other.e
+
+    - match: \b(date)(\sformat|\shumanize|\slist-timezone|\snow|\sto-record|\sto-table|\sto-timezone)\b
+      captures:
+        1: keyword.other.d
+        2: keyword.other.d_sub
+
+    - match: \b(decode)(\sbase64)\b
+      captures:
+        1: keyword.other.d
+        2: keyword.other.d_sub
+
+    - match: \b(detect)(\scolumns)\b
+      captures:
+        1: keyword.other.d
+        2: keyword.other.d_sub
+
+    - match: \b(drop)(\scolumn|\snth)\b
+      captures:
+        1: keyword.other.d
+        2: keyword.other.d_sub
+
+    - match: \b(drop-duplicates|drop-nulls|describe|dummies|default|dtypes|df-not|decode|debug|drop|date|du|do)\b
+      captures:
+        1: keyword.other.d
+
+    - match: \b(config)(\senv|\snu|\sreset)\b
+      captures:
+        1: keyword.other.c
+        2: keyword.other.c_sub
+
+    - match: \b(custom-value)(\sgenerate|\sgenerate2|\supdate)\b
+      captures:
+        1: keyword.other.c
+        2: keyword.other.c_sub
+
+    - match: \b(catch|concatenate|commandline|cumulative|count-null|concat-str|continue|contains|complete|compact|columns|collect|config|count|clear|cache|char|col|cal|cp|cd)\b
+      captures:
+        1: keyword.other.c
+
+    - match: \b(bits)(\sand|\snot|\sor|\srol|\sror|\sshl|\sshr|\sxor)\b
+      captures:
+        1: keyword.other.b
+        2: keyword.other.b_sub
+
+    - match: \b(bytes)(\sadd|\sat|\sbuild|\scollect|\sends-with|\sindex-of|\slength|\sremove|\sreplace|\sreverse|\sstarts-with)\b
+      captures:
+        1: keyword.other.b
+        2: keyword.other.b_sub
+
+    - match: \b(benchmark|bytes|break|bits)\b
+      captures:
+        1: keyword.other.b
+
+    - match: \b(ansi)(\sgradient|\sstrip)\b
+      captures:
+        1: keyword.other.a
+        2: keyword.other.a_sub
+
+    - match: \b(and|as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|ansi|ast|any|all|agg|as)\b
+      captures:
+        1: keyword.other.a
+
+    - match: \btrue|false
+      scope: keyword.other.unit
+
+    - match: \bout>|err>|out\+err>|err\+out>
+      scope: keyword.other.redirect
+
+  interpolated_strings:
+    - match: \$("|'|`)
+      scope: string.interpolated.begin.nushell
+      push:
+        - meta_scope: string.interpolated.nushell
+        - match: \1
+          scope: string.interpolated.end.nushell
+          pop: 1
+
+  strings:
+    - match: \"
+      scope: punctuation.definition.string.begin.nushell
+      push:
+        - meta_scope: string.quoted.double.nushell
+        - match: \"
+          scope: punctuation.definition.string.end.nushell
+          pop: 1
+
+    - match: \'
+      scope: punctuation.definition.string.begin.nushell
+      push:
+        - meta_scope: string.quoted.single.nushell
+        - match: \'
+          scope: punctuation.definition.string.end.nushell
+          pop: 1
+
+    - match: \`
+      scope: punctuation.definition.string.begin.nushell
+      push:
+        - meta_scope: string.quoted.backtick.nushell
+        - match: \`
+          scope: punctuation.definition.string.end.nushell
+          pop: 1
+
+  variable_keyword:
+    - match: \$\w+
+      scope: variable.language.nushell
+
+  variable:
+    - match: (alias|let|let-env)\s+[\$'"]?([$a-z A-Z0-9_-]+)['"]?
+      scope: variable.nushell
+      captures:
+        1: keyword.other.nushell
+        2: variable.name.nushell
+
+  for_variable:
+    - match: (for)\s+([a-z A-Z0-9_-]+)(in)
+      scope: variable.nushell
+      captures:
+        1: keyword.other.nushell
+        2: variable.name.nushell
+        3: keyword.other.nushell
+
+  punctuation:
+    # Comma
+    - match: \,
+      scope: punctuation.comma.nushell
+
+    # Braces
+    - match: '[{}]'
+      scope: punctuation.brackets.curly.nushell
+
+    # Parentheses
+    - match: '[()]'
+      scope: punctuation.brackets.round.nushell
+
+    # Semicolon
+    - match: ;
+      scope: punctuation.semi.nushell
+
+    # Brackets
+    - match: '[\[\]]'
+      scope: punctuation.brackets.square.nushell
+
+    # Angle brackets
+    - match: (?<!=)[<>]
+      scope: punctuation.brackets.angle.nushell
+
+  comment:
+    - match: (#.*)
+      scope: comment.nushell
+
+  range:
+    - match: (\d+\.\.\d+)
+      scope: constant.nushell
+
+  digit:
+    - match: (\b[0-9]+\b)
+      scope: constant.numeric.nushell
+
+  parameter:
+    - match: (\s-[a-zA-Z_\-]|--[a-zA-Z_\-]{1,50})
+      scope: variable.parameter.function.nushell
+
+  blockparam:
+    - match: (\|)([a-zA-Z0-9, \-_]+)(\|)
+      scope: variable.nushell
+      captures:
+        2: variable.name.nushell
+
+  function:
+    - match: \b(def|def-env|extern|module|overlay)\s+(["'a-zA-Z0-9_\- ]{1,})
+      scope: entity.name
+      captures:
+        1: entity.name.function.nushell
+        2: entity.name.type.nushell
+
+  type:
+    - match: ([a-zA-Z0-9\-_ ]+)(\:[A-Za-z0-9\-_ ]{1,})
+      name: storage
+      captures:
+        1: storage.modifier.nushell
+        2: storage.type.nushell
