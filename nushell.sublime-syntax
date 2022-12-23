@@ -36,12 +36,12 @@ contexts:
       captures:
         1: keyword.other.v
 
-    - match: \b(update)(\scells)\b
+    - match: \b(update)\s(cells)\b
       captures:
         1: keyword.other.u
         2: keyword.other.u_sub
 
-    - match: \b(url)(\sparse)\b
+    - match: \b(url)\s(parse)\b
       captures:
         1: keyword.other.u
         2: keyword.other.u_sub
@@ -50,17 +50,17 @@ contexts:
       captures:
         1: keyword.other.u
 
-    - match: \b(take)(\suntil|\swhile)\b
+    - match: \b(take)\s(until|while)\b
       captures:
         1: keyword.other.t
         2: keyword.other.t_sub
 
-    - match: \b(term)(\ssize)\b
+    - match: \b(term)\s(size)\b
       captures:
         1: keyword.other.t
         2: keyword.other.t_sub
 
-    - match: \b(to)(\sarrow|\scsv|\shtml|\sjson|\smd|\snuon|\sparquet|\stext|\stoml|\stsv|\surl|\sxml|\syaml)\b
+    - match: \b(to)\s(arrow|csv|html|json|md|nuon|parquet|text|toml|tsv|url|xml|yaml)\b
       captures:
         1: keyword.other.t
         2: keyword.other.t_sub
@@ -69,22 +69,22 @@ contexts:
       captures:
         1: keyword.other.t
 
-    - match: \b(seq)(\schar|\sdate)\b
+    - match: \b(seq)\s(char|date)\b
       captures:
         1: keyword.other.s
         2: keyword.other.s_sub
 
-    - match: \b(skip)(\suntil|\swhile)\b
+    - match: \b(skip)\s(until|while)\b
       captures:
         1: keyword.other.s
         2: keyword.other.s_sub
 
-    - match: \b(split)(\schars|\scolumn|\slist|\srow|\swords)\b
+    - match: \b(split)\s(chars|column|list|row|words)\b
       captures:
         1: keyword.other.s
         2: keyword.other.s_sub
 
-    - match: \b(str)(\scamel-case|\scapitalize|\scollect|\scontains|\sdistance|\sdowncase|\sends-with|\sfind-replace|\sindex-of|\sjoin|\skebab-case|\slength|\slpad|\spascal-case|\sreplace|\sreverse|\srpad|\sscreaming-snake-case|\ssnake-case|\sstarts-with|\ssubstring|\stitle-case|\sto-datetime|\sto-decimal|\sto-int|\strim|\supcase)\b
+    - match: \b(str)\s(camel-case|capitalize|collect|contains|distance|downcase|ends-with|find-replace|index-of|join|kebab-case|length|lpad|pascal-case|replace|reverse|rpad|screaming-snake-case|snake-case|starts-with|substring|title-case|to-datetime|to-decimal|to-int|trim|upcase)\b
       captures:
         1: keyword.other.s
         2: keyword.other.s_sub
@@ -93,17 +93,17 @@ contexts:
       captures:
         1: keyword.other.s
 
-    - match: \b(random)(\sbool|\schars|\sdecimal|\sdice|\sinteger|\suuid)\b
+    - match: \b(random)\s(bool|chars|decimal|dice|integer|uuid)\b
       captures:
         1: keyword.other.r
         2: keyword.other.r_sub
 
-    - match: \b(registry)(\squery)\b
+    - match: \b(registry)\s(query)\b
       captures:
         1: keyword.other.r
         2: keyword.other.r_sub
 
-    - match: \b(roll)(\sdown|\sleft|\sright|\sup)\b
+    - match: \b(roll)\s(down|left|right|up)\b
       captures:
         1: keyword.other.r
         2: keyword.other.r_sub
@@ -112,7 +112,7 @@ contexts:
       captures:
         1: keyword.other.r
 
-    - match: \b(query)(\sdb|\sdf|\sjson|\sweb|\sxml)\b
+    - match: \b(query)\s(db|df|json|web|xml)\b
       captures:
         1: keyword.other.q
         2: keyword.other.q_sub
@@ -121,7 +121,7 @@ contexts:
       captures:
         1: keyword.other.q
 
-    - match: \b(path)(\sbasename|\sdirname|\sexists|\sexpand|\sjoin|\sparse|\srelative-to|\ssplit|\stype)\b
+    - match: \b(path)\s(basename|dirname|exists|expand|join|parse|relative-to|split|type)\b
       captures:
         1: keyword.other.p
         2: keyword.other.p_sub
@@ -130,7 +130,7 @@ contexts:
       captures:
         1: keyword.other.p
 
-    - match: \b(overlay)(\shide|\slist|\snew|\suse)\b
+    - match: \b(overlay)\s(hide|list|new|use)\b
       captures:
         1: keyword.other.o
         2: keyword.other.o_sub
@@ -143,7 +143,7 @@ contexts:
       captures:
         1: keyword.other.n
 
-    - match: \b(math)(\sabs|\savg|\sceil|\seval|\sfloor|\smax|\smedian|\smin|\smode|\sproduct|\sround|\ssqrt|\sstddev|\ssum|\svariance)\b
+    - match: \b(math)\s(abs|avg|ceil|eval|floor|max|median|min|mode|product|round|sqrt|stddev|sum|variance)\b
       captures:
         1: keyword.other.m
         2: keyword.other.m_sub
@@ -156,7 +156,7 @@ contexts:
       captures:
         1: keyword.other.l
 
-    - match: \b(keybindings)(\sdefault|\slist|\slisten)\b
+    - match: \b(keybindings)\s(default|list|listen)\b
       captures:
         1: keyword.other.k
         2: keyword.other.k_sub
@@ -169,7 +169,7 @@ contexts:
       captures:
         1: keyword.other.j
 
-    - match: \b(into)(\sbinary|\sbool|\sdatetime|\sdecimal|\sdf|\sduration|\sfilesize|\sint|\slazy|\snu|\srecord|\ssqlite|\sstring)\b
+    - match: \b(into)\s(binary|bool|datetime|decimal|df|duration|filesize|int|lazy|nu|record|sqlite|string)\b
       captures:
         1: keyword.other.i_sub
 
@@ -177,17 +177,17 @@ contexts:
       captures:
         1: keyword.other.i
 
-    - match: \b(hash)(\sbase64|\smd5|\ssha256)\b
+    - match: \b(hash)\s(base64|md5|sha256)\b
       captures:
         1: keyword.other.h
         2: keyword.other.h_sub
 
-    - match: \b(help)(\soperators)\b
+    - match: \b(help)\s(operators)\b
       captures:
         1: keyword.other.h
         2: keyword.other.h_sub
 
-    - match: \b(history)(\ssession)\b
+    - match: \b(history)\s(session)\b
       captures:
         1: keyword.other.h
         2: keyword.other.h_sub
@@ -200,12 +200,12 @@ contexts:
       captures:
         1: keyword.other.g
 
-    - match: \b(format)(\sfilesize)\b
+    - match: \b(format)\s(filesize)\b
       captures:
         1: keyword.other.f
         2: keyword.other.f_sub
 
-    - match: \b(from)(\scsv|\seml|\sics|\sini|\sjson|\snuon|\sods|\sparquet|\sssv|\stoml|\stsv|\surl|\svcf|\sxlsx|\sxml|\syaml|\syml)\b
+    - match: \b(from)\s(csv|eml|ics|ini|json|nuon|ods|parquet|ssv|toml|tsv|url|vcf|xlsx|xml|yaml|yml)\b
       captures:
         1: keyword.other.f
         2: keyword.other.f_sub
@@ -214,7 +214,7 @@ contexts:
       captures:
         1: keyword.other.f
 
-    - match: \b(each)(\swhile)\b
+    - match: \b(each)\s(while)\b
       captures:
         1: keyword.other.e
         2: keyword.other.e_sub
@@ -224,12 +224,12 @@ contexts:
         1: keyword.other.e
         2: keyword.other.e_sub
 
-    - match: \b(error)(\smake)\b
+    - match: \b(error)\s(make)\b
       captures:
         1: keyword.other.e
         2: keyword.other.e_sub
 
-    - match: \b(export)(\salias|\sdef|\sdef-env|\sextern|\suse)\b
+    - match: \b(export)\s(alias|def|def-env|extern|use)\b
       captures:
         1: keyword.other.e
         2: keyword.other.e_sub
@@ -238,22 +238,22 @@ contexts:
       captures:
         1: keyword.other.e
 
-    - match: \b(date)(\sformat|\shumanize|\slist-timezone|\snow|\sto-record|\sto-table|\sto-timezone)\b
+    - match: \b(date)\s(format|humanize|list-timezone|now|to-record|to-table|to-timezone)\b
       captures:
         1: keyword.other.d
         2: keyword.other.d_sub
 
-    - match: \b(decode)(\sbase64)\b
+    - match: \b(decode)\s(base64)\b
       captures:
         1: keyword.other.d
         2: keyword.other.d_sub
 
-    - match: \b(detect)(\scolumns)\b
+    - match: \b(detect)\s(columns)\b
       captures:
         1: keyword.other.d
         2: keyword.other.d_sub
 
-    - match: \b(drop)(\scolumn|\snth)\b
+    - match: \b(drop)\s(column|nth)\b
       captures:
         1: keyword.other.d
         2: keyword.other.d_sub
@@ -262,12 +262,12 @@ contexts:
       captures:
         1: keyword.other.d
 
-    - match: \b(config)(\senv|\snu|\sreset)\b
+    - match: \b(config)\s(env|nu|reset)\b
       captures:
         1: keyword.other.c
         2: keyword.other.c_sub
 
-    - match: \b(custom-value)(\sgenerate|\sgenerate2|\supdate)\b
+    - match: \b(custom-value)\s(generate|generate2|update)\b
       captures:
         1: keyword.other.c
         2: keyword.other.c_sub
@@ -276,12 +276,12 @@ contexts:
       captures:
         1: keyword.other.c
 
-    - match: \b(bits)(\sand|\snot|\sor|\srol|\sror|\sshl|\sshr|\sxor)\b
+    - match: \b(bits)\s(and|not|or|rol|ror|shl|shr|xor)\b
       captures:
         1: keyword.other.b
         2: keyword.other.b_sub
 
-    - match: \b(bytes)(\sadd|\sat|\sbuild|\scollect|\sends-with|\sindex-of|\slength|\sremove|\sreplace|\sreverse|\sstarts-with)\b
+    - match: \b(bytes)\s(add|at|build|collect|ends-with|index-of|length|remove|replace|reverse|starts-with)\b
       captures:
         1: keyword.other.b
         2: keyword.other.b_sub
@@ -290,7 +290,7 @@ contexts:
       captures:
         1: keyword.other.b
 
-    - match: \b(ansi)(\sgradient|\sstrip)\b
+    - match: \b(ansi)\s(gradient|strip)\b
       captures:
         1: keyword.other.a
         2: keyword.other.a_sub
