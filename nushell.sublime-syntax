@@ -150,27 +150,21 @@ contexts:
         3: keyword.other.nushell
 
   punctuation:
-    # Comma
     - match: \,
       scope: punctuation.comma.nushell
 
-    # Braces
     - match: '[{}]'
       scope: punctuation.brackets.curly.nushell
 
-    # Parentheses
     - match: '[()]'
       scope: punctuation.brackets.round.nushell
 
-    # Semicolon
     - match: ;
       scope: punctuation.semi.nushell
 
-    # Brackets
     - match: '[\[\]]'
       scope: punctuation.brackets.square.nushell
 
-    # Angle brackets
     - match: (?<!=)[<>]
       scope: punctuation.brackets.angle.nushell
 
