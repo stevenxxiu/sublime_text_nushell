@@ -21,7 +21,6 @@ contexts:
     - include: variable_keyword
     - include: for_variable
     - include: function
-    - include: type
 
   keywords:
     - match: |-
@@ -181,8 +180,27 @@ contexts:
       scope: constant.numeric.nushell
 
   parameter:
-    - match: (\s-[A-Za-z\-_]|--[A-Za-z\-_]{1,50})
-      scope: variable.parameter.function.nushell
+    - match: |-
+        (?x:
+          (?<=\s|^)
+          (--[A-Za-z\d\-_]+)
+          (?:\((-[A-Za-z\d\-_])\))?
+          (?:\:\s*([A-Za-z\d\-_]+))?
+        )
+      captures:
+        1: variable.parameter.function.nushell
+        2: variable.parameter.function.nushell
+        3: storage.type.nushell
+
+    - match: |-
+        (?x:
+          (?<=\s|^)
+          (-[A-Za-z\d\-_])
+          (?:\:\s*([A-Za-z\d\-_]+))?
+        )
+      captures:
+        1: variable.parameter.function.nushell
+        2: storage.type.nushell
 
   blockparam:
     - match: (\|)([A-Za-z\d,\-_ ]+)(\|)
@@ -196,10 +214,3 @@ contexts:
       captures:
         1: entity.name.function.nushell
         2: entity.name.type.nushell
-
-  type:
-    - match: ([A-Za-z\d\-_ ]+)(\:[A-Za-z\d\-_ ]+)
-      name: storage
-      captures:
-        1: storage.modifier.nushell
-        2: storage.type.nushell
