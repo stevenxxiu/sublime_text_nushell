@@ -344,14 +344,14 @@ contexts:
       scope: variable.language.nushell
 
   variable:
-    - match: (alias|let|let-env)\s+[\$'"]?([$a-z A-Z0-9_-]+)['"]?
+    - match: (alias|let|let-env)\s+[\$'"]?([$a-z A-Z\d_-]+)['"]?
       scope: variable.nushell
       captures:
         1: keyword.other.nushell
         2: variable.name.nushell
 
   for_variable:
-    - match: (for)\s+([a-z A-Z0-9_-]+)(in)
+    - match: (for)\s+([a-z A-Z\d_-]+)(in)
       scope: variable.nushell
       captures:
         1: keyword.other.nushell
@@ -392,7 +392,7 @@ contexts:
       scope: constant.nushell
 
   digit:
-    - match: (\b[0-9]+\b)
+    - match: (\b\d+\b)
       scope: constant.numeric.nushell
 
   parameter:
@@ -400,20 +400,20 @@ contexts:
       scope: variable.parameter.function.nushell
 
   blockparam:
-    - match: (\|)([a-zA-Z0-9, \-_]+)(\|)
+    - match: (\|)([a-zA-Z\d, \-_]+)(\|)
       scope: variable.nushell
       captures:
         2: variable.name.nushell
 
   function:
-    - match: \b(def|def-env|extern|module|overlay)\s+(["'a-zA-Z0-9_\- ]{1,})
+    - match: \b(def|def-env|extern|module|overlay)\s+(["'a-zA-Z\d_\- ]+)
       scope: entity.name
       captures:
         1: entity.name.function.nushell
         2: entity.name.type.nushell
 
   type:
-    - match: ([a-zA-Z0-9\-_ ]+)(\:[A-Za-z0-9\-_ ]{1,})
+    - match: ([a-zA-Z\d\-_ ]+)(\:[A-Za-z\d\-_ ]+)
       name: storage
       captures:
         1: storage.modifier.nushell
