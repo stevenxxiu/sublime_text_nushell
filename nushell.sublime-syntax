@@ -20,7 +20,9 @@ contexts:
     - include: variable
     - include: variable_keyword
     - include: for_variable
+    - include: module
     - include: function
+    - include: extern
 
   keywords:
     - match: |-
@@ -208,9 +210,20 @@ contexts:
       captures:
         2: variable.name.nushell
 
-  function:
-    - match: \b(def|def-env|extern|module)\s+(["'A-Za-z\d\-_ ]+)
-      scope: entity.name
+  module:
+    - match: \b(module)\s+(["'A-Za-z\d\-_ ]+)
       captures:
-        1: entity.name.function.nushell
-        2: entity.name.type.nushell
+        1: keyword.module.nushell
+        2: entity.name.module.nushell
+
+  function:
+    - match: \b(def|def-env)\s+(["'A-Za-z\d\-_ ]+)
+      captures:
+        1: keyword.declaration.nushell
+        2: entity.name.function.nushell
+
+  extern:
+    - match: \b(extern)\s+(["'A-Za-z\d\-_ ]+)
+      captures:
+        1: keyword.extern.nushell
+        2: entity.name.extern.nushell
