@@ -27,16 +27,29 @@ contexts:
     - match: |-
         (?x:
           \b(
-            (zip)|
-            (with-column|with-env|window|while|which|where|watch|wrap|when)|
-            (value-counts|view-source|version|var)|
+            and|as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|
+            arg-max|append|ansi|ast|any|all|agg|as|benchmark|bytes|break|bits|catch|concatenate|commandline|cumulative|
+            count-null|concat-str|continue|contains|complete|compact|columns|collect|config|count|clear|cache|char|col|
+            cal|cp|cd|drop-duplicates|drop-nulls|describe|dummies|default|dtypes|df-not|decode|debug|drop|date|du|do|
+            export-env|expr-not|explode|export|encode|every|enter|exit|exec|echo|each|env|else|filter-with|fill-null|
+            flatten|fill-na|format|filter|first|fetch|from|find|fmt|fn|get-nanosecond|get-weekday|get-ordinal|
+            get-second|get-minute|get-month|group-by|get-year|get-week|get-hour|get-day|gstat|group|grid|glob|get|g|
+            histogram|hide-env|history|headers|hide|help|hash|is-duplicated|is-not-null|is-unique|is-empty|is-admin|
+            is-null|insert|ignore|is-in|input|into|inc|if|join|keybindings|kill|lowercase|load-env|length|ls-df|lines|
+            loop|list|last|lit|ls|metadata|median|mkdir|merge|move|melt|mean|math|mut|min|max|mv|nu-highlight|
+            nu-example-3|nu-example-2|nu-example-1|nu-check|n-unique|n|or|otherwise|open-df|open|par-each|prepend|print|
+            parse|post|port|path|ps|p|quantile|query|run-external|replace-all|register|rolling|reverse|replace|rotate|
+            return|rename|reject|reduce|random|range|roll|rm|set-with-idx|str-lengths|source-env|str-slice|strftime|
+            split-by|summary|sort-by|shuffle|source|shells|select|schema|sample|split|slice|sleep|shift|shape|sort|skip|
+            size|save|sys|sum|str|std|set|seq|transpose|tutor|touch|table|take|try|to|uppercase|upsert|update|unique|
+            uniq|use|url|value-counts|view-source|version|var|with-column|with-env|window|while|which|where|watch|wrap|
+            when|zip|
+
             (update)\s(cells)|
             (url)\s(parse)|
-            (uppercase|upsert|update|unique|uniq|use|url)|
             (take)\s(until|while)|
             (term)\s(size)|
             (to)\s(arrow|csv|html|json|md|nuon|parquet|text|toml|tsv|url|xml|yaml)|
-            (transpose|tutor|touch|table|take|try|to)|
             (seq)\s(char|date)|
             (skip)\s(until|while)|
             (split)\s(chars|column|list|row|words)|
@@ -45,67 +58,33 @@ contexts:
               length|lpad|pascal-case|replace|reverse|rpad|screaming-snake-case|snake-case|starts-with|substring|
               title-case|to-datetime|to-decimal|to-int|trim|upcase
             )|
-            (
-              set-with-idx|str-lengths|source-env|str-slice|strftime|split-by|summary|sort-by|shuffle|source|shells|
-              select|schema|sample|split|slice|sleep|shift|shape|sort|skip|size|save|sys|sum|str|std|set|seq
-            )|
             (random)\s(bool|chars|decimal|dice|integer|uuid)|
             (registry)\s(query)|
             (roll)\s(down|left|right|up)|
-            (
-              run-external|replace-all|register|rolling|reverse|replace|rotate|return|rename|reject|reduce|random|range|
-              roll|rm
-            )|
             (query)\s(db|df|json|web|xml)|
-            (quantile|query)|
             (path)\s(basename|dirname|exists|expand|join|parse|relative-to|split|type)|
-            (par-each|prepend|print|parse|post|port|path|ps|p)|
             (overlay)\s(hide|list|new|use)|
-            (or|otherwise|open-df|open)|
-            (nu-highlight|nu-example-3|nu-example-2|nu-example-1|nu-check|n-unique|n)|
             (math)\s(abs|avg|ceil|eval|floor|max|median|min|mode|product|round|sqrt|stddev|sum|variance)|
-            (metadata|median|mkdir|merge|move|melt|mean|math|mut|min|max|mv)|
-            (lowercase|load-env|length|ls-df|lines|loop|list|last|lit|ls)|
             (keybindings)\s(default|list|listen)|
-            (keybindings|kill)|
-            (join)|
             (into)\s(binary|bool|datetime|decimal|df|duration|filesize|int|lazy|nu|record|sqlite|string)|
-            (is-duplicated|is-not-null|is-unique|is-empty|is-admin|is-null|insert|ignore|is-in|input|into|inc|if)|
             (hash)\s(base64|md5|sha256)|
             (help)\s(operators)
             (history)\s(session)|
-            (histogram|hide-env|history|headers|hide|help|hash)|
-            (
-              get-nanosecond|get-weekday|get-ordinal|get-second|get-minute|get-month|group-by|get-year|get-week|
-              get-hour|get-day|gstat|group|grid|glob|get|g
-            )|
             (format)\s(filesize)|
             (from)\s(csv|eml|ics|ini|json|nuon|ods|parquet|ssv|toml|tsv|url|vcf|xlsx|xml|yaml|yml)|
-            (filter-with|fill-null|flatten|fill-na|format|filter|first|fetch|from|find|fmt|fn)|
             (each)\s(while)|
             (encode)(\sbase64)|
             (error)\s(make)|
             (export)\s(alias|def|def-env|extern|use)|
-            (export-env|expr-not|explode|export|encode|every|enter|exit|exec|echo|each|env|else)|
             (date)\s(format|humanize|list-timezone|now|to-record|to-table|to-timezone)|
             (decode)\s(base64)|
             (detect)\s(columns)|
             (drop)\s(column|nth)|
-            (drop-duplicates|drop-nulls|describe|dummies|default|dtypes|df-not|decode|debug|drop|date|du|do)|
+            (ansi)\s(gradient|strip)|
+            (bytes)\s(add|at|build|collect|ends-with|index-of|length|remove|replace|reverse|starts-with)|
+            (bits)\s(and|not|or|rol|ror|shl|shr|xor)|
             (config)\s(env|nu|reset)|
             (custom-value)\s(generate|generate2|update)|
-            (
-              catch|concatenate|commandline|cumulative|count-null|concat-str|continue|contains|complete|compact|columns|
-              collect|config|count|clear|cache|char|col|cal|cp|cd
-            )|
-            (bits)\s(and|not|or|rol|ror|shl|shr|xor)|
-            (bytes)\s(add|at|build|collect|ends-with|index-of|length|remove|replace|reverse|starts-with)|
-            (benchmark|bytes|break|bits)|
-            (ansi)\s(gradient|strip)|
-            (
-              and|as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|
-              ansi|ast|any|all|agg|as
-            )
           )\b
         )
       captures:
