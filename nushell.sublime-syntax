@@ -98,7 +98,7 @@ contexts:
       scope: keyword.other.redirect.nushell
 
   interpolated_string:
-    - match: \$("|'|`)
+    - match: \$("|')
       scope: string.interpolated.begin.nushell
       push:
         - meta_scope: string.interpolated.nushell
