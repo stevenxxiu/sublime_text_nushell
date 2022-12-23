@@ -8,13 +8,13 @@ scope: source.nu
 
 contexts:
   main:
-    - include: keywords
     - include: interpolated_strings
     - include: strings
     - include: punctuation
     - include: comment
     - include: range
     - include: parameter
+    - include: keywords  # Comes after `parameter`
     - include: digit
     - include: blockparam
     - include: variable
