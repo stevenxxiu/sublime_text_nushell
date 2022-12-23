@@ -210,7 +210,18 @@ contexts:
       captures:
         2: variable.name.nushell
 
+  function-block:
+    - match: '\{'
+      scope: punctuation.section.block.begin.nushell
+      set:
+        - meta_scope: meta.block.nushell
+        - match: '\}'
+          scope: punctuation.section.block.end.nushell
+          pop: 1
+        - include: main
+
   module:
+    - meta_content_scope: meta.module.nushell
     - match: \b(module)\s+
       captures:
         1: keyword.module.nushell
@@ -224,7 +235,7 @@ contexts:
               pop: 1
         - match: ([A-Za-z\d\-_ ]+)
           scope: entity.name.module.nushell
-          pop: 1
+          set: function-block
 
   function:
     - match: \b(def|def-env)\s+
