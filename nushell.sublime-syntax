@@ -181,24 +181,24 @@ contexts:
       scope: constant.numeric.nushell
 
   parameter:
-    - match: (\s-[a-zA-Z_\-]|--[a-zA-Z_\-]{1,50})
+    - match: (\s-[A-Za-z\-_]|--[A-Za-z\-_]{1,50})
       scope: variable.parameter.function.nushell
 
   blockparam:
-    - match: (\|)([a-zA-Z\d, \-_]+)(\|)
+    - match: (\|)([A-Za-z\d,\-_ ]+)(\|)
       scope: variable.nushell
       captures:
         2: variable.name.nushell
 
   function:
-    - match: \b(def|def-env|extern|module|overlay)\s+(["'a-zA-Z\d_\- ]+)
+    - match: \b(def|def-env|extern|module|overlay)\s+(["'A-Za-z\d\-_ ]+)
       scope: entity.name
       captures:
         1: entity.name.function.nushell
         2: entity.name.type.nushell
 
   type:
-    - match: ([a-zA-Z\d\-_ ]+)(\:[A-Za-z\d\-_ ]+)
+    - match: ([A-Za-z\d\-_ ]+)(\:[A-Za-z\d\-_ ]+)
       name: storage
       captures:
         1: storage.modifier.nushell
