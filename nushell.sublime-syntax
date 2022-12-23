@@ -209,7 +209,7 @@ contexts:
         2: variable.name.nushell
 
   function:
-    - match: \b(def|def-env|extern|module|overlay)\s+(["'A-Za-z\d\-_ ]+)
+    - match: \b(def|def-env|extern|module)\s+(["'A-Za-z\d\-_ ]+)
       scope: entity.name
       captures:
         1: entity.name.function.nushell
