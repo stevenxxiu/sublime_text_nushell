@@ -8,13 +8,13 @@ scope: source.nu
 
 contexts:
   main:
-    - include: interpolated_strings
-    - include: strings
+    - include: interpolated_string
+    - include: string
     - include: punctuation
     - include: comment
     - include: range
     - include: parameter
-    - include: keywords  # Comes after `parameter`
+    - include: keyword  # Comes after `parameter`
     - include: digit
     - include: blockparam
     - include: variable
@@ -24,7 +24,7 @@ contexts:
     - include: function
     - include: extern
 
-  keywords:
+  keyword:
     - match: |-
         (?x:
           \b(
@@ -97,7 +97,7 @@ contexts:
     - match: \bout>|err>|out\+err>|err\+out>
       scope: keyword.other.redirect.nushell
 
-  interpolated_strings:
+  interpolated_string:
     - match: \$("|'|`)
       scope: string.interpolated.begin.nushell
       push:
@@ -106,7 +106,7 @@ contexts:
           scope: string.interpolated.end.nushell
           pop: 1
 
-  strings:
+  string:
     - match: \"
       scope: punctuation.definition.string.begin.nushell
       push:
