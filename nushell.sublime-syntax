@@ -92,10 +92,10 @@ contexts:
         1: keyword.nushell
 
     - match: \btrue|false
-      scope: keyword.other.unit
+      scope: keyword.other.unit.nushell
 
     - match: \bout>|err>|out\+err>|err\+out>
-      scope: keyword.other.redirect
+      scope: keyword.other.redirect.nushell
 
   interpolated_strings:
     - match: \$("|'|`)
