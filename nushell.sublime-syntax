@@ -305,53 +305,7 @@ contexts:
           scope: entity.name.module.nushell
           set: code-block
 
-  command:
-    - match: \b(def|def-env)\s+
-      captures:
-        1: keyword.declaration.nushell
-      push:
-        - match: \'
-          scope: entity.name.command.begin.nushell
-          set:
-            - meta_include_prototype: false
-            - meta_scope: entity.name.command.nushell
-            - match: \'
-              scope: entity.name.command.end.nushell
-              set: code-block
-            - match: \n
-              scope: invalid.illegal.newline.nushell
-              set: code-block
-
-        - match: \`
-          scope: entity.name.command.begin.nushell
-          set:
-            - meta_include_prototype: false
-            - meta_scope: entity.name.command.nushell
-            - match: \`
-              scope: entity.name.command.end.nushell
-              set: code-block
-            - match: \n
-              scope: invalid.illegal.newline.nushell
-              set: code-block
-
-        - match: \"
-          scope: entity.name.command.begin.nushell
-          set:
-            - meta_include_prototype: false
-            - meta_scope: entity.name.command.nushell
-            - match: \"
-              scope: entity.name.command.end.nushell
-              set: code-block
-            - match: \n
-              scope: invalid.illegal.newline.nushell
-              set: code-block
-            - include: double-quoted-string-content
-
-        - match: ([A-Za-z\d\-_ ]+)
-          scope: entity.name.command.nushell
-          set: code-block
-
-  extern-parameter:
+  command-parameter:
     - match: |-
         (?x:
           ([A-Za-z\d\-_]+)
@@ -386,12 +340,70 @@ contexts:
         1: variable.parameter.short.nushell
         2: storage.type.nushell
 
+  command-parameters:
+    - meta_scope: meta.command.parameters.nushell
+    - match: \[
+      scope: punctuation.section.group.begin.nushell
+      push:
+        - include: command-parameter
+        - include: comment
+        - match: \]
+          scope: punctuation.section.group.end.nushell
+          pop: 2
+          set: code-block
+
+  command:
+    - match: \b(def|def-env)\s+
+      captures:
+        1: keyword.declaration.nushell
+      push:
+        - match: \'
+          scope: entity.name.command.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.command.nushell
+            - match: \'
+              scope: entity.name.command.end.nushell
+              set: command-parameters
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: command-parameters
+
+        - match: \`
+          scope: entity.name.command.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.command.nushell
+            - match: \`
+              scope: entity.name.command.end.nushell
+              set: command-parameters
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: command-parameters
+
+        - match: \"
+          scope: entity.name.command.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.command.nushell
+            - match: \"
+              scope: entity.name.command.end.nushell
+              set: command-parameters
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: command-parameters
+            - include: double-quoted-string-content
+
+        - match: ([A-Za-z\d\-_ ]+)
+          scope: entity.name.command.nushell
+          set: command-parameters
+
   extern-parameters:
     - meta_scope: meta.extern.parameters.nushell
     - match: \[
       scope: punctuation.section.group.begin.nushell
       push:
-        - include: extern-parameter
+        - include: command-parameter
         - include: comment
         - match: \]
           scope: punctuation.section.group.end.nushell
