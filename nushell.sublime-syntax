@@ -29,7 +29,7 @@ contexts:
     - include: range
     - include: keyword
     - include: digit
-    - include: blockparam
+    - include: record-block
     - include: variable
     - include: variable-keyword
     - include: for-variable
@@ -246,21 +246,50 @@ contexts:
     - match: (\b\d+\b)
       scope: constant.numeric.nushell
 
-  blockparam:
-    - match: (\|)([A-Za-z\d,\-_ ]+)(\|)
-      scope: variable.nushell
-      captures:
-        2: variable.name.nushell
+  record-block:
+    - match: (?=\{)
+      branch_point: open_curly
+      branch:
+        - record
+        - block
+
+  record:
+    - match: '\{'
+      scope: punctuation.section.record.begin.nushell
+      push:
+        - meta_scope: meta.record.nushell
+        - include: comment
+        - match: \|
+          fail: open_curly
+        - match: '({{var_name}})(:)'
+          captures:
+            1: entity.name.label.nushell
+            2: punctuation.separator.key-value.nushell
+        - include: main
+        - match: '\}'
+          scope: punctuation.section.record.end.nushell
+          pop: 3
 
   block:
     - match: '\{'
       scope: punctuation.section.block.begin.nushell
-      set:
+      push:
         - meta_scope: meta.block.nushell
-        - include: main
-        - match: '\}'
-          scope: punctuation.section.block.end.nushell
-          pop: 1
+        - include: comment
+        - match: \|
+          scope: punctuation.section.group.begin.nushell
+          push:
+            - meta_scope: meta.block.parameters.nushell
+            - match: '{{var_name}}'
+              scope: variable.parameter.name.nushell
+            - match: \|
+              scope: punctuation.section.group.end.nushell
+              set:
+                - meta_scope: meta.block.nushell
+                - include: main
+                - match: '\}'
+                  scope: punctuation.section.block.end.nushell
+                  pop: 3
 
   code-block:
     - match: '\{'
