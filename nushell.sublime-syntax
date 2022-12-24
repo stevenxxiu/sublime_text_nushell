@@ -278,13 +278,43 @@ contexts:
       captures:
         1: keyword.module.nushell
       push:
-        - match: ("|'|`)
+        - match: \'
           scope: entity.name.module.begin.nushell
           set:
+            - meta_include_prototype: false
             - meta_scope: entity.name.module.nushell
-            - match: \1
+            - match: \'
               scope: entity.name.module.end.nushell
-              pop: 1
+              set: block
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: block
+
+        - match: \`
+          scope: entity.name.module.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.module.nushell
+            - match: \`
+              scope: entity.name.module.end.nushell
+              set: block
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: block
+
+        - match: \"
+          scope: entity.name.module.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.module.nushell
+            - match: \"
+              scope: entity.name.module.end.nushell
+              set: block
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: block
+            - include: double-quoted-string-content
+
         - match: ([A-Za-z\d\-_ ]+)
           scope: entity.name.module.nushell
           set: block
@@ -294,29 +324,89 @@ contexts:
       captures:
         1: keyword.declaration.nushell
       push:
-        - match: ("|'|`)
+        - match: \'
           scope: entity.name.function.begin.nushell
           set:
+            - meta_include_prototype: false
             - meta_scope: entity.name.function.nushell
-            - match: \1
+            - match: \'
               scope: entity.name.function.end.nushell
-              pop: 1
+              set: block
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: block
+
+        - match: \`
+          scope: entity.name.function.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.function.nushell
+            - match: \`
+              scope: entity.name.function.end.nushell
+              set: block
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: block
+
+        - match: \"
+          scope: entity.name.function.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.function.nushell
+            - match: \"
+              scope: entity.name.function.end.nushell
+              set: block
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              set: block
+            - include: double-quoted-string-content
+
         - match: ([A-Za-z\d\-_ ]+)
           scope: entity.name.function.nushell
-          pop: 1
+          set: block
 
   extern:
     - match: \b(extern)\s+
       captures:
         1: keyword.extern.nushell
       push:
-        - match: ("|'|`)
+        - match: \'
           scope: entity.name.extern.begin.nushell
           set:
+            - meta_include_prototype: false
             - meta_scope: entity.name.extern.nushell
-            - match: \1
+            - match: \'
               scope: entity.name.extern.end.nushell
               pop: 1
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              pop: 1
+
+        - match: \`
+          scope: entity.name.extern.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.extern.nushell
+            - match: \`
+              scope: entity.name.extern.end.nushell
+              pop: 1
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              pop: 1
+
+        - match: \"
+          scope: entity.name.extern.begin.nushell
+          set:
+            - meta_include_prototype: false
+            - meta_scope: entity.name.extern.nushell
+            - match: \"
+              scope: entity.name.extern.end.nushell
+              pop: 1
+            - match: \n
+              scope: invalid.illegal.newline.nushell
+              pop: 1
+            - include: double-quoted-string-content
+
         - match: ([A-Za-z\d\-_ ]+)
           scope: entity.name.extern.nushell
           pop: 1
