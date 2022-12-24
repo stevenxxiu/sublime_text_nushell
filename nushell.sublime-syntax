@@ -110,6 +110,11 @@ contexts:
     - match: \bout>|err>|out\+err>|err\+out>
       scope: keyword.other.redirect.nushell
 
+  string:
+    - include: literal-single-quoted-string
+    - include: literal-backtick-quoted-string
+    - include: literal-double-quoted-string
+
   literal-single-quoted-string:
     - match: \'
       scope: punctuation.definition.string.begin.nushell
@@ -136,6 +141,12 @@ contexts:
           scope: invalid.illegal.newline.nushell
           pop: 1
 
+  double-quoted-string-content:
+    - match: \\\n
+      scope: constant.character.escape.newline.nushell
+    - match: \\(?:[0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|.)
+      scope: constant.character.escape.nushell
+
   literal-double-quoted-string:
     - match: \"
       scope: punctuation.definition.string.begin.nushell
@@ -150,16 +161,9 @@ contexts:
           pop: 1
         - include: double-quoted-string-content
 
-  double-quoted-string-content:
-    - match: \\\n
-      scope: constant.character.escape.newline.nushell
-    - match: \\(?:[0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|.)
-      scope: constant.character.escape.nushell
-
-  string:
-    - include: literal-single-quoted-string
-    - include: literal-backtick-quoted-string
-    - include: literal-double-quoted-string
+  interpolated-string:
+    - include: interpolated-single-quoted-string
+    - include: interpolated-double-quoted-string
 
   interpolated-single-quoted-string:
     - match: \$'
@@ -197,10 +201,6 @@ contexts:
           scope: invalid.illegal.newline.nushell
           pop: 1
         - include: double-quoted-string-content
-
-  interpolated-string:
-    - include: interpolated-single-quoted-string
-    - include: interpolated-double-quoted-string
 
   variable-keyword:
     - match: \${{var_name}}
@@ -348,6 +348,18 @@ contexts:
           scope: entity.name.module.nushell
           set: code-block
 
+  command-parameters:
+    - meta_scope: meta.command.parameters.nushell
+    - match: \[
+      scope: punctuation.section.group.begin.nushell
+      push:
+        - include: command-parameter
+        - include: comment
+        - match: \]
+          scope: punctuation.section.group.end.nushell
+          pop: 2
+          set: code-block
+
   command-parameter:
     - match: |-
         (?x:
@@ -382,18 +394,6 @@ contexts:
       captures:
         1: variable.parameter.short.nushell
         2: storage.type.nushell
-
-  command-parameters:
-    - meta_scope: meta.command.parameters.nushell
-    - match: \[
-      scope: punctuation.section.group.begin.nushell
-      push:
-        - include: command-parameter
-        - include: comment
-        - match: \]
-          scope: punctuation.section.group.end.nushell
-          pop: 2
-          set: code-block
 
   command:
     - match: \b(def|def-env)\s+
@@ -443,17 +443,6 @@ contexts:
           scope: entity.name.command.nushell
           set: command-parameters
 
-  extern-parameters:
-    - meta_scope: meta.extern.parameters.nushell
-    - match: \[
-      scope: punctuation.section.group.begin.nushell
-      push:
-        - include: command-parameter
-        - include: comment
-        - match: \]
-          scope: punctuation.section.group.end.nushell
-          pop: 2
-
   extern:
     - match: \b(extern)\s+
       captures:
@@ -500,3 +489,14 @@ contexts:
         - match: ({{var_name}})
           scope: entity.name.extern.nushell
           set: extern-parameters
+
+  extern-parameters:
+    - meta_scope: meta.extern.parameters.nushell
+    - match: \[
+      scope: punctuation.section.group.begin.nushell
+      push:
+        - include: command-parameter
+        - include: comment
+        - match: \]
+          scope: punctuation.section.group.end.nushell
+          pop: 2
