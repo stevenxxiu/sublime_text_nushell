@@ -100,48 +100,42 @@ contexts:
   literal-single-quoted-string:
     - match: \'
       scope: punctuation.definition.string.begin.nushell
-      push: literal-single-quoted-string-content
-
-  literal-single-quoted-string-content:
-    - meta_include_prototype: false
-    - meta_scope: meta.string.nushell string.quoted.single.nushell
-    - match: \'
-      scope: punctuation.definition.string.end.nushell
-      pop: 1
-    - match: \n
-      scope: invalid.illegal.newline.nushell
-      pop: 1
+      push:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.nushell string.quoted.single.nushell
+        - match: \'
+          scope: punctuation.definition.string.end.nushell
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nushell
+          pop: 1
 
   literal-backtick-quoted-string:
     - match: \`
       scope: punctuation.definition.string.begin.nushell
-      push: literal-backtick-quoted-string-content
-
-  literal-backtick-quoted-string-content:
-    - meta_include_prototype: false
-    - meta_scope: meta.string.nushell string.quoted.backtick.nushell
-    - match: \`
-      scope: punctuation.definition.string.end.nushell
-      pop: 1
-    - match: \n
-      scope: invalid.illegal.newline.nushell
-      pop: 1
+      push:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.nushell string.quoted.backtick.nushell
+        - match: \`
+          scope: punctuation.definition.string.end.nushell
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nushell
+          pop: 1
 
   literal-double-quoted-string:
     - match: \"
       scope: punctuation.definition.string.begin.nushell
-      push: literal-double-quoted-string-content
-
-  literal-double-quoted-string-content:
-    - meta_include_prototype: false
-    - meta_scope: meta.string.nushell string.quoted.double.nushell
-    - match: \"
-      scope: punctuation.definition.string.end.nushell
-      pop: 1
-    - match: \n
-      scope: invalid.illegal.newline.nushell
-      pop: 1
-    - include: double-quoted-string-content
+      push:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.nushell string.quoted.double.nushell
+        - match: \"
+          scope: punctuation.definition.string.end.nushell
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nushell
+          pop: 1
+        - include: double-quoted-string-content
 
   double-quoted-string-content:
     - match: \\\n
