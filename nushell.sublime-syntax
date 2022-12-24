@@ -20,7 +20,7 @@ contexts:
     - include: variable-keyword
     - include: for-variable
     - include: module
-    - include: function
+    - include: command
     - include: extern
 
   keyword:
@@ -305,42 +305,42 @@ contexts:
           scope: entity.name.module.nushell
           set: code-block
 
-  function:
+  command:
     - match: \b(def|def-env)\s+
       captures:
         1: keyword.declaration.nushell
       push:
         - match: \'
-          scope: entity.name.function.begin.nushell
+          scope: entity.name.command.begin.nushell
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.function.nushell
+            - meta_scope: entity.name.command.nushell
             - match: \'
-              scope: entity.name.function.end.nushell
+              scope: entity.name.command.end.nushell
               set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
               set: code-block
 
         - match: \`
-          scope: entity.name.function.begin.nushell
+          scope: entity.name.command.begin.nushell
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.function.nushell
+            - meta_scope: entity.name.command.nushell
             - match: \`
-              scope: entity.name.function.end.nushell
+              scope: entity.name.command.end.nushell
               set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
               set: code-block
 
         - match: \"
-          scope: entity.name.function.begin.nushell
+          scope: entity.name.command.begin.nushell
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.function.nushell
+            - meta_scope: entity.name.command.nushell
             - match: \"
-              scope: entity.name.function.end.nushell
+              scope: entity.name.command.end.nushell
               set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
@@ -348,7 +348,7 @@ contexts:
             - include: double-quoted-string-content
 
         - match: ([A-Za-z\d\-_ ]+)
-          scope: entity.name.function.nushell
+          scope: entity.name.command.nushell
           set: code-block
 
   extern-parameter:
