@@ -354,6 +354,21 @@ contexts:
   extern-parameter:
     - match: |-
         (?x:
+          ([A-Za-z\d\-_]+)
+          (\?)?
+          (?:
+            \:\s*([A-Za-z\d\-_]+)
+            (?:(@)(".+?"))?
+          )?
+        )
+      captures:
+        1: variable.parameter.nushell
+        2: keyword.operator.optional.nushell
+        3: storage.type.nushell
+        4: keyword.operator.completion.nushell
+        5: variable.function.completion.nushell
+    - match: |-
+        (?x:
           (--[A-Za-z\d\-_]+)
           (?:\((-[A-Za-z\d\-_])\))?
           (?:\:\s*([A-Za-z\d\-_]+))?
