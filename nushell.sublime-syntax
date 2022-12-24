@@ -8,7 +8,7 @@ scope: source.nu
 
 contexts:
   main:
-    - include: interpolated_string
+    - include: interpolated-string
     - include: string
     - include: punctuation
     - include: comment
@@ -18,8 +18,8 @@ contexts:
     - include: digit
     - include: blockparam
     - include: variable
-    - include: variable_keyword
-    - include: for_variable
+    - include: variable-keyword
+    - include: for-variable
     - include: module
     - include: function
     - include: extern
@@ -97,7 +97,7 @@ contexts:
     - match: \bout>|err>|out\+err>|err\+out>
       scope: keyword.other.redirect.nushell
 
-  interpolated_string:
+  interpolated-string:
     - match: \$("|')
       scope: string.interpolated.begin.nushell
       push:
@@ -131,7 +131,7 @@ contexts:
           scope: punctuation.definition.string.end.nushell
           pop: 1
 
-  variable_keyword:
+  variable-keyword:
     - match: \$\w+
       scope: variable.language.nushell
 
@@ -142,7 +142,7 @@ contexts:
         1: keyword.other.nushell
         2: variable.name.nushell
 
-  for_variable:
+  for-variable:
     - match: (for)\s+([a-z A-Z\d_-]+)(in)
       scope: variable.nushell
       captures:
