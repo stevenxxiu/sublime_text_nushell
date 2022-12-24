@@ -233,6 +233,22 @@ contexts:
     - match: (\b\d+\b)
       scope: constant.numeric.nushell
 
+  blockparam:
+    - match: (\|)([A-Za-z\d,\-_ ]+)(\|)
+      scope: variable.nushell
+      captures:
+        2: variable.name.nushell
+
+  block:
+    - match: '\{'
+      scope: punctuation.section.block.begin.nushell
+      set:
+        - meta_scope: meta.block.nushell
+        - match: '\}'
+          scope: punctuation.section.block.end.nushell
+          pop: 1
+        - include: main
+
   parameter:
     - match: |-
         (?x:
@@ -256,13 +272,7 @@ contexts:
         1: variable.parameter.function.nushell
         2: storage.type.nushell
 
-  blockparam:
-    - match: (\|)([A-Za-z\d,\-_ ]+)(\|)
-      scope: variable.nushell
-      captures:
-        2: variable.name.nushell
-
-  block:
+  code-block:
     - match: '\{'
       scope: punctuation.section.block.begin.nushell
       set:
@@ -285,10 +295,10 @@ contexts:
             - meta_scope: entity.name.module.nushell
             - match: \'
               scope: entity.name.module.end.nushell
-              set: block
+              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: block
+              set: code-block
 
         - match: \`
           scope: entity.name.module.begin.nushell
@@ -297,10 +307,10 @@ contexts:
             - meta_scope: entity.name.module.nushell
             - match: \`
               scope: entity.name.module.end.nushell
-              set: block
+              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: block
+              set: code-block
 
         - match: \"
           scope: entity.name.module.begin.nushell
@@ -309,15 +319,15 @@ contexts:
             - meta_scope: entity.name.module.nushell
             - match: \"
               scope: entity.name.module.end.nushell
-              set: block
+              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: block
+              set: code-block
             - include: double-quoted-string-content
 
         - match: ([A-Za-z\d\-_ ]+)
           scope: entity.name.module.nushell
-          set: block
+          set: code-block
 
   function:
     - match: \b(def|def-env)\s+
@@ -331,10 +341,10 @@ contexts:
             - meta_scope: entity.name.function.nushell
             - match: \'
               scope: entity.name.function.end.nushell
-              set: block
+              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: block
+              set: code-block
 
         - match: \`
           scope: entity.name.function.begin.nushell
@@ -343,10 +353,10 @@ contexts:
             - meta_scope: entity.name.function.nushell
             - match: \`
               scope: entity.name.function.end.nushell
-              set: block
+              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: block
+              set: code-block
 
         - match: \"
           scope: entity.name.function.begin.nushell
@@ -355,15 +365,15 @@ contexts:
             - meta_scope: entity.name.function.nushell
             - match: \"
               scope: entity.name.function.end.nushell
-              set: block
+              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: block
+              set: code-block
             - include: double-quoted-string-content
 
         - match: ([A-Za-z\d\-_ ]+)
           scope: entity.name.function.nushell
-          set: block
+          set: code-block
 
   extern:
     - match: \b(extern)\s+
