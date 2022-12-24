@@ -8,8 +8,8 @@ scope: source.nu
 
 contexts:
   main:
-    - include: interpolated-string
     - include: string
+    - include: interpolated-string
     - include: punctuation
     - include: comment
     - include: range
@@ -97,15 +97,6 @@ contexts:
     - match: \bout>|err>|out\+err>|err\+out>
       scope: keyword.other.redirect.nushell
 
-  interpolated-string:
-    - match: \$("|')
-      scope: string.interpolated.begin.nushell
-      set:
-        - meta_scope: string.interpolated.nushell
-        - match: \1
-          scope: string.interpolated.end.nushell
-          pop: 1
-
   literal-single-quoted-string:
     - match: \'
       scope: punctuation.definition.string.begin.nushell
@@ -163,6 +154,47 @@ contexts:
     - include: literal-backtick-quoted-string
     - include: literal-double-quoted-string
 
+  interpolated-single-quoted-string:
+    - match: \$'
+      scope: punctuation.definition.string.interpolated.begin.nushell
+      set:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.interpolated.nushell string.interpolated.single.nushell
+        - match: \(
+          push:
+            - include: main
+            - match: \)
+              pop: 1
+        - match: \'
+          scope: punctuation.definition.string.interpolated.end.nushell
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nushell
+          pop: 1
+
+  interpolated-double-quoted-string:
+    - match: \$"
+      scope: punctuation.definition.string.interpolated.begin.nushell
+      set:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.interpolated.nushell string.interpolated.double.nushell
+        - match: \(
+          push:
+            - include: main
+            - match: \)
+              pop: 1
+        - match: \"
+          scope: punctuation.definition.string.interpolated.end.nushell
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nushell
+          pop: 1
+        - include: double-quoted-string-content
+
+  interpolated-string:
+    - include: interpolated-single-quoted-string
+    - include: interpolated-double-quoted-string
+
   variable-keyword:
     - match: \$\w+
       scope: variable.language.nushell
@@ -185,12 +217,6 @@ contexts:
   punctuation:
     - match: \,
       scope: punctuation.comma.nushell
-
-    - match: '[{}]'
-      scope: punctuation.brackets.curly.nushell
-
-    - match: '[()]'
-      scope: punctuation.brackets.round.nushell
 
     - match: ;
       scope: punctuation.semi.nushell
