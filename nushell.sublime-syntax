@@ -211,19 +211,49 @@ contexts:
         2: variable.name.nushell
 
   module:
-    - match: \b(module)\s+(["'A-Za-z\d\-_ ]+)
+    - match: \b(module)\s+
       captures:
         1: keyword.module.nushell
-        2: entity.name.module.nushell
+      push:
+        - match: ("|'|`)
+          scope: entity.name.module.begin.nushell
+          set:
+            - meta_scope: entity.name.module.nushell
+            - match: \1
+              scope: entity.name.module.end.nushell
+              pop: 1
+        - match: ([A-Za-z\d\-_ ]+)
+          scope: entity.name.module.nushell
+          pop: 1
 
   function:
-    - match: \b(def|def-env)\s+(["'A-Za-z\d\-_ ]+)
+    - match: \b(def|def-env)\s+
       captures:
         1: keyword.declaration.nushell
-        2: entity.name.function.nushell
+      push:
+        - match: ("|'|`)
+          scope: entity.name.function.begin.nushell
+          set:
+            - meta_scope: entity.name.function.nushell
+            - match: \1
+              scope: entity.name.function.end.nushell
+              pop: 1
+        - match: ([A-Za-z\d\-_ ]+)
+          scope: entity.name.function.nushell
+          pop: 1
 
   extern:
-    - match: \b(extern)\s+(["'A-Za-z\d\-_ ]+)
+    - match: \b(extern)\s+
       captures:
         1: keyword.extern.nushell
-        2: entity.name.extern.nushell
+      push:
+        - match: ("|'|`)
+          scope: entity.name.extern.begin.nushell
+          set:
+            - meta_scope: entity.name.extern.nushell
+            - match: \1
+              scope: entity.name.extern.end.nushell
+              pop: 1
+        - match: ([A-Za-z\d\-_ ]+)
+          scope: entity.name.extern.nushell
+          pop: 1
