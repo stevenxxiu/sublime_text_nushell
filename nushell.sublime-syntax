@@ -228,12 +228,6 @@ contexts:
     - match: ;
       scope: punctuation.semi.nushell
 
-    - match: '[\[\]]'
-      scope: punctuation.brackets.square.nushell
-
-    - match: (?<!=)[<>]
-      scope: punctuation.brackets.angle.nushell
-
   comment:
     - match: (#.*)
       scope: comment.nushell
