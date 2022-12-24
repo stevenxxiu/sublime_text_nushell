@@ -8,6 +8,10 @@ scope: source.nu
 file_extensions:
   - nu
 
+first_line_match: |-
+  (?xi:
+    ^ \#! .* \b(nu)\b            # shebang
+  )
 
 contexts:
   main:
