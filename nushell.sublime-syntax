@@ -359,8 +359,8 @@ contexts:
           (?:\:\s*([A-Za-z\d\-_]+))?
         )
       captures:
-        1: variable.parameter.extern.nushell
-        2: variable.parameter.extern.nushell
+        1: variable.parameter.long.nushell
+        2: variable.parameter.short.nushell
         3: storage.type.nushell
     - match: |-
         (?x:
@@ -368,7 +368,7 @@ contexts:
           (?:\:\s*([A-Za-z\d\-_]+))?
         )
       captures:
-        1: variable.parameter.extern.nushell
+        1: variable.parameter.short.nushell
         2: storage.type.nushell
 
   extern-parameters:
