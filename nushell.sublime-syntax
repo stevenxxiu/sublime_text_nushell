@@ -13,6 +13,13 @@ first_line_match: |-
     ^ \#! .* \b(nu)\b            # shebang
   )
 
+variables:
+  var_name: '[A-Za-z_][A-Za-z\d\-_]*'
+  type_name: '[A-Za-z_][A-Za-z\d\-_]*'
+  long_flag: '--[A-Za-z\d\-_]+'
+  short_flag: '-[A-Za-z\d\-_]'
+  const_str: '[A-Za-z\d\-_]+'
+
 contexts:
   main:
     - include: string
@@ -196,18 +203,18 @@ contexts:
     - include: interpolated-double-quoted-string
 
   variable-keyword:
-    - match: \$\w+
+    - match: \${{var_name}}
       scope: variable.language.nushell
 
   variable:
-    - match: (alias|let|let-env)\s+[\$'"]?([$a-z A-Z\d_-]+)['"]?
+    - match: (alias|let|let-env)\s+(\$?{{var_name}})
       scope: variable.nushell
       captures:
         1: keyword.other.nushell
         2: variable.name.nushell
 
   for-variable:
-    - match: (for)\s+([a-z A-Z\d_-]+)(in)
+    - match: (for)\s+(\$?{{var_name}})(in)
       scope: variable.nushell
       captures:
         1: keyword.other.nushell
@@ -308,17 +315,17 @@ contexts:
               set: code-block
             - include: double-quoted-string-content
 
-        - match: ([A-Za-z\d\-_ ]+)
+        - match: ({{var_name}})
           scope: entity.name.module.nushell
           set: code-block
 
   command-parameter:
     - match: |-
         (?x:
-          ([A-Za-z\d\-_]+)
+          ({{var_name}})
           (\?)?
           (?:
-            \:\s*([A-Za-z\d\-_]+)
+            \:\s*({{type_name}})
             (?:(@)(".+?"))?
           )?
         )
@@ -330,9 +337,9 @@ contexts:
         5: variable.function.completion.nushell
     - match: |-
         (?x:
-          (--[A-Za-z\d\-_]+)
-          (?:\((-[A-Za-z\d\-_])\))?
-          (?:\:\s*([A-Za-z\d\-_]+))?
+          ({{long_flag}})
+          (?:\(({{short_flag}})\))?
+          (?:\:\s*({{type_name}}))?
         )
       captures:
         1: variable.parameter.long.nushell
@@ -340,8 +347,8 @@ contexts:
         3: storage.type.nushell
     - match: |-
         (?x:
-          (-[A-Za-z\d\-_])
-          (?:\:\s*([A-Za-z\d\-_]+))?
+          ({{short_flag}})
+          (?:\:\s*({{type_name}}))?
         )
       captures:
         1: variable.parameter.short.nushell
@@ -401,7 +408,7 @@ contexts:
               set: command-parameters
             - include: double-quoted-string-content
 
-        - match: ([A-Za-z\d\-_ ]+)
+        - match: ({{var_name}})
           scope: entity.name.command.nushell
           set: command-parameters
 
@@ -458,6 +465,6 @@ contexts:
               set: extern-parameters
             - include: double-quoted-string-content
 
-        - match: ([A-Za-z\d\-_ ]+)
+        - match: ({{var_name}})
           scope: entity.name.extern.nushell
           set: extern-parameters
