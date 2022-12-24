@@ -3,8 +3,11 @@
 # - https://www.sublimetext.com/docs/syntax.html
 # - https://www.nushell.sh/book/
 name: Nushell
-file_extensions: [nu]
 scope: source.nu
+
+file_extensions:
+  - nu
+
 
 contexts:
   main:
