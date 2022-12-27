@@ -340,7 +340,7 @@ contexts:
           set:
             - meta_scope: meta.block.parameters.nushell
             - match: '{{var_name}}'
-              scope: variable.parameter.name.nushell
+              scope: variable.parameter.nushell
             - match: \,
               scope: punctuation.separator.parameter.command.nushell
             - match: \|
