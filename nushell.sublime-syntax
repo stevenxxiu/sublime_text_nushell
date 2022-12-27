@@ -166,7 +166,7 @@ contexts:
   double-quoted-string-content:
     - match: \\\n
       scope: constant.character.escape.newline.nushell
-    - match: \\(?:[0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|.)
+    - match: \\(?:[0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|[abefnrtv\\'"?])
       scope: constant.character.escape.nushell
 
   literal-double-quoted-string:
