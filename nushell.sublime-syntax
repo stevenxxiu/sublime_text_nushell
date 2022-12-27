@@ -283,8 +283,10 @@ contexts:
       scope: punctuation.semi.nushell
 
   comment:
-    - match: (#.*)
-      scope: comment.nushell
+    - match: (#)(.*)
+      captures:
+        1: comment.line.number-sign.nushell
+        2: comment.line.nushell
 
   range:
     - match: |-
