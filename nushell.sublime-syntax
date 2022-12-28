@@ -369,6 +369,8 @@ contexts:
                 1: entity.name.label.nushell
                 2: punctuation.separator.key-value.nushell
               push: expression
+            - match: ','
+              scope: punctuation.separator.comma.nushell
             - match: '\}'
               scope: punctuation.section.record.end.nushell
               pop: 3

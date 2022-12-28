@@ -192,6 +192,9 @@ let a = {
 }
 # <- meta.record.nushell punctuation.section.record.end.nushell
 
+let a = {k1: 1, k2: 2}
+#             ^ meta.record.nushell punctuation.separator.comma.nushell
+
 ##
 # Table
 ##
