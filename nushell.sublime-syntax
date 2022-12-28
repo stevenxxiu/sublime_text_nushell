@@ -114,16 +114,49 @@ contexts:
     - include: range  # Include before integer
     - include: integer
     - include: decimal
-    - include: interpolated-string
     - include: boolean
     # - include: binary
     # - include: list
     - include: record-block
     # - include: table
     - include: literal-null
+    - include: interpolated-string
     - include: string  # Include last to avoid conflicts
 
     - include: variable-keyword
+
+  date:
+    - match: |-
+        (?x:
+          (\d+)-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01])
+          (
+            [Tt]
+            ([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?
+            (([Zz])|([\+|\-]([01]\d|2[0-3]):[0-5]\d))?
+          )?
+        )
+      scope: constant.date.nushell
+      pop: 1
+
+  duration:
+    - match: '{{pos_decimal}}(ns|us|ms|sec|min|hr|day|wk)'
+      scope: constant.duration.nushell
+      pop: 1
+
+  file-size:
+    - match: '{{pos_decimal}}(b|kb|mb|gb|tb|pb|eb|zb|kib|mib|gib|tib|pib|eib|zib)'
+      scope: constant.file-size.nushell
+      pop: 1
+
+  range:
+    - match: |-
+        (?x:
+          {{number}}\.\.<?{{number}}|
+          {{number}}\.\.|
+          \.\.<?{{number}}
+        )
+      scope: constant.range.nushell
+      pop: 1
 
   integer:
     - match: -?\d+(?!\.)
@@ -134,6 +167,49 @@ contexts:
     - match: '[+-]?((\d*[.])?\d+|Infinity|NaN)'
       scope: constant.numeric.decimal.nushell
       pop: 1
+
+  boolean:
+    - match: 'true'
+      scope: constant.language.boolean.true.nushell
+      pop: 1
+    - match: 'false'
+      scope: constant.language.boolean.false.nushell
+      pop: 1
+
+  interpolated-string:
+    - include: interpolated-single-quoted-string
+    - include: interpolated-double-quoted-string
+
+  interpolated-single-quoted-string:
+    - match: \$'
+      scope: punctuation.definition.string.interpolated.begin.nushell
+      set:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.interpolated.nushell string.interpolated.single.nushell
+        - match: \(
+          push:
+            - include: expression
+            - match: \)
+              pop: 1
+        - match: \'
+          scope: punctuation.definition.string.interpolated.end.nushell
+          pop: 1
+
+  interpolated-double-quoted-string:
+    - match: \$"
+      scope: punctuation.definition.string.interpolated.begin.nushell
+      set:
+        - meta_include_prototype: false
+        - meta_scope: meta.string.interpolated.nushell string.interpolated.double.nushell
+        - match: \(
+          push:
+            - include: expression
+            - match: \)
+              pop: 1
+        - match: \"
+          scope: punctuation.definition.string.interpolated.end.nushell
+          pop: 1
+        - include: double-quoted-string-content
 
   string:
     - include: literal-single-quoted-string
@@ -186,74 +262,6 @@ contexts:
       scope: string.bare.nushell
       pop: 1
 
-  interpolated-string:
-    - include: interpolated-single-quoted-string
-    - include: interpolated-double-quoted-string
-
-  interpolated-single-quoted-string:
-    - match: \$'
-      scope: punctuation.definition.string.interpolated.begin.nushell
-      set:
-        - meta_include_prototype: false
-        - meta_scope: meta.string.interpolated.nushell string.interpolated.single.nushell
-        - match: \(
-          push:
-            - include: expression
-            - match: \)
-              pop: 1
-        - match: \'
-          scope: punctuation.definition.string.interpolated.end.nushell
-          pop: 1
-      pop: 1
-
-  interpolated-double-quoted-string:
-    - match: \$"
-      scope: punctuation.definition.string.interpolated.begin.nushell
-      set:
-        - meta_include_prototype: false
-        - meta_scope: meta.string.interpolated.nushell string.interpolated.double.nushell
-        - match: \(
-          push:
-            - include: expression
-            - match: \)
-              pop: 1
-        - match: \"
-          scope: punctuation.definition.string.interpolated.end.nushell
-          pop: 1
-        - include: double-quoted-string-content
-      pop: 1
-
-  boolean:
-    - match: 'true'
-      scope: constant.language.boolean.true.nushell
-      pop: 1
-    - match: 'false'
-      scope: constant.language.boolean.false.nushell
-      pop: 1
-
-  date:
-    - match: |-
-        (?x:
-          (\d+)-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01])
-          (
-            [Tt]
-            ([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?
-            (([Zz])|([\+|\-]([01]\d|2[0-3]):[0-5]\d))?
-          )?
-        )
-      scope: constant.date.nushell
-      pop: 1
-
-  duration:
-    - match: '{{pos_decimal}}(ns|us|ms|sec|min|hr|day|wk)'
-      scope: constant.duration.nushell
-      pop: 1
-
-  file-size:
-    - match: '{{pos_decimal}}(b|kb|mb|gb|tb|pb|eb|zb|kib|mib|gib|tib|pib|eib|zib)'
-      scope: constant.file-size.nushell
-      pop: 1
-
   variable-keyword:
     - match: \${{var_name}}
       scope: variable.language.nushell
@@ -287,16 +295,6 @@ contexts:
       captures:
         1: comment.line.number-sign.nushell
         2: comment.line.nushell
-
-  range:
-    - match: |-
-        (?x:
-          {{number}}\.\.<?{{number}}|
-          {{number}}\.\.|
-          \.\.<?{{number}}
-        )
-      scope: constant.range.nushell
-      pop: 1
 
   literal-null:
     - match: \bnull\b
