@@ -116,9 +116,8 @@ contexts:
     - include: integer
     - include: decimal
     - include: boolean
-    # - include: list
     - include: record-block
-    # - include: table
+    - include: list-table
     - include: literal-null
     - include: interpolated-string
     - include: string  # Include last to avoid conflicts
@@ -397,6 +396,23 @@ contexts:
                 - match: '\}'
                   scope: punctuation.section.block.end.nushell
                   pop: 3
+
+  list-table:
+    - match: '\['
+      scope: punctuation.section.list-table.begin.nushell
+      push:
+        - meta_scope: meta.list-table.nushell
+        - include: comment
+        - match: ;
+          scope: punctuation.terminator.header.nushell
+        - match: '\]'
+          scope: punctuation.section.list-table.end.nushell
+          pop: 2
+        - match: (?=.|$)
+          push:
+            - include: expression
+            - match: (?=[#;\]])
+              pop: 1
 
   code-block:
     - match: '\{'

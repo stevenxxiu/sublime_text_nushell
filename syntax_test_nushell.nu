@@ -169,10 +169,6 @@ let a = 0o[
 #   ^^^ meta.binary.oct.nushell constant.numeric.oct.nushell
 
 ##
-# List
-##
-
-##
 # Record
 ##
 
@@ -196,8 +192,30 @@ let a = {k1: 1, k2: 2}
 #             ^ meta.record.nushell punctuation.separator.comma.nushell
 
 ##
+# List
+##
+
+let a = [a bb ccc]
+#       ^ meta.list-table.nushell punctuation.section.list-table.begin.nushell
+#        ^ meta.list-table.nushell string.bare.nushell
+#          ^^ meta.list-table.nushell string.bare.nushell
+#             ^^^ meta.list-table.nushell string.bare.nushell
+#                ^meta.list-table.nushell punctuation.section.list-table.end.nushell
+
+let a = [a bb
+  ccc # Foo
+# ^^^ meta.list-table.nushell string.bare.nushell
+#     ^^^^^ comment.line
+]
+# <- meta.list-table.nushell punctuation.section.list-table.end.nushell
+
+##
 # Table
 ##
+
+let a = [[column1, column2]; [Value1, Value2] [Value3, Value4]]
+#        ^ meta.list-table.nushell meta.list-table.nushell punctuation.section.list-table.begin.nushell
+#                          ^ meta.list-table.nushell punctuation.terminator.header.nushell
 
 ##
 # Null
