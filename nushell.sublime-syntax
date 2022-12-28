@@ -110,12 +110,12 @@ contexts:
   expression:
     - include: date  # Include before integer
     - include: duration  # Include before integer
+    - include: binary  # Include before file-size
     - include: file-size  # Include before integer
     - include: range  # Include before integer
     - include: integer
     - include: decimal
     - include: boolean
-    # - include: binary
     # - include: list
     - include: record-block
     # - include: table
@@ -174,6 +174,50 @@ contexts:
       pop: 1
     - match: 'false'
       scope: constant.language.boolean.false.nushell
+      pop: 1
+
+  binary:
+    - include: binary-hex
+    - include: binary-bin
+    - include: binary-oct
+
+  binary-hex:
+    - match: 0x\[
+      scope: punctuation.definition.binary.begin.nushell
+      push:
+        - meta_include_prototype: false
+        - meta_scope: meta.binary.hex.nushell
+        - match: '[\da-fA-F]{1,2}'
+          scope: constant.numeric.hex.nushell
+        - match: \]
+          scope: punctuation.definition.binary.end.nushell
+          pop: 1
+      pop: 1
+
+  binary-bin:
+    - match: 0b\[
+      scope: punctuation.definition.binary.begin.nushell
+      push:
+        - meta_include_prototype: false
+        - meta_scope: meta.binary.bin.nushell
+        - match: '[01]{1,8}'
+          scope: constant.numeric.bin.nushell
+        - match: \]
+          scope: punctuation.definition.binary.end.nushell
+          pop: 1
+      pop: 1
+
+  binary-oct:
+    - match: 0o\[
+      scope: punctuation.definition.binary.begin.nushell
+      push:
+        - meta_include_prototype: false
+        - meta_scope: meta.binary.oct.nushell
+        - match: '[0-7]{1,3}'
+          scope: constant.numeric.oct.nushell
+        - match: \]
+          scope: punctuation.definition.binary.end.nushell
+          pop: 1
       pop: 1
 
   interpolated-string:
