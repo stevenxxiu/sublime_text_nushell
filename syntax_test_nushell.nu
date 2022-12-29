@@ -346,26 +346,26 @@ extern "aaa\x12bbb" [
 #          ^^^^ entity.name.extern.nushell constant.character.escape.nushell
 #                 ^ entity.name.extern.nushell meta.extern.parameters.nushell entity.name.extern.end.nushell
 #                   ^ meta.extern.parameters.nushell punctuation.section.group.begin.nushell
-  foo: string@"nu-complete git branches" # Comment
+  foo: string@"nu-complete git branches" # Foo
 # ^ meta.extern.parameters.nushell variable.parameter.nushell
 #    ^ meta.extern.parameters.nushell punctuation.separator.type.nushell
 #      ^^^^^^ meta.extern.parameters.nushell storage.type.nushell
 #            ^ meta.extern.parameters.nushell keyword.operator.completion.nushell
 #             ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.extern.parameters.nushell variable.function.completion.nushell
-#                                        ^^^^^^^^^ meta.extern.parameters.nushell comment.line
-  foo?: string@"nu-complete git branches" # Comment
+#                                        ^^^^^ meta.extern.parameters.nushell comment.line
+  foo?: string@"nu-complete git branches" # Foo
 #    ^ meta.extern.parameters.nushell keyword.operator.optional.nushell
-  --foo # Comment
+  --foo # Foo
 # ^^^^^ meta.extern.parameters.nushell variable.parameter.long.nushell
-#       ^^^^^^^^^ meta.extern.parameters.nushell comment.line
-  --foo(-f) # Comment
+#       ^^^^^ meta.extern.parameters.nushell comment.line
+  --foo(-f) # Foo
 # ^^^^^ meta.extern.parameters.nushell variable.parameter.long.nushell
 #       ^^ meta.extern.parameters.nushell variable.parameter.short.nushell
 #           ^ comment.line
-  -a: string # Comment
+  -a: string # Foo
 # ^ meta.extern.parameters.nushell variable.parameter.short.nushell
-#            ^^^^^^^^^ meta.extern.parameters.nushell comment.line
-  -a # Comment
+#            ^^^^^ meta.extern.parameters.nushell comment.line
+  -a # Foo
 # ^ meta.extern.parameters.nushell variable.parameter.short.nushell
-#    ^^^^^^^^^ meta.extern.parameters.nushell comment.line
+#    ^^^^^ meta.extern.parameters.nushell comment.line
 ]
