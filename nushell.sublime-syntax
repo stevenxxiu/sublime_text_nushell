@@ -28,7 +28,8 @@ contexts:
     - include: punctuation
     - include: comment
     - include: keyword
-    - include: record-block
+    - match: (?=\{)
+      push: record-block
     - include: for-variable
     - include: module
     - include: command
