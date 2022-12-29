@@ -426,6 +426,10 @@ contexts:
         - match: '\}'
           scope: punctuation.section.block.end.nushell
           pop: 3
+    # Match the end of a command, as we pushed `command-parameters` before
+    - match: '\}'
+      scope: punctuation.section.block.end.nushell
+      pop: 2
 
   module:
     - match: \b(module)\s+
