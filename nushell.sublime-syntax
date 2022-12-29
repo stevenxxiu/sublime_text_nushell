@@ -186,6 +186,7 @@ contexts:
       push:
         - meta_include_prototype: false
         - meta_scope: meta.binary.hex.nushell
+        - include: comment
         - match: '[\da-fA-F]{1,2}'
           scope: constant.numeric.hex.nushell
         - match: \]
@@ -199,6 +200,7 @@ contexts:
       push:
         - meta_include_prototype: false
         - meta_scope: meta.binary.bin.nushell
+        - include: comment
         - match: '[01]{1,8}'
           scope: constant.numeric.bin.nushell
         - match: \]
@@ -212,6 +214,7 @@ contexts:
       push:
         - meta_include_prototype: false
         - meta_scope: meta.binary.oct.nushell
+        - include: comment
         - match: '[0-7]{1,3}'
           scope: constant.numeric.oct.nushell
         - match: \]

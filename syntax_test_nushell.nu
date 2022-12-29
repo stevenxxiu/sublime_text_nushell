@@ -144,6 +144,8 @@ let a = 0x[0 FF]
 #          ^ meta.binary.hex.nushell constant.numeric.hex.nushell
 #            ^^ meta.binary.hex.nushell constant.numeric.hex.nushell
 let a = 0x[
+  # Foo
+# ^^^^^ comment.line
   0 FF]
 # ^ meta.binary.hex.nushell constant.numeric.hex.nushell
 #   ^^ meta.binary.hex.nushell constant.numeric.hex.nushell
@@ -154,6 +156,8 @@ let a = 0b[0 1111111]
 #          ^ meta.binary.bin.nushell constant.numeric.bin.nushell
 #            ^^^^^^^ meta.binary.bin.nushell constant.numeric.bin.nushell
 let a = 0b[
+  # Foo
+# ^^^^^ comment.line
   0 1111111]
 # ^ meta.binary.bin.nushell constant.numeric.bin.nushell
 #   ^^^^^^^ meta.binary.bin.nushell constant.numeric.bin.nushell
@@ -164,6 +168,8 @@ let a = 0o[0 777]
 #          ^ meta.binary.oct.nushell constant.numeric.oct.nushell
 #            ^^^ meta.binary.oct.nushell constant.numeric.oct.nushell
 let a = 0o[
+  # Foo
+# ^^^^^ comment.line
   0 777]
 # ^ meta.binary.oct.nushell constant.numeric.oct.nushell
 #   ^^^ meta.binary.oct.nushell constant.numeric.oct.nushell
