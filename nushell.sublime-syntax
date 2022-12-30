@@ -34,6 +34,7 @@ contexts:
     - include: module
     - include: command
     - include: extern
+    - include: function-call
 
   keyword:
     - match: |-
@@ -636,3 +637,13 @@ contexts:
         - match: \]
           scope: punctuation.section.group.end.nushell
           pop: 2
+
+  function-call:
+    - match: \b({{var_name}})\s+(?=[^)\]}])
+      captures:
+        1: meta.function-call.identifier.nushell
+      push:
+        - meta_scope: meta.function-call.arguments.nushell
+        - include: expression
+        - match: \n
+          pop: 1
