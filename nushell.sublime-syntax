@@ -21,6 +21,7 @@ variables:
   const_str: '[A-Za-z\d\-_]+'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
+  bare_string: '[^\s#$()=\[\]{}]+'
 
 contexts:
   main:
@@ -306,7 +307,7 @@ contexts:
       pop: 1
 
   literal-bare-string:
-    - match: \w+
+    - match: (?<=[\s()\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
       scope: string.bare.nushell
       pop: 1
 
