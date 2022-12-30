@@ -304,7 +304,7 @@ let a = $b
 ##
 
 each { |aaa, bbb| aaa }
-# <- keyword.nushell
+# <- support.function.nushell
 #    ^ meta.block.nushell punctuation.section.block.begin.nushell
 #      ^ meta.block.nushell meta.block.parameters.nushell
 #       ^^^ meta.block.parameters.nushell variable.parameter.nushell
@@ -375,3 +375,15 @@ extern "aaa\x12bbb" [
 # ^ meta.extern.parameters.nushell variable.parameter.short.nushell
 #    ^^^^^ meta.extern.parameters.nushell comment.line
 ]
+
+##
+# Function Call
+##
+
+func foo 1
+# <- meta.function-call.identifier.nushell variable.function.nushell
+#    ^^^ meta.function-call.arguments.nushell string.bare.nushell
+#        ^ meta.function-call.arguments.nushell constant.numeric.integer.nushell
+
+roll down
+# ^^^^^^^ meta.function-call.identifier.nushell support.function.nushell
