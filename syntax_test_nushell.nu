@@ -387,3 +387,14 @@ func foo 1
 
 roll down
 # ^^^^^^^ meta.function-call.identifier.nushell support.function.nushell
+
+(
+# <- punctuation.section.group.begin.nushell
+  func
+# ^^^^ meta.function-call.identifier.nushell variable.function.nushell
+  foo
+# ^^^ meta.function-call.arguments.nushell string.bare.nushell
+  1
+# ^ meta.function-call.arguments.nushell constant.numeric.integer.nushell
+)
+# <- punctuation.section.group.end.nushell
