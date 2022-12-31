@@ -83,6 +83,7 @@ contexts:
     - include: extern
     - include: where-call
     - include: function-call
+    - include: variable-keyword
 
   keyword:
     - match: \b(and|catch|else|or)\b

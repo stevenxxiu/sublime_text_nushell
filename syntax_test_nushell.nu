@@ -12,6 +12,9 @@
 foo # Foo
 #   ^ comment.line
 
+$var
+# <- variable.language.nushell
+
 ##
 # Integer
 ##
