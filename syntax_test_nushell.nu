@@ -405,3 +405,9 @@ roll down
 # ^ meta.function-call.arguments.nushell constant.numeric.integer.nushell
 )
 # <- punctuation.section.group.end.nushell
+
+where size > 10kb
+# ^^^ meta.function-call.identifier.nushell support.function.nushell
+#     ^^^^ meta.function-call.arguments.nushell variable.name.nushell
+#          ^ meta.function-call.arguments.nushell keyword.operator.nushell
+#            ^^^^ meta.function-call.arguments.nushell constant.file-size.nushell

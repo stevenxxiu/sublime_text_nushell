@@ -81,6 +81,7 @@ contexts:
     - include: module
     - include: command
     - include: extern
+    - include: where-call
     - include: function-call
 
   keyword:
@@ -630,5 +631,19 @@ contexts:
             - include: comment
             - match: \)
               scope: punctuation.section.group.end.nushell
+              pop: 2
+            - include: expression
+
+  where-call:
+    - match: (?<=^|\s)(where)(?=\s|$)
+      captures:
+        1: meta.function-call.identifier.nushell support.function.nushell
+      push:
+        - meta_content_scope: meta.function-call.arguments.nushell
+        - match: \s+({{var_name}})?
+          captures:
+            1: variable.name.nushell
+          push:
+            - match: (?=\s*[#)\]}|]|\s*$)
               pop: 2
             - include: expression
