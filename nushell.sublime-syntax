@@ -22,6 +22,11 @@ variables:
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
   bare_string: '[^\s#$(),;=\[\]{}]+'
+  operator: |-
+    (?x:
+      \+|-|\*|/|//|mod|\*\*|==|!=|<|<=|>|>=|=~|!~|in|not-in|not|&& and|\|\||or|xor|bit-or|bit-xor|bit-and|bit-shl|
+      bit-shr|starts-with|ends-with|\+\+
+    )
   native_command: |-
     (?x:
       agg|agg-groups|alias|all|all-false|all-true|ansi\sgradient|ansi\sstrip|ansi|any|append|arg-max|arg-min|arg-sort|
@@ -98,6 +103,7 @@ contexts:
     - include: integer
     - include: decimal
     - include: boolean
+    - include: operator  # Include after atomic types
     - include: record-block
     - include: list-table
     - include: literal-null
@@ -105,6 +111,10 @@ contexts:
     - include: string  # Include last to avoid conflicts
 
     - include: variable-keyword
+
+  operator:
+    - match: ({{operator}})
+      scope: keyword.operator.nushell
 
   date:
     - match: |-

@@ -22,6 +22,13 @@ let a = -65535
 #       ^^^^^^ constant.numeric.integer.nushell
 
 ##
+# Operator
+##
+let a = 3 * (1 + 2)
+#         ^ keyword.operator.nushell
+#              ^ keyword.operator.nushell
+
+##
 # Decimal
 ##
 
