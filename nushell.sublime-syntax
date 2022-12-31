@@ -21,7 +21,7 @@ variables:
   const_str: '[A-Za-z\d\-_]+'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
-  bare_string: '[^\s#$()=\[\]{}]+'
+  bare_string: '[^\s#$(),;=\[\]{}]+'
   native_command: |-
     (?x:
       agg|agg-groups|alias|all|all-false|all-true|ansi\sgradient|ansi\sstrip|ansi|any|append|arg-max|arg-min|arg-sort|
@@ -71,8 +71,7 @@ contexts:
     - include: punctuation
     - include: comment
     - include: keyword
-    - match: (?=\{)
-      push: record-block
+    - include: record-block
     - include: for-variable
     - include: module
     - include: command
@@ -118,17 +117,14 @@ contexts:
           )?
         )
       scope: constant.date.nushell
-      pop: 1
 
   duration:
     - match: '{{pos_decimal}}(ns|us|ms|sec|min|hr|day|wk)'
       scope: constant.duration.nushell
-      pop: 1
 
   file-size:
     - match: '{{pos_decimal}}(b|kb|mb|gb|tb|pb|eb|zb|kib|mib|gib|tib|pib|eib|zib)'
       scope: constant.file-size.nushell
-      pop: 1
 
   range:
     - match: |-
@@ -138,25 +134,20 @@ contexts:
           \.\.<?{{number}}
         )
       scope: constant.range.nushell
-      pop: 1
 
   integer:
     - match: -?\d+(?!\.)
       scope: constant.numeric.integer.nushell
-      pop: 1
 
   decimal:
     - match: '[+-]?((\d*[.])?\d+|Infinity|NaN)'
       scope: constant.numeric.decimal.nushell
-      pop: 1
 
   boolean:
     - match: 'true'
       scope: constant.language.boolean.true.nushell
-      pop: 1
     - match: 'false'
       scope: constant.language.boolean.false.nushell
-      pop: 1
 
   binary:
     - include: binary-hex
@@ -175,7 +166,6 @@ contexts:
         - match: \]
           scope: punctuation.definition.binary.end.nushell
           pop: 1
-      pop: 1
 
   binary-bin:
     - match: 0b\[
@@ -189,7 +179,6 @@ contexts:
         - match: \]
           scope: punctuation.definition.binary.end.nushell
           pop: 1
-      pop: 1
 
   binary-oct:
     - match: 0o\[
@@ -203,7 +192,6 @@ contexts:
         - match: \]
           scope: punctuation.definition.binary.end.nushell
           pop: 1
-      pop: 1
 
   interpolated-string:
     - include: interpolated-single-quoted-string
@@ -212,7 +200,7 @@ contexts:
   interpolated-single-quoted-string:
     - match: \$'
       scope: punctuation.definition.string.interpolated.begin.nushell
-      set:
+      push:
         - meta_include_prototype: false
         - meta_scope: meta.string.interpolated.nushell string.interpolated.single.nushell
         - match: \(
@@ -227,7 +215,7 @@ contexts:
   interpolated-double-quoted-string:
     - match: \$"
       scope: punctuation.definition.string.interpolated.begin.nushell
-      set:
+      push:
         - meta_include_prototype: false
         - meta_scope: meta.string.interpolated.nushell string.interpolated.double.nushell
         - match: \(
@@ -255,7 +243,6 @@ contexts:
         - match: \'
           scope: punctuation.definition.string.end.nushell
           pop: 1
-      pop: 1
 
   literal-backtick-quoted-string:
     - match: \`
@@ -266,7 +253,6 @@ contexts:
         - match: \`
           scope: punctuation.definition.string.end.nushell
           pop: 1
-      pop: 1
 
   double-quoted-string-content:
     - match: \\\n
@@ -284,17 +270,14 @@ contexts:
           scope: punctuation.definition.string.end.nushell
           pop: 1
         - include: double-quoted-string-content
-      pop: 1
 
   literal-bare-string:
     - match: (?<=[\s()\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
       scope: string.bare.nushell
-      pop: 1
 
   variable-keyword:
     - match: \${{var_name}}
       scope: variable.language.nushell
-      pop: 1
 
   assign-variable:
     - match: (alias|let|let-env)\s+(\$?{{var_name}})\s*=
@@ -302,7 +285,10 @@ contexts:
       captures:
         1: keyword.other.nushell
         2: variable.name.nushell
-      push: expression
+      push:
+        - include: expression
+        - match: \n
+          pop: 1
 
   for-variable:
     - match: (for)\s+(\$?{{var_name}})(in)
@@ -328,7 +314,6 @@ contexts:
   literal-null:
     - match: \bnull\b
       scope: constant.language.null.nushell
-      pop: 1
 
   record-block:
     - match: (?=\{)
@@ -353,12 +338,12 @@ contexts:
               captures:
                 1: entity.name.label.nushell
                 2: punctuation.separator.key-value.nushell
-              push: expression
+            - include: expression
             - match: ','
               scope: punctuation.separator.comma.nushell
             - match: '\}'
               scope: punctuation.section.record.end.nushell
-              pop: 3
+              pop: 2
 
   block:
     - match: '\{'
@@ -381,7 +366,7 @@ contexts:
                 - include: main
                 - match: '\}'
                   scope: punctuation.section.block.end.nushell
-                  pop: 3
+                  pop: 2
 
   list-table:
     - match: '\['
@@ -393,7 +378,7 @@ contexts:
           scope: punctuation.terminator.header.nushell
         - match: '\]'
           scope: punctuation.section.list-table.end.nushell
-          pop: 2
+          pop: 1
         - match: (?=.|$)
           push:
             - include: expression
@@ -408,11 +393,7 @@ contexts:
         - include: main
         - match: '\}'
           scope: punctuation.section.block.end.nushell
-          pop: 3
-    # Match the end of a command, as we pushed `command-parameters` before
-    - match: '\}'
-      scope: punctuation.section.block.end.nushell
-      pop: 2
+          pop: 2
 
   module:
     - match: \b(module)\s+
@@ -427,10 +408,8 @@ contexts:
             - meta_scope: entity.name.module.nushell
             - match: \'
               scope: entity.name.module.end.nushell
-              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: code-block
 
         - match: \`
           scope: entity.name.module.begin.nushell
@@ -439,10 +418,8 @@ contexts:
             - meta_scope: entity.name.module.nushell
             - match: \`
               scope: entity.name.module.end.nushell
-              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: code-block
 
         - match: \"
           scope: entity.name.module.begin.nushell
@@ -451,15 +428,14 @@ contexts:
             - meta_scope: entity.name.module.nushell
             - match: \"
               scope: entity.name.module.end.nushell
-              set: code-block
             - match: \n
               scope: invalid.illegal.newline.nushell
-              set: code-block
             - include: double-quoted-string-content
 
         - match: ({{var_name}})
           scope: entity.name.module.nushell
-          set: code-block
+
+        - include: code-block
 
   command-parameters:
     - meta_scope: meta.command.parameters.nushell
@@ -472,7 +448,6 @@ contexts:
         - include: comment
         - match: \]
           scope: punctuation.section.group.end.nushell
-          push: code-block
           pop: 2
 
   command-parameter:
@@ -522,7 +497,7 @@ contexts:
 
         - match: \'
           scope: entity.name.command.begin.nushell
-          set:
+          push:
             - meta_include_prototype: false
             - meta_scope: entity.name.command.nushell
             - match: \'
@@ -534,7 +509,7 @@ contexts:
 
         - match: \`
           scope: entity.name.command.begin.nushell
-          set:
+          push:
             - meta_include_prototype: false
             - meta_scope: entity.name.command.nushell
             - match: \`
@@ -560,6 +535,8 @@ contexts:
         - match: ({{var_name}})
           scope: entity.name.command.nushell
           set: command-parameters
+
+        - include: code-block
 
   extern:
     - match: \b(export\s+)?(extern)\s+
@@ -629,8 +606,7 @@ contexts:
         - meta_content_scope: meta.function-call.arguments.nushell
         - match: (?=\s*[#)\]}|]|\s*$)
           pop: 1
-        - match: (?=)
-          push: expression
+        - include: expression
     - match: \(
       scope: punctuation.section.group.begin.nushell
       push:
@@ -645,5 +621,4 @@ contexts:
             - match: \)
               scope: punctuation.section.group.end.nushell
               pop: 2
-            - match: (?=.)
-              push: expression
+            - include: expression
