@@ -84,6 +84,7 @@ contexts:
     - include: where-call
     - include: function-call
     - include: variable-keyword
+    - include: expression
 
   keyword:
     - match: \b(and|catch|else|or)\b
