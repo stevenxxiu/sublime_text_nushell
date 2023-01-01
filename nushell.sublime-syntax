@@ -329,7 +329,7 @@ contexts:
 
   record-block:
     - match: (?=\{)
-      branch_point: open_curly
+      branch_point: open-curly
       branch:
         - record
         - block
@@ -341,7 +341,7 @@ contexts:
         - meta_scope: meta.record.nushell
         - include: comment
         - match: \|
-          fail: open_curly
+          fail: open-curly
         - match: '(?={{var_name}}:)'
           set:
             - meta_scope: meta.record.nushell
