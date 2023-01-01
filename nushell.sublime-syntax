@@ -21,7 +21,7 @@ variables:
   const_str: '[A-Za-z\d\-_]+'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
-  bare_string: '[^\s#$(),;=\[\]{}]+'
+  bare_string: '[^\s#$(),;=\[\]{|}]+'
   operator: |-
     (?x:
       \+|-|\*|/|//|mod|\*\*|==|!=|<|<=|>|>=|=~|!~|in|not-in|not|&& and|\|\||or|xor|bit-or|bit-xor|bit-and|bit-shl|
