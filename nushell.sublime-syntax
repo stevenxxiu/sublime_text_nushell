@@ -3,7 +3,7 @@
 # - https://www.sublimetext.com/docs/syntax.html
 # - https://www.nushell.sh/book/
 name: Nushell
-scope: source.nu
+scope: source.shell.nu
 
 file_extensions:
   - nu

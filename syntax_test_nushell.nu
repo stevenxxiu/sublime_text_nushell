@@ -1,5 +1,5 @@
 # SYNTAX TEST "Packages/Nushell/nushell.sublime-syntax"
-# <- source.nu comment.line.number-sign
+# <- source.shell.nu comment.line.number-sign
 
 ##
 # Comment
