@@ -631,7 +631,7 @@ contexts:
         2: meta.function-call.identifier.nu variable.function.nu
       push:
         - meta_content_scope: meta.function-call.arguments.nu
-        - match: (?=\s*[#\]}|]|\s*$)
+        - match: (?=\s*[#\]{}|]|\s*$)
           pop: 1
         - include: expression
 
@@ -657,6 +657,6 @@ contexts:
           captures:
             1: variable.name.nu
           push:
-            - match: (?=\s*[#)\]}|]|\s*$)
+            - match: (?=\s*[#)\]{}|]|\s*$)
               pop: 2
             - include: expression
