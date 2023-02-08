@@ -237,6 +237,13 @@ let a = [a bb
 ]
 # <- meta.list-table.nu punctuation.section.list-table.end.nu
 
+let a = [0,a,b]
+#       ^ meta.list-table.nu punctuation.section.list-table.begin.nu
+#         ^ meta.list-table.nu punctuation.separator.comma.nu
+#          ^ meta.list-table.nu string.bare.nu
+#            ^ meta.list-table.nu string.bare.nu
+#             ^ meta.list-table.nu punctuation.section.list-table.end.nu
+
 ##
 # Table
 ##

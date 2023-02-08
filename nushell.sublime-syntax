@@ -297,7 +297,7 @@ contexts:
         - include: double-quoted-string-content
 
   literal-bare-string:
-    - match: (?<=[\s()\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
+    - match: (?<=[\s(),\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
       scope: string.bare.nu
 
   variable-keyword:
@@ -407,6 +407,8 @@ contexts:
         - match: (?=.|$)
           push:
             - include: expression
+            - match: ','
+              scope: punctuation.separator.comma.nu
             - match: (?=[#;\]])
               pop: 1
 
