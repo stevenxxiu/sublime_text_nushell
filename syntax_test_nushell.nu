@@ -341,6 +341,12 @@ each { |aaa, bbb| aaa }
 #            ^^^ meta.block.parameters.nu variable.parameter.nu
 #               ^ meta.block.parameters.nu
 
+loop { break }
+# <- meta.function-call.identifier.nu support.function.nu
+#    ^ meta.block.nu punctuation.section.block.begin.nu
+#      ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
+#            ^ meta.block.nu
+
 ##
 # Module
 ##

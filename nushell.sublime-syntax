@@ -79,7 +79,7 @@ contexts:
     - include: punctuation
     - include: comment
     - include: keyword
-    - include: record-block
+    - include: block-record
     - include: for-variable
     - include: module
     - include: command
@@ -127,7 +127,7 @@ contexts:
     - include: decimal
     - include: boolean
     - include: operator  # Include after atomic types
-    - include: record-block
+    - include: block-record
     - include: list-table
     - include: literal-null
     - include: interpolated-string
@@ -340,35 +340,12 @@ contexts:
     - match: \bnull\b
       scope: constant.language.null.nu
 
-  record-block:
+  block-record:
     - match: (?=\{)
       branch_point: open-curly
       branch:
-        - record
         - block
-
-  record:
-    - match: '\{'
-      scope: punctuation.section.record.begin.nu
-      push:
-        - meta_scope: meta.record.nu
-        - include: comment
-        - match: \|
-          fail: open-curly
-        - match: '(?={{var_name}}:)'
-          set:
-            - meta_scope: meta.record.nu
-            - include: comment
-            - match: '({{var_name}})(:)'
-              captures:
-                1: entity.name.label.nu
-                2: punctuation.separator.key-value.nu
-            - include: expression
-            - match: ','
-              scope: punctuation.separator.comma.nu
-            - match: '\}'
-              scope: punctuation.section.record.end.nu
-              pop: 2
+        - record
 
   block:
     - match: '\{'
@@ -376,6 +353,8 @@ contexts:
       push:
         - meta_scope: meta.block.nu
         - include: comment
+        - match: '(?={{var_name}}:)'
+          fail: open-curly
         - match: \|
           scope: punctuation.section.group.begin.nu
           set:
@@ -392,6 +371,30 @@ contexts:
                 - match: '\}'
                   scope: punctuation.section.block.end.nu
                   pop: 2
+        - include: main
+        - match: '\}'
+          pop: 2
+
+  record:
+    - match: '\{'
+      scope: punctuation.section.record.begin.nu
+      push:
+        - meta_scope: meta.record.nu
+        - include: comment
+        - match: '(?={{var_name}}:)'
+          set:
+            - meta_scope: meta.record.nu
+            - include: comment
+            - match: '({{var_name}})(:)'
+              captures:
+                1: entity.name.label.nu
+                2: punctuation.separator.key-value.nu
+            - include: expression
+            - match: ','
+              scope: punctuation.separator.comma.nu
+            - match: '\}'
+              scope: punctuation.section.record.end.nu
+              pop: 2
 
   list-table:
     - match: '\['
