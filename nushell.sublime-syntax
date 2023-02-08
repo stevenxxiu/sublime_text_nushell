@@ -89,13 +89,13 @@ contexts:
   keyword:
     - match: \b(and|catch|else|or)\b
       captures:
-        1: keyword.nushell
+        1: keyword.nu
 
     - match: \btrue|false
-      scope: keyword.other.unit.nushell
+      scope: keyword.other.unit.nu
 
     - match: \bout>|err>|out\+err>|err\+out>
-      scope: keyword.other.redirect.nushell
+      scope: keyword.other.redirect.nu
 
   expression:
     - include: date  # Include before integer
@@ -117,7 +117,7 @@ contexts:
 
   operator:
     - match: ({{operator}})
-      scope: keyword.operator.nushell
+      scope: keyword.operator.nu
 
   date:
     - match: |-
@@ -129,15 +129,15 @@ contexts:
             (([Zz])|([\+|\-]([01]\d|2[0-3]):[0-5]\d))?
           )?
         )
-      scope: constant.date.nushell
+      scope: constant.date.nu
 
   duration:
     - match: '{{pos_decimal}}(ns|us|ms|sec|min|hr|day|wk)'
-      scope: constant.duration.nushell
+      scope: constant.duration.nu
 
   file-size:
     - match: '{{pos_decimal}}(b|kb|mb|gb|tb|pb|eb|zb|kib|mib|gib|tib|pib|eib|zib)'
-      scope: constant.file-size.nushell
+      scope: constant.file-size.nu
 
   range:
     - match: |-
@@ -146,21 +146,21 @@ contexts:
           {{number}}\.\.|
           \.\.<?{{number}}
         )
-      scope: constant.range.nushell
+      scope: constant.range.nu
 
   integer:
     - match: -?\d+(?!\.)
-      scope: constant.numeric.integer.nushell
+      scope: constant.numeric.integer.nu
 
   decimal:
     - match: '[+-]?((\d*[.])?\d+|Infinity|NaN)'
-      scope: constant.numeric.decimal.nushell
+      scope: constant.numeric.decimal.nu
 
   boolean:
     - match: 'true'
-      scope: constant.language.boolean.true.nushell
+      scope: constant.language.boolean.true.nu
     - match: 'false'
-      scope: constant.language.boolean.false.nushell
+      scope: constant.language.boolean.false.nu
 
   binary:
     - include: binary-hex
@@ -169,41 +169,41 @@ contexts:
 
   binary-hex:
     - match: 0x\[
-      scope: punctuation.definition.binary.begin.nushell
+      scope: punctuation.definition.binary.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.binary.hex.nushell
+        - meta_scope: meta.binary.hex.nu
         - include: comment
         - match: '[\da-fA-F]{1,2}'
-          scope: constant.numeric.hex.nushell
+          scope: constant.numeric.hex.nu
         - match: \]
-          scope: punctuation.definition.binary.end.nushell
+          scope: punctuation.definition.binary.end.nu
           pop: 1
 
   binary-bin:
     - match: 0b\[
-      scope: punctuation.definition.binary.begin.nushell
+      scope: punctuation.definition.binary.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.binary.bin.nushell
+        - meta_scope: meta.binary.bin.nu
         - include: comment
         - match: '[01]{1,8}'
-          scope: constant.numeric.bin.nushell
+          scope: constant.numeric.bin.nu
         - match: \]
-          scope: punctuation.definition.binary.end.nushell
+          scope: punctuation.definition.binary.end.nu
           pop: 1
 
   binary-oct:
     - match: 0o\[
-      scope: punctuation.definition.binary.begin.nushell
+      scope: punctuation.definition.binary.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.binary.oct.nushell
+        - meta_scope: meta.binary.oct.nu
         - include: comment
         - match: '[0-7]{1,3}'
-          scope: constant.numeric.oct.nushell
+          scope: constant.numeric.oct.nu
         - match: \]
-          scope: punctuation.definition.binary.end.nushell
+          scope: punctuation.definition.binary.end.nu
           pop: 1
 
   interpolated-string:
@@ -212,32 +212,32 @@ contexts:
 
   interpolated-single-quoted-string:
     - match: \$'
-      scope: punctuation.definition.string.interpolated.begin.nushell
+      scope: punctuation.definition.string.interpolated.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.string.interpolated.nushell string.interpolated.single.nushell
+        - meta_scope: meta.string.interpolated.nu string.interpolated.single.nu
         - match: \(
           push:
             - include: expression
             - match: \)
               pop: 1
         - match: \'
-          scope: punctuation.definition.string.interpolated.end.nushell
+          scope: punctuation.definition.string.interpolated.end.nu
           pop: 1
 
   interpolated-double-quoted-string:
     - match: \$"
-      scope: punctuation.definition.string.interpolated.begin.nushell
+      scope: punctuation.definition.string.interpolated.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.string.interpolated.nushell string.interpolated.double.nushell
+        - meta_scope: meta.string.interpolated.nu string.interpolated.double.nu
         - match: \(
           push:
             - include: expression
             - match: \)
               pop: 1
         - match: \"
-          scope: punctuation.definition.string.interpolated.end.nushell
+          scope: punctuation.definition.string.interpolated.end.nu
           pop: 1
         - include: double-quoted-string-content
 
@@ -249,55 +249,55 @@ contexts:
 
   literal-single-quoted-string:
     - match: \'
-      scope: punctuation.definition.string.begin.nushell
+      scope: punctuation.definition.string.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.string.nushell string.quoted.single.nushell
+        - meta_scope: meta.string.nu string.quoted.single.nu
         - match: \'
-          scope: punctuation.definition.string.end.nushell
+          scope: punctuation.definition.string.end.nu
           pop: 1
 
   literal-backtick-quoted-string:
     - match: \`
-      scope: punctuation.definition.string.begin.nushell
+      scope: punctuation.definition.string.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.string.nushell string.quoted.backtick.nushell
+        - meta_scope: meta.string.nu string.quoted.backtick.nu
         - match: \`
-          scope: punctuation.definition.string.end.nushell
+          scope: punctuation.definition.string.end.nu
           pop: 1
 
   double-quoted-string-content:
     - match: \\\n
-      scope: constant.character.escape.newline.nushell
+      scope: constant.character.escape.newline.nu
     - match: \\(?:[0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|[abefnrtv\\'"?])
-      scope: constant.character.escape.nushell
+      scope: constant.character.escape.nu
 
   literal-double-quoted-string:
     - match: \"
-      scope: punctuation.definition.string.begin.nushell
+      scope: punctuation.definition.string.begin.nu
       push:
         - meta_include_prototype: false
-        - meta_scope: meta.string.nushell string.quoted.double.nushell
+        - meta_scope: meta.string.nu string.quoted.double.nu
         - match: \"
-          scope: punctuation.definition.string.end.nushell
+          scope: punctuation.definition.string.end.nu
           pop: 1
         - include: double-quoted-string-content
 
   literal-bare-string:
     - match: (?<=[\s()\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
-      scope: string.bare.nushell
+      scope: string.bare.nu
 
   variable-keyword:
     - match: \${{var_name}}
-      scope: variable.language.nushell
+      scope: variable.language.nu
 
   assign-variable:
     - match: (alias|let|let-env)\s+(\$?{{var_name}})\s*=
-      scope: variable.nushell
+      scope: variable.nu
       captures:
-        1: keyword.other.nushell
-        2: variable.name.nushell
+        1: keyword.other.nu
+        2: variable.name.nu
       push:
         - include: expression
         - match: \n
@@ -305,28 +305,28 @@ contexts:
 
   for-variable:
     - match: (for)\s+(\$?{{var_name}})(in)
-      scope: variable.nushell
+      scope: variable.nu
       captures:
-        1: keyword.other.nushell
-        2: variable.name.nushell
-        3: keyword.other.nushell
+        1: keyword.other.nu
+        2: variable.name.nu
+        3: keyword.other.nu
 
   punctuation:
     - match: \,
-      scope: punctuation.comma.nushell
+      scope: punctuation.comma.nu
 
     - match: ;
-      scope: punctuation.semi.nushell
+      scope: punctuation.semi.nu
 
   comment:
     - match: (#)(.*)
       captures:
-        1: comment.line.number-sign.nushell
-        2: comment.line.nushell
+        1: comment.line.number-sign.nu
+        2: comment.line.nu
 
   literal-null:
     - match: \bnull\b
-      scope: constant.language.null.nushell
+      scope: constant.language.null.nu
 
   record-block:
     - match: (?=\{)
@@ -337,60 +337,60 @@ contexts:
 
   record:
     - match: '\{'
-      scope: punctuation.section.record.begin.nushell
+      scope: punctuation.section.record.begin.nu
       push:
-        - meta_scope: meta.record.nushell
+        - meta_scope: meta.record.nu
         - include: comment
         - match: \|
           fail: open-curly
         - match: '(?={{var_name}}:)'
           set:
-            - meta_scope: meta.record.nushell
+            - meta_scope: meta.record.nu
             - include: comment
             - match: '({{var_name}})(:)'
               captures:
-                1: entity.name.label.nushell
-                2: punctuation.separator.key-value.nushell
+                1: entity.name.label.nu
+                2: punctuation.separator.key-value.nu
             - include: expression
             - match: ','
-              scope: punctuation.separator.comma.nushell
+              scope: punctuation.separator.comma.nu
             - match: '\}'
-              scope: punctuation.section.record.end.nushell
+              scope: punctuation.section.record.end.nu
               pop: 2
 
   block:
     - match: '\{'
-      scope: punctuation.section.block.begin.nushell
+      scope: punctuation.section.block.begin.nu
       push:
-        - meta_scope: meta.block.nushell
+        - meta_scope: meta.block.nu
         - include: comment
         - match: \|
-          scope: punctuation.section.group.begin.nushell
+          scope: punctuation.section.group.begin.nu
           set:
-            - meta_scope: meta.block.parameters.nushell
+            - meta_scope: meta.block.parameters.nu
             - match: '{{var_name}}'
-              scope: variable.parameter.nushell
+              scope: variable.parameter.nu
             - match: \,
-              scope: punctuation.separator.parameter.command.nushell
+              scope: punctuation.separator.parameter.command.nu
             - match: \|
-              scope: punctuation.section.group.end.nushell
+              scope: punctuation.section.group.end.nu
               set:
-                - meta_scope: meta.block.nushell
+                - meta_scope: meta.block.nu
                 - include: main
                 - match: '\}'
-                  scope: punctuation.section.block.end.nushell
+                  scope: punctuation.section.block.end.nu
                   pop: 2
 
   list-table:
     - match: '\['
-      scope: punctuation.section.list-table.begin.nushell
+      scope: punctuation.section.list-table.begin.nu
       push:
-        - meta_scope: meta.list-table.nushell
+        - meta_scope: meta.list-table.nu
         - include: comment
         - match: ;
-          scope: punctuation.terminator.header.nushell
+          scope: punctuation.terminator.header.nu
         - match: '\]'
-          scope: punctuation.section.list-table.end.nushell
+          scope: punctuation.section.list-table.end.nu
           pop: 1
         - match: (?=.|$)
           push:
@@ -400,67 +400,67 @@ contexts:
 
   code-block:
     - match: '\{'
-      scope: punctuation.section.block.begin.nushell
+      scope: punctuation.section.block.begin.nu
       push:
-        - meta_scope: meta.block.nushell
+        - meta_scope: meta.block.nu
         - include: main
         - match: '\}'
-          scope: punctuation.section.block.end.nushell
+          scope: punctuation.section.block.end.nu
           pop: 2
 
   module:
     - match: \b(module)\s+
       captures:
-        1: keyword.module.nushell
+        1: keyword.module.nu
       push:
-        - meta_scope: meta.module.nushell
+        - meta_scope: meta.module.nu
         - match: \'
-          scope: entity.name.module.begin.nushell
+          scope: entity.name.module.begin.nu
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.module.nushell
+            - meta_scope: entity.name.module.nu
             - match: \'
-              scope: entity.name.module.end.nushell
+              scope: entity.name.module.end.nu
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
 
         - match: \`
-          scope: entity.name.module.begin.nushell
+          scope: entity.name.module.begin.nu
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.module.nushell
+            - meta_scope: entity.name.module.nu
             - match: \`
-              scope: entity.name.module.end.nushell
+              scope: entity.name.module.end.nu
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
 
         - match: \"
-          scope: entity.name.module.begin.nushell
+          scope: entity.name.module.begin.nu
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.module.nushell
+            - meta_scope: entity.name.module.nu
             - match: \"
-              scope: entity.name.module.end.nushell
+              scope: entity.name.module.end.nu
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
             - include: double-quoted-string-content
 
         - match: ({{var_name}})
-          scope: entity.name.module.nushell
+          scope: entity.name.module.nu
 
         - include: code-block
 
   command-parameters:
-    - meta_scope: meta.command.parameters.nushell
+    - meta_scope: meta.command.parameters.nu
     - match: \[
-      scope: punctuation.section.group.begin.nushell
+      scope: punctuation.section.group.begin.nu
       push:
         - include: command-parameter
         - match: \,
-          scope: punctuation.separator.parameter.command.nushell
+          scope: punctuation.separator.parameter.command.nu
         - include: comment
         - match: \]
-          scope: punctuation.section.group.end.nushell
+          scope: punctuation.section.group.end.nu
           pop: 2
 
   command-parameter:
@@ -474,12 +474,12 @@ contexts:
           )?
         )
       captures:
-        1: variable.parameter.nushell
-        2: keyword.operator.optional.nushell
-        3: punctuation.separator.type.nushell
-        4: storage.type.nushell
-        5: keyword.operator.completion.nushell
-        6: variable.function.completion.nushell
+        1: variable.parameter.nu
+        2: keyword.operator.optional.nu
+        3: punctuation.separator.type.nu
+        4: storage.type.nu
+        5: keyword.operator.completion.nu
+        6: variable.function.completion.nu
     - match: |-
         (?x:
           ({{long_flag}})
@@ -487,66 +487,66 @@ contexts:
           (?:(:)\s*({{type_name}}))?
         )
       captures:
-        1: variable.parameter.long.nushell
-        2: variable.parameter.short.nushell
-        3: punctuation.separator.type.nushell
-        4: storage.type.nushell
+        1: variable.parameter.long.nu
+        2: variable.parameter.short.nu
+        3: punctuation.separator.type.nu
+        4: storage.type.nu
     - match: |-
         (?x:
           ({{short_flag}})
           (?:(:)\s*({{type_name}}))?
         )
       captures:
-        1: variable.parameter.short.nushell
-        2: punctuation.separator.type.nushell
-        3: storage.type.nushell
+        1: variable.parameter.short.nu
+        2: punctuation.separator.type.nu
+        3: storage.type.nu
 
   command:
     - match: \b(def|def-env)\s+
       captures:
-        1: keyword.declaration.nushell
+        1: keyword.declaration.nu
       push:
-        - meta_scope: meta.command.nushell
+        - meta_scope: meta.command.nu
 
         - match: \'
-          scope: entity.name.command.begin.nushell
+          scope: entity.name.command.begin.nu
           push:
             - meta_include_prototype: false
-            - meta_scope: entity.name.command.nushell
+            - meta_scope: entity.name.command.nu
             - match: \'
-              scope: entity.name.command.end.nushell
+              scope: entity.name.command.end.nu
               set: command-parameters
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
               set: command-parameters
 
         - match: \`
-          scope: entity.name.command.begin.nushell
+          scope: entity.name.command.begin.nu
           push:
             - meta_include_prototype: false
-            - meta_scope: entity.name.command.nushell
+            - meta_scope: entity.name.command.nu
             - match: \`
-              scope: entity.name.command.end.nushell
+              scope: entity.name.command.end.nu
               set: command-parameters
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
               set: command-parameters
 
         - match: \"
-          scope: entity.name.command.begin.nushell
+          scope: entity.name.command.begin.nu
           push:
             - meta_include_prototype: false
-            - meta_scope: entity.name.command.nushell
+            - meta_scope: entity.name.command.nu
             - match: \"
-              scope: entity.name.command.end.nushell
+              scope: entity.name.command.end.nu
               set: command-parameters
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
               set: command-parameters
             - include: double-quoted-string-content
 
         - match: ({{var_name}})
-          scope: entity.name.command.nushell
+          scope: entity.name.command.nu
           set: command-parameters
 
         - include: code-block
@@ -554,97 +554,97 @@ contexts:
   extern:
     - match: \b(export\s+)?(extern)\s+
       captures:
-        1: keyword.extern.nushell
-        2: keyword.extern.nushell
+        1: keyword.extern.nu
+        2: keyword.extern.nu
       push:
-        - meta_scope: meta.extern.nushell
+        - meta_scope: meta.extern.nu
         - match: \'
-          scope: entity.name.extern.begin.nushell
+          scope: entity.name.extern.begin.nu
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.extern.nushell
+            - meta_scope: entity.name.extern.nu
             - match: \'
-              scope: entity.name.extern.end.nushell
+              scope: entity.name.extern.end.nu
               set: extern-parameters
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
               set: extern-parameters
 
         - match: \`
-          scope: entity.name.extern.begin.nushell
+          scope: entity.name.extern.begin.nu
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.extern.nushell
+            - meta_scope: entity.name.extern.nu
             - match: \`
-              scope: entity.name.extern.end.nushell
+              scope: entity.name.extern.end.nu
               set: extern-parameters
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
               set: extern-parameters
 
         - match: \"
-          scope: entity.name.extern.begin.nushell
+          scope: entity.name.extern.begin.nu
           set:
             - meta_include_prototype: false
-            - meta_scope: entity.name.extern.nushell
+            - meta_scope: entity.name.extern.nu
             - match: \"
-              scope: entity.name.extern.end.nushell
+              scope: entity.name.extern.end.nu
               set: extern-parameters
             - match: \n
-              scope: invalid.illegal.newline.nushell
+              scope: invalid.illegal.newline.nu
               set: extern-parameters
             - include: double-quoted-string-content
 
         - match: ({{var_name}})
-          scope: entity.name.extern.nushell
+          scope: entity.name.extern.nu
           set: extern-parameters
 
   extern-parameters:
-    - meta_scope: meta.extern.parameters.nushell
+    - meta_scope: meta.extern.parameters.nu
     - match: \[
-      scope: punctuation.section.group.begin.nushell
+      scope: punctuation.section.group.begin.nu
       push:
         - include: command-parameter
         - include: comment
         - match: \]
-          scope: punctuation.section.group.end.nushell
+          scope: punctuation.section.group.end.nu
           pop: 2
 
   function-call:
     - match: (?<=^|\s)(?:({{native_command}})|(\^?{{var_name}}))(?=\s|$)
       captures:
-        1: meta.function-call.identifier.nushell support.function.nushell
-        2: meta.function-call.identifier.nushell variable.function.nushell
+        1: meta.function-call.identifier.nu support.function.nu
+        2: meta.function-call.identifier.nu variable.function.nu
       push:
-        - meta_content_scope: meta.function-call.arguments.nushell
+        - meta_content_scope: meta.function-call.arguments.nu
         - match: (?=\s*[#)\]}|]|\s*$)
           pop: 1
         - include: expression
     - match: \(
-      scope: punctuation.section.group.begin.nushell
+      scope: punctuation.section.group.begin.nu
       push:
         - include: comment
         - match: (?<=^|\s)(?:({{native_command}})|(\^?{{var_name}}))(?=\s|$)
           captures:
-            1: meta.function-call.identifier.nushell support.function.nushell
-            2: meta.function-call.identifier.nushell variable.function.nushell
+            1: meta.function-call.identifier.nu support.function.nu
+            2: meta.function-call.identifier.nu variable.function.nu
           push:
-            - meta_content_scope: meta.function-call.arguments.nushell
+            - meta_content_scope: meta.function-call.arguments.nu
             - include: comment
             - match: \)
-              scope: punctuation.section.group.end.nushell
+              scope: punctuation.section.group.end.nu
               pop: 2
             - include: expression
 
   where-call:
     - match: (?<=^|\s)(where)(?=\s|$)
       captures:
-        1: meta.function-call.identifier.nushell support.function.nushell
+        1: meta.function-call.identifier.nu support.function.nu
       push:
-        - meta_content_scope: meta.function-call.arguments.nushell
+        - meta_content_scope: meta.function-call.arguments.nu
         - match: \s+({{var_name}})?
           captures:
-            1: variable.name.nushell
+            1: variable.name.nu
           push:
             - match: (?=\s*[#)\]}|]|\s*$)
               pop: 2
