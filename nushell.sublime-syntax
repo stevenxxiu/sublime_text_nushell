@@ -169,11 +169,11 @@ contexts:
       scope: constant.range.nu
 
   integer:
-    - match: -?\d+(?!\.)
+    - match: -?\d+(?!\.)(?=[^\w\.]|$)
       scope: constant.numeric.integer.nu
 
   decimal:
-    - match: '[+-]?((\d*[.])?\d+|Infinity|NaN)'
+    - match: '[+-]?(((\d*\.)?\d+|Infinity|NaN)(?=[^\w\.]|$))'
       scope: constant.numeric.decimal.nu
 
   boolean:

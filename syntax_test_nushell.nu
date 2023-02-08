@@ -24,6 +24,9 @@ let a = 1
 let a = -65535
 #       ^^^^^^ constant.numeric.integer.nu
 
+let a = 1a
+#       ^^ string.bare.nu
+
 ##
 # Operator
 ##
@@ -44,18 +47,24 @@ let a = +9.9999
 #       ^^^^^^ constant.numeric.decimal.nu
 let a = -9.9999
 #       ^^^^^^ constant.numeric.decimal.nu
+let a = -9.9999a
+#       ^^^^^^^^ string.bare.nu
 let a = Infinity
 #       ^^^^^^^^ constant.numeric.decimal.nu
 let a = +Infinity
 #       ^^^^^^^^^ constant.numeric.decimal.nu
 let a = -Infinity
 #       ^^^^^^^^^ constant.numeric.decimal.nu
+let a = Infinitya
+#       ^^^^^^^^^ string.bare.nu
 let a = NaN
 #       ^^^ constant.numeric.decimal.nu
 let a = +NaN
 #       ^^^^ constant.numeric.decimal.nu
 let a = -NaN
 #       ^^^^ constant.numeric.decimal.nu
+let a = NaNa
+#       ^^^^ string.bare.nu
 
 ##
 # Boolean
