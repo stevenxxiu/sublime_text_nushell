@@ -25,6 +25,7 @@ variables:
   operator: |-
     (?x:
       \+|-|\*|/|//|\*\*|==|!=|<|<=|>|>=|=~|!~|&&|\|\||\+\+|
+      \||
       \b(and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor)\b
     )
   native_command: |-
@@ -98,6 +99,23 @@ contexts:
       scope: keyword.other.redirect.nu
 
   expression:
+    - include: subexpression
+    - include: expression-content
+
+  subexpression:
+    - match: \(
+      scope: punctuation.section.group.begin.nu
+      push:
+        - meta_scope: meta.group.nu
+        - include: comment
+        - include: where-call
+        - include: function-call-inline
+        - include: expression-content
+        - match: \)
+          scope: punctuation.section.group.end.nu
+          pop: 1
+
+  expression-content:
     - include: date  # Include before integer
     - include: duration  # Include before integer
     - include: binary  # Include before file-size
@@ -216,11 +234,7 @@ contexts:
       push:
         - meta_include_prototype: false
         - meta_scope: meta.string.interpolated.nu string.interpolated.single.nu
-        - match: \(
-          push:
-            - include: expression
-            - match: \)
-              pop: 1
+        - include: subexpression
         - match: \'
           scope: punctuation.definition.string.interpolated.end.nu
           pop: 1
@@ -231,11 +245,7 @@ contexts:
       push:
         - meta_include_prototype: false
         - meta_scope: meta.string.interpolated.nu string.interpolated.double.nu
-        - match: \(
-          push:
-            - include: expression
-            - match: \)
-              pop: 1
+        - include: subexpression
         - match: \"
           scope: punctuation.definition.string.interpolated.end.nu
           pop: 1
@@ -617,27 +627,24 @@ contexts:
         2: meta.function-call.identifier.nu variable.function.nu
       push:
         - meta_content_scope: meta.function-call.arguments.nu
-        - match: (?=\s*[#)\]}|]|\s*$)
+        - match: (?=\s*[#\]}|]|\s*$)
           pop: 1
         - include: expression
-    - match: \(
-      scope: punctuation.section.group.begin.nu
+
+  function-call-inline:
+    - match: (?:({{native_command}})|(\^?{{var_name}}))(?=\s|$)
+      captures:
+        1: meta.function-call.identifier.nu support.function.nu
+        2: meta.function-call.identifier.nu variable.function.nu
       push:
+        - meta_content_scope: meta.function-call.arguments.nu
+        - match: (?=[)\]|])
+          pop: 1
         - include: comment
-        - match: (?<=^|\s)(?:({{native_command}})|(\^?{{var_name}}))(?=\s|$)
-          captures:
-            1: meta.function-call.identifier.nu support.function.nu
-            2: meta.function-call.identifier.nu variable.function.nu
-          push:
-            - meta_content_scope: meta.function-call.arguments.nu
-            - include: comment
-            - match: \)
-              scope: punctuation.section.group.end.nu
-              pop: 2
-            - include: expression
+        - include: expression
 
   where-call:
-    - match: (?<=^|\s)(where)(?=\s|$)
+    - match: (?<=^|[(\s])(where)(?=\s|$)
       captures:
         1: meta.function-call.identifier.nu support.function.nu
       push:

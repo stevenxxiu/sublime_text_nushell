@@ -29,7 +29,10 @@ let a = -65535
 ##
 let a = 3 * (1 + 2)
 #         ^ keyword.operator.nu
+#           ^ meta.group.nu punctuation.section.group.begin.nu
 #              ^ keyword.operator.nu
+#                ^ meta.group.nu constant.numeric.integer.nu
+#                 ^ meta.group.nu punctuation.section.group.end.nu
 
 ##
 # Decimal
@@ -401,11 +404,11 @@ roll down
 (
 # <- punctuation.section.group.begin.nu
   func
-# ^^^^ meta.function-call.identifier.nu variable.function.nu
+# ^^^^ meta.group.nu meta.function-call.identifier.nu variable.function.nu
   foo
-# ^^^ meta.function-call.arguments.nu string.bare.nu
+# ^^^ meta.group.nu meta.function-call.arguments.nu string.bare.nu
   1
-# ^ meta.function-call.arguments.nu constant.numeric.integer.nu
+# ^ meta.group.nu meta.function-call.arguments.nu constant.numeric.integer.nu
 )
 # <- punctuation.section.group.end.nu
 
@@ -414,3 +417,19 @@ where size > 10kb
 #     ^^^^ meta.function-call.arguments.nu variable.name.nu
 #          ^ meta.function-call.arguments.nu keyword.operator.nu
 #            ^^^^ meta.function-call.arguments.nu constant.file-size.nu
+
+##
+# Subexpressions
+##
+(col b | min | as "b_min")
+# <- punctuation.section.group.begin.nu
+# ^^ meta.function-call.identifier.nu support.function.nu
+#    ^ string.bare.nu
+#      ^ keyword.operator.nu
+#        ^^^ meta.function-call.identifier.nu support.function.nu
+#            ^ keyword.operator.nu
+#              ^^ meta.function-call.identifier.nu support.function.nu
+#                 ^ meta.function-call.arguments.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.begin.nu
+#                  ^^^^^ meta.function-call.arguments.nu meta.string.nu string.quoted.double.nu
+#                       ^ meta.function-call.arguments.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
+#                        ^ punctuation.section.group.end.nu
