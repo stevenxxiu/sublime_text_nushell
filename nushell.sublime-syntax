@@ -24,8 +24,10 @@ variables:
   bare_string: '[^\s#$(),;=\[\]{|}]+'
   operator: |-
     (?x:
-      \+|-|\*|/|//|\*\*|==|!=|<|<=|>|>=|=~|!~|&&|\|\||\+\+|
-      \||
+      (?<=^|\s)(?:
+        \+|-|\*|/|//|\*\*|==|!=|<|<=|>|>=|=~|!~|&&|\|\||\+\+|
+        \|
+      )(?=\s|$)|
       \b(and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor)\b
     )
   native_command: |-

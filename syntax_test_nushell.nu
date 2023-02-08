@@ -393,10 +393,12 @@ extern "aaa\x12bbb" [
 # Function Call
 ##
 
-func foo 1
+func foo -a --bar 1
 # <- meta.function-call.identifier.nu variable.function.nu
 #    ^^^ meta.function-call.arguments.nu string.bare.nu
-#        ^ meta.function-call.arguments.nu constant.numeric.integer.nu
+#        ^^ meta.function-call.arguments.nu string.bare.nu
+#           ^^^^^ meta.function-call.arguments.nu string.bare.nu
+#                 ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 
 roll down
 # ^^^^^^^ meta.function-call.identifier.nu support.function.nu
