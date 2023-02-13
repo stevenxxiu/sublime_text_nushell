@@ -332,7 +332,7 @@ let a = $b
 # Block
 ##
 
-each { |aaa, bbb| aaa }
+each { |aaa, bbb| print $aaa }
 # <- support.function.nu
 #    ^ meta.block.nu punctuation.section.block.begin.nu
 #      ^ meta.block.nu meta.block.parameters.nu
@@ -346,6 +346,18 @@ loop { break }
 #    ^ meta.block.nu punctuation.section.block.begin.nu
 #      ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
 #            ^ meta.block.nu
+
+##
+# For loop
+##
+for i in 1..10 { print $i }
+# <- variable.nu keyword.other.nu
+#   ^ variable.nu variable.name.nu
+#        ^^^^^ constant.range.nu
+#              ^ meta.block.nu punctuation.section.block.begin.nu
+#                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
+#                      ^^ meta.block.nu meta.function-call.arguments.nu variable.language.nu
+#                         ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Module

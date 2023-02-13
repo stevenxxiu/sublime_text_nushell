@@ -316,7 +316,7 @@ contexts:
           pop: 1
 
   for-variable:
-    - match: (for)\s+(\$?{{var_name}})(in)
+    - match: (for)\s+(\$?{{var_name}})\s+(in)
       scope: variable.nu
       captures:
         1: keyword.other.nu
@@ -373,6 +373,7 @@ contexts:
                   pop: 2
         - include: main
         - match: '\}'
+          scope: punctuation.section.block.end.nu
           pop: 2
 
   record:
