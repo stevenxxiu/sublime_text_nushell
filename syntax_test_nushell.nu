@@ -12,6 +12,10 @@
 foo # Foo
 #   ^ comment.line
 
+##
+# Variable
+##
+
 $var
 # <- variable.other.nu
 
@@ -19,6 +23,27 @@ $df.prop
 # <- variable.other.nu
 #  ^ punctuation.accessor.nu
 #   ^^^^ meta.property.record.nu
+
+let a = 1; mut b = 2; # Foo
+# <- keyword.other.nu
+#   ^ variable.name.nu
+#     ^ keyword.operator.assignment.nu
+#       ^ constant.numeric.integer.nu
+#        ^ punctuation.semi.nu
+#          ^^^ keyword.other.nu
+#              ^ variable.name.nu
+#                ^ keyword.operator.assignment.nu
+#                  ^ constant.numeric.integer.nu
+#                   ^ punctuation.semi.nu
+#                     ^^^^^ comment.line
+
+{ let a = 1 }
+# <- meta.block.nu punctuation.section.block.begin.nu
+# ^^^ meta.block.nu keyword.other.nu
+#     ^ meta.block.nu variable.name.nu
+#       ^ meta.block.nu keyword.operator.assignment.nu
+#         ^ meta.block.nu constant.numeric.integer.nu
+#           ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Integer

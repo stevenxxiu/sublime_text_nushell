@@ -373,14 +373,14 @@ contexts:
         3: meta.property.record.nu
 
   assign-variable:
-    - match: (alias|let|let-env)\s+(\$?{{var_name}})\s*=
-      scope: variable.nu
+    - match: (alias|let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
       captures:
         1: keyword.other.nu
         2: variable.name.nu
+        3: keyword.operator.assignment.nu
       push:
         - include: expression
-        - match: \n
+        - match: (?=.|$)
           pop: 1
 
   for-variable:
