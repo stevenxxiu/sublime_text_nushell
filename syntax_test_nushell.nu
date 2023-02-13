@@ -49,9 +49,9 @@ let a = 3 * (1 + 2)
 let a = 9.9999
 #       ^^^^^^ constant.numeric.decimal.nu
 let a = +9.9999
-#       ^^^^^^ constant.numeric.decimal.nu
+#       ^^^^^^^ constant.numeric.decimal.nu
 let a = -9.9999
-#       ^^^^^^ constant.numeric.decimal.nu
+#       ^^^^^^^ constant.numeric.decimal.nu
 let a = -9.9999a
 #       ^^^^^^^^ string.bare.nu
 let a = Infinity
