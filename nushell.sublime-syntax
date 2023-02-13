@@ -588,9 +588,10 @@ contexts:
         3: storage.type.nu
 
   command:
-    - match: \b(def|def-env)\s+
+    - match: \b(export\s+)?(def|def-env)\s+
       captures:
         1: keyword.declaration.nu
+        2: keyword.declaration.nu
       push:
         - meta_scope: meta.command.nu
 
