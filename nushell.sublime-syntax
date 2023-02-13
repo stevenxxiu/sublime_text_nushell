@@ -221,7 +221,7 @@ contexts:
       scope: constant.duration.nu
 
   file-size:
-    - match: '{{pos_decimal}}(b|kb|mb|gb|tb|pb|eb|zb|kib|mib|gib|tib|pib|eib|zib)'
+    - match: '(?i){{pos_decimal}}(b|kb|mb|gb|tb|pb|eb|zb|kib|mib|gib|tib|pib|eib|zib)'
       scope: constant.file-size.nu
 
   range:
