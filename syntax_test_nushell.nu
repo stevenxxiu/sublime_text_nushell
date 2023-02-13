@@ -342,9 +342,9 @@ each { |aaa, bbb| print $aaa }
 #               ^ meta.block.parameters.nu
 
 loop { break }
-# <- meta.function-call.identifier.nu support.function.nu
+# <- meta.function-call.identifier.nu keyword.other.nu
 #    ^ meta.block.nu punctuation.section.block.begin.nu
-#      ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
+#      ^^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
 #            ^ meta.block.nu
 
 ##

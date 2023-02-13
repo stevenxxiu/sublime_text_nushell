@@ -30,47 +30,112 @@ variables:
       )(?=\s|$)|
       \b(and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor)\b
     )
+  core_native_command: |-
+    (?x:
+      alias|ast|break|commandline|const|continue|debug|def|def-env|describe|do|du|echo|error\ make|export\ alias|
+      export\ def|export\ def-env|export\ extern|export\ use|extern|for|help\ aliases|help\ commands|help\ modules|
+      help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|metadata|module|mut|overlay\ hide|overlay\ list|
+      overlay\ new|overlay\ use|register|return|source|source-env|try|use|view-source|while
+    )
   native_command: |-
     (?x:
-      agg|agg-groups|alias|all|all-false|all-true|ansi\sgradient|ansi\sstrip|ansi|any|append|arg-max|arg-min|arg-sort|
-      arg-true|arg-unique|arg-where|as|as-date|as-datetime|ast|benchmark|bits\sand|bits\snot|bits\sor|bits\srol|
-      bits\sror|bits\sshl|bits\sshr|bits\sxor|bits|break|bytes\sadd|bytes\sat|bytes\sbuild|bytes\scollect|
-      bytes\sends-with|bytes\sindex-of|bytes\slength|bytes\sremove|bytes\sreplace|bytes\sreverse|bytes\sstarts-with|
-      bytes|cache|cal|cd|char|clear|col|collect|columns|commandline|compact|complete|concat-str|concatenate|config\senv|
-      config\snu|config\sreset|config|const|contains|continue|count|count-null|cp|cumulative|date\sformat|
-      date\shumanize|date\slist-timezone|date\snow|date\sto-record|date\sto-table|date\sto-timezone|date|debug|
-      decode\sbase64|decode|def|def-env|default|describe|detect\scolumns|df-not|do|drop\scolumn|drop\snth|drop|
-      drop-duplicates|drop-nulls|dtypes|du|dummies|each\swhile|each|echo|encode\sbase64|encode|enter|env|error\smake|
-      every|exec|exit|explode|explore|export\salias|export\sdef|export\sdef-env|export\sextern|export\suse|export|
-      export-env|expr-not|extern|fetch|fill-nan|fill-null|filter|filter-with|find|first|flatten|fmt|for|
-      format\sfilesize|format|from\scsv|from\seml|from\sics|from\sini|from\sjson|from\snuon|from\sods|from\sssv|
-      from\stoml|from\stsv|from\surl|from\svcf|from\sxlsx|from\sxml|from\syaml|from\syml|from|g|get|get-day|get-hour|
-      get-minute|get-month|get-nanosecond|get-ordinal|get-second|get-week|get-weekday|get-year|glob|grid|group|group-by|
-      gstat|hash\sbase64|hash\smd5|hash\ssha256|hash|headers|help\soperators|help|hide|hide-env|histogram|
-      history\ssession|history|if|ignore|inc|input|insert|into\sbinary|into\sbool|into\sdatetime|into\sdecimal|into\sdf|
-      into\sduration|into\sfilesize|into\sint|into\slazy|into\snu|into\srecord|into\ssqlite|into\sstring|into|is-admin|
-      is-duplicated|is-empty|is-in|is-not-null|is-null|is-unique|join|keybindings\sdefault|keybindings\slist|
-      keybindings\slisten|keybindings|kill|last|length|let|let-env|lines|list|lit|load-env|loop|lowercase|ls|ls-df|
-      math\sabs|math\sarccos|math\sarccosh|math\sarcsin|math\sarcsinh|math\sarctan|math\sarctanh|math\savg|math\sceil|
-      math\scos|math\scosh|math\se|math\seval|math\sfloor|math\sln|math\slog|math\smax|math\smedian|math\smin|
-      math\smode|math\spi|math\sproduct|math\sround|math\ssin|math\ssinh|math\ssqrt|math\sstddev|math\ssum|math\stan|
-      math\stanh|math\stau|math\svariance|math|max|mean|median|melt|merge|metadata|min|mkdir|module|move|mut|mv|n|
-      n-unique|nu-check|nu-highlight|open|open-df|otherwise|overlay\shide|overlay\slist|overlay\snew|overlay\suse|
-      overlay|p|par-each|parse|path\sbasename|path\sdirname|path\sexists|path\sexpand|path\sjoin|path\sparse|
-      path\srelative-to|path\ssplit|path\stype|path|port|post|prepend|print|ps|quantile|query\sdb|query\sdf|query\sjson|
-      query\sweb|query\sxml|query|random\sbool|random\schars|random\sdecimal|random\sdice|random\sinteger|random\suuid|
-      random|range|reduce|register|reject|rename|replace|replace-all|return|reverse|rm|roll\sdown|roll\sleft|
-      roll\sright|roll\sup|roll|rolling|rotate|run-external|sample|save|schema|select|seq\schar|seq\sdate|seq|set|
-      set-with-idx|shape|shells|shift|shuffle|size|skip\suntil|skip\swhile|skip|sleep|slice|sort|sort-by|source|
-      source-env|split\schars|split\scolumn|split\slist|split\srow|split\swords|split|split-by|std|str\scamel-case|
-      str\scapitalize|str\scollect|str\scontains|str\sdistance|str\sdowncase|str\sends-with|str\sfind-replace|
-      str\sindex-of|str\sjoin|str\skebab-case|str\slength|str\slpad|str\spascal-case|str\sreplace|str\sreverse|
-      str\srpad|str\sscreaming-snake-case|str\ssnake-case|str\sstarts-with|str\ssubstring|str\stitle-case|
-      str\sto-datetime|str\sto-decimal|str\sto-int|str\strim|str\supcase|str|str-lengths|str-slice|strftime|sum|summary|
-      sys|table|take\suntil|take\swhile|take|term\ssize|to\sarrow|to\scsv|to\shtml|to\sjson|to\smd|to\snuon|to\sparquet|
-      to\stext|to\stoml|to\stsv|to\surl|to\sxml|to\syaml|to|touch|transpose|try|tutor|uniq|uniq-by|unique|update\scells|
-      update|uppercase|upsert|url\sparse|url|use|value-counts|values|var|version|view-source|watch|when|where|which|
-      while|window|with-column|with-env|wrap|zip
+      # bits
+      bits\ and|bits\ not|bits\ or|bits\ rol|bits\ ror|bits\ shl|bits\ shr|bits\ xor|
+      # bytes
+      bytes\ add|bytes\ at|bytes\ build|bytes\ collect|bytes\ ends-with|bytes\ index-of|bytes\ length|bytes\ remove|
+      bytes\ replace|bytes\ reverse|bytes\ starts-with|
+      # conversions
+      fmt|into\ binary|into\ bool|into\ datetime|into\ duration|into\ filesize|into\ int|into\ record|into\ sqlite|
+      into\ string|
+      # database
+      query\ db|schema|
+      # dataframe
+      all-false|all-true|arg-max|arg-min|arg-sort|arg-true|arg-unique|as-date|as-datetime|concatenate|contains|
+      count-null|cumulative|df-not|drop-duplicates|drop-nulls|dtypes|dummies|get-day|get-hour|get-minute|get-month|
+      get-nanosecond|get-ordinal|get-second|get-week|get-weekday|get-year|into\ df|is-duplicated|is-unique|lowercase|
+      ls-df|melt|open-df|query\ df|replace|replace-all|rolling|sample|set|set-with-idx|shape|slice|str-lengths|
+      str-slice|strftime|summary|to\ arrow|to\ parquet|uppercase|value-counts|
+      # dataframe expression
+      into\ nu|is-in|is-not-null|is-null|n-unique|
+      # dataframe expression filters
+      first|last|
+      # dataframe filters
+      append|columns|get|
+      # dataframe formats
+      to\ csv|
+      # dataframe or lazyframe
+      filter-with|shift|unique|with-column|
+      # dataframe or lazyframe filters
+      rename|
+      # date
+      date\ format|date\ humanize|date\ list-timezone|date\ now|date\ to-record|date\ to-table|date\ to-timezone|
+      # default
+      hash\ md5|hash\ sha256|histogram|inc|into\ decimal|path\ basename|path\ dirname|path\ exists|path\ expand|
+      path\ join|path\ parse|path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|
+      str\ upcase|transpose|version|
+      # default lazyframe
+      group-by|
+      # deprecated
+      hash\ base64|math\ eval|str\ collect|str\ find-replace|str\ to-datetime|str\ to-decimal|str\ to-int|
+      # env
+      config\ env|config\ nu|config\ reset|env|export-env|let-env|with-env|
+      # experimental
+      from\ nuon|to\ nuon|
+      # expression
+      agg-groups|arg-where|as|col|concat-str|count|explode|expr-not|list|lit|otherwise|when|
+      # expression filters
+      flatten|
+      # expression lazyframe
+      max|mean|median|min|quantile|std|sum|var|
+      # filesystem
+      cd|cp|glob|load-env|ls|mkdir|mv|open|rm|save|start|touch|watch|
+      # filters
+      all|any|compact|default|drop\ column|drop\ nth|each\ while|enumerate|every|find|group|headers|insert|is-empty|
+      length|lines|merge|move|par-each|prepend|query\ json|query\ xml|range|reject|roll\ down|roll\ left|roll\ right|
+      roll\ up|rotate|shuffle|skip\ until|skip\ while|sort|split\ list|take\ until|take\ while|uniq|uniq-by|
+      update\ cells|upsert|values|where|window|wrap|zip|
+      # filters lazyframe
+      collect|filter|reverse|select|sort-by|
+      # formats
+      from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|from\ tsv|from\ url|from\ vcf|
+      from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ html|to\ json|to\ md|to\ text|to\ toml|to\ tsv|to\ xml|to\ yaml|
+      # generators
+      cal|seq\ char|seq\ date|
+      # hash
+      decode\ base64|encode\ base64|
+      # lazyframe
+      agg|cache|fetch|fill-nan|fill-null|into\ lazy|join|
+      # math
+      math\ abs|math\ arccos|math\ arccosh|math\ arcsin|math\ arcsinh|math\ arctan|math\ arctanh|math\ avg|math\ ceil|
+      math\ cos|math\ cosh|math\ e|math\ floor|math\ ln|math\ log|math\ max|math\ median|math\ min|math\ mode|math\ pi|
+      math\ product|math\ round|math\ sin|math\ sinh|math\ sqrt|math\ stddev|math\ sum|math\ tan|math\ tanh|math\ tau|
+      math\ variance|
+      # misc
+      history\ session|tutor|
+      # network
+      http\ get|http\ post|port|query\ web|url\ build-query|url\ join|url\ parse|
+      # platform
+      ansi\ gradient|ansi\ link|ansi\ strip|clear|input|keybindings\ default|keybindings\ list|keybindings\ listen|kill|
+      sleep|term\ size|
+      # prompt
+      gstat|
+      # random
+      random\ bool|random\ chars|random\ decimal|random\ dice|random\ integer|random\ uuid|
+      # shells
+      enter|exit|g|n|p|shells|
+      # strings
+      char|detect\ columns|format\ filesize|nu-check|nu-highlight|parse|print|size|split\ chars|split\ column|
+      split\ row|split\ words|str\ camel-case|str\ capitalize|str\ contains|str\ distance|str\ downcase|str\ ends-with|
+      str\ index-of|str\ join|str\ kebab-case|str\ length|str\ lpad|str\ pascal-case|str\ replace|str\ reverse|
+      str\ rpad|str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ title-case|url\ encode|
+      # system
+      benchmark|complete|exec|ps|run-external|sys|which|
+      # viewers
+      explore|grid|table|
+
+      # Commands with subcommands
+      ansi|bits|bytes|config|date|decode|detect|drop|each|encode|error|export|format|from|hash|help|history|http|into|
+      keybindings|math|overlay|path|query|random|roll|seq|skip|split|str|take|term|to|update|url
     )
 
 contexts:
@@ -629,10 +694,11 @@ contexts:
           pop: 2
 
   function-call:
-    - match: (?<=^|\s)(?:({{native_command}})|(\^?{{var_name}}))(?=\s|$)
+    - match: (?<=^|\s)(?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=\s|$)
       captures:
-        1: meta.function-call.identifier.nu support.function.nu
-        2: meta.function-call.identifier.nu variable.function.nu
+        1: meta.function-call.identifier.nu keyword.other.nu
+        2: meta.function-call.identifier.nu support.function.nu
+        3: meta.function-call.identifier.nu variable.function.nu
       push:
         - meta_content_scope: meta.function-call.arguments.nu
         - match: (?=\s*[#\]{}|]|\s*$)
@@ -640,10 +706,11 @@ contexts:
         - include: expression
 
   function-call-inline:
-    - match: (?:({{native_command}})|(\^?{{var_name}}))(?=\s|$)
+    - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=\s|$)
       captures:
-        1: meta.function-call.identifier.nu support.function.nu
-        2: meta.function-call.identifier.nu variable.function.nu
+        1: meta.function-call.identifier.nu keyword.other.nu
+        2: meta.function-call.identifier.nu support.function.nu
+        3: meta.function-call.identifier.nu variable.function.nu
       push:
         - meta_content_scope: meta.function-call.arguments.nu
         - match: (?=[)\]|])
