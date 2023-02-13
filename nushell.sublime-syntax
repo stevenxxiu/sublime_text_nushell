@@ -151,7 +151,7 @@ contexts:
     - include: extern
     - include: where-call
     - include: function-call
-    - include: variable-keyword
+    - include: variable
     - include: expression
 
   keyword:
@@ -198,7 +198,7 @@ contexts:
     - include: interpolated-string
     - include: string  # Include last to avoid conflicts
 
-    - include: variable-keyword
+    - include: variable
 
   operator:
     - match: ({{operator}})
@@ -365,9 +365,12 @@ contexts:
     - match: (?<=[\s(),\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
       scope: string.bare.nu
 
-  variable-keyword:
-    - match: \${{var_name}}
-      scope: variable.language.nu
+  variable:
+    - match: (\${{var_name}})(?:(\.)({{var_name}}))?
+      captures:
+        1: variable.other.nu
+        2: punctuation.accessor.nu
+        3: meta.property.record.nu
 
   assign-variable:
     - match: (alias|let|let-env)\s+(\$?{{var_name}})\s*=

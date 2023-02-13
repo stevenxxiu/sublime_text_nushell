@@ -13,7 +13,12 @@ foo # Foo
 #   ^ comment.line
 
 $var
-# <- variable.language.nu
+# <- variable.other.nu
+
+$df.prop
+# <- variable.other.nu
+#  ^ punctuation.accessor.nu
+#   ^^^^ meta.property.record.nu
 
 ##
 # Integer
@@ -318,15 +323,15 @@ let a = foo
 let a = $"($it.name) is ($it.size)"
 #       ^^ meta.string.interpolated.nu string.interpolated.double.nu punctuation.definition.string.interpolated.begin.nu
 #         ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.interpolated.nu string.interpolated.double.nu
-#          ^^^ variable.language.nu
-#                        ^^^ variable.language.nu
+#          ^^^ variable.other.nu
+#                        ^^^ variable.other.nu
 
 ##
 # Variable keyword
 ##
 
 let a = $b
-#       ^^ variable.language.nu
+#       ^^ variable.other.nu
 
 ##
 # Block
@@ -356,7 +361,7 @@ for i in 1..10 { print $i }
 #        ^^^^^ constant.range.nu
 #              ^ meta.block.nu punctuation.section.block.begin.nu
 #                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
-#                      ^^ meta.block.nu meta.function-call.arguments.nu variable.language.nu
+#                      ^^ meta.block.nu meta.function-call.arguments.nu variable.other.nu
 #                         ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
