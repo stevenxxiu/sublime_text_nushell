@@ -28,9 +28,9 @@ variables:
     (?x:
       (?<=^|\s)(?:
         \+|-|\*|/|//|\*\*|==|!=|<|<=|>|>=|=~|!~|&&|\|\||\+\+|
-        \|
-      )(?=\s|$)|
-      \b(and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor)\b
+        \||
+        and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor
+      )(?=\s|$)
     )
   core_native_command: |-
     (?x:
