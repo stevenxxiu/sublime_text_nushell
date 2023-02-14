@@ -232,6 +232,53 @@ let a = 0o[
 
 let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
+  "k\x01": 1 # Foo
+# ^ meta.record.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.begin.nu
+#   ^^^^ constant.character.escape.nu
+#       ^ meta.record.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
+#        ^ meta.record.nu punctuation.separator.key-value.nu
+#          ^ meta.record.nu constant.numeric.integer.nu
+#            ^ comment.line
+}
+# <- meta.record.nu punctuation.section.record.end.nu
+
+let a = {
+#       ^ meta.record.nu punctuation.section.record.begin.nu
+  'k': 1 # Foo
+# ^ meta.record.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#   ^ meta.record.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.end.nu
+#    ^ meta.record.nu punctuation.separator.key-value.nu
+#      ^ meta.record.nu constant.numeric.integer.nu
+#        ^ comment.line
+}
+# <- meta.record.nu punctuation.section.record.end.nu
+
+let a = {
+#       ^ meta.record.nu punctuation.section.record.begin.nu
+  `k`: 1 # Foo
+# ^ meta.record.nu meta.string.nu string.quoted.backtick.nu punctuation.definition.string.begin.nu
+#   ^ meta.record.nu meta.string.nu string.quoted.backtick.nu punctuation.definition.string.end.nu
+#    ^ meta.record.nu punctuation.separator.key-value.nu
+#      ^ meta.record.nu constant.numeric.integer.nu
+#        ^ comment.line
+}
+# <- meta.record.nu punctuation.section.record.end.nu
+
+let a = {
+#       ^ meta.record.nu punctuation.section.record.begin.nu
+  k1: v1
+# ^^ meta.record.nu entity.name.label.nu
+#   ^ meta.record.nu punctuation.separator.key-value.nu
+#     ^^ meta.record.nu string.bare.nu
+  k2: v2
+# ^^ meta.record.nu entity.name.label.nu
+#   ^ meta.record.nu punctuation.separator.key-value.nu
+#     ^^ meta.record.nu string.bare.nu
+}
+# <- meta.record.nu punctuation.section.record.end.nu
+
+let a = {
+#       ^ meta.record.nu punctuation.section.record.begin.nu
   # Foo
 # ^^^^^ comment.line
   k1: { k2: v1 } # Foo
@@ -247,7 +294,25 @@ let a = {
 # <- meta.record.nu punctuation.section.record.end.nu
 
 let a = {k1: 1, k2: 2}
+#       ^ meta.record.nu punctuation.section.record.begin.nu
+#        ^^ meta.record.nu entity.name.label.nu
+#          ^ meta.record.nu punctuation.separator.key-value.nu
+#            ^ meta.record.nu constant.numeric.integer.nu
 #             ^ meta.record.nu punctuation.separator.comma.nu
+#               ^^ meta.record.nu entity.name.label.nu
+#                 ^ meta.record.nu punctuation.separator.key-value.nu
+#                   ^ meta.record.nu constant.numeric.integer.nu
+#                    ^ meta.record.nu punctuation.section.record.end.nu
+
+let a = {k1: 1 k2: 2}
+#       ^ meta.record.nu punctuation.section.record.begin.nu
+#        ^^ meta.record.nu entity.name.label.nu
+#          ^ meta.record.nu punctuation.separator.key-value.nu
+#            ^ meta.record.nu constant.numeric.integer.nu
+#              ^^ meta.record.nu entity.name.label.nu
+#                ^ meta.record.nu punctuation.separator.key-value.nu
+#                  ^ meta.record.nu constant.numeric.integer.nu
+#                   ^ meta.record.nu punctuation.section.record.end.nu
 
 ##
 # List

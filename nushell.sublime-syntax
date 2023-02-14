@@ -21,6 +21,8 @@ variables:
   const_str: '[A-Za-z\d\-_]+'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
+  double_quoted_string_escape: '\\([0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|[abefnrtv\\''"?])'
+  quoted_string: '''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
   bare_string: '[^\s#$();\[\]{|}][^\s#$();\[\]|]*'
   bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
   operator: |-
@@ -355,7 +357,7 @@ contexts:
   double-quoted-string-content:
     - match: \\\n
       scope: constant.character.escape.newline.nu
-    - match: \\(?:[0-7]{3}|x\h{2}|u\h{4}|\U\h{8}|[abefnrtv\\'"?])
+    - match: '{{double_quoted_string_escape}}'
       scope: constant.character.escape.nu
 
   literal-double-quoted-string:
@@ -433,7 +435,7 @@ contexts:
       push:
         - meta_scope: meta.block.nu
         - include: comment
-        - match: '(?={{var_name}}:)'
+        - match: '(?=({{var_name}}|{{quoted_string}}):)'
           fail: open-curly
         - match: \|
           scope: punctuation.section.group.begin.nu
@@ -462,20 +464,22 @@ contexts:
       push:
         - meta_scope: meta.record.nu
         - include: comment
-        - match: '(?={{var_name}}:)'
-          set:
-            - meta_scope: meta.record.nu
-            - include: comment
-            - match: '({{var_name}})(:)'
-              captures:
-                1: entity.name.label.nu
-                2: punctuation.separator.key-value.nu
-            - match: ','
-              scope: punctuation.separator.comma.nu
-            - include: expression-record-list-table
-            - match: '\}'
-              scope: punctuation.section.record.end.nu
-              pop: 2
+        - match: '({{var_name}})(:)'
+          captures:
+            1: entity.name.label.nu
+            2: punctuation.separator.key-value.nu
+        - match: (?=({{quoted_string}}):)
+          push:
+            - include: string
+            - match: ':'
+              scope: punctuation.separator.key-value.nu
+              pop: 1
+        - include: expression-record-list-table
+        - match: ','
+          scope: punctuation.separator.comma.nu
+        - match: '\}'
+          scope: punctuation.section.record.end.nu
+          pop: 2
 
   list-table:
     - match: '\['
