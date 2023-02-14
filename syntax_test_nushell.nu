@@ -573,7 +573,8 @@ where size > 10kb
 ##
 # Subexpressions
 ##
-(col b | min | as "b_min")
+
+(col b | min | as c)
 # <- punctuation.section.group.begin.nu
 # ^^ meta.function-call.identifier.nu support.function.nu
 #    ^ string.bare.nu
@@ -581,7 +582,5 @@ where size > 10kb
 #        ^^^ meta.function-call.identifier.nu support.function.nu
 #            ^ keyword.operator.nu
 #              ^^ meta.function-call.identifier.nu support.function.nu
-#                 ^ meta.function-call.arguments.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.begin.nu
-#                  ^^^^^ meta.function-call.arguments.nu meta.string.nu string.quoted.double.nu
-#                       ^ meta.function-call.arguments.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
-#                        ^ punctuation.section.group.end.nu
+#                 ^ meta.group.nu meta.function-call.arguments.nu string.bare.nu
+#                  ^ meta.group.nu punctuation.section.group.end.nu
