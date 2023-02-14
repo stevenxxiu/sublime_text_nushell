@@ -738,7 +738,7 @@ contexts:
         - include: expression
 
   where-call:
-    - match: (?<=^|[(\s])(where)(?=\s|$)
+    - match: (?<=^|[\s(])(where)(?=\s|$)
       captures:
         1: meta.function-call.identifier.nu support.function.nu
       push:
