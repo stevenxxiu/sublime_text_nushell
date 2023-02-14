@@ -352,6 +352,12 @@ let a = $"($it.name) is ($it.size)"
 #                        ^^^ variable.other.nu
 
 ##
+# Bare string
+##
+let a = */.{a,b}
+#       ^^^^^^^^ string.bare.nu
+
+##
 # Variable keyword
 ##
 

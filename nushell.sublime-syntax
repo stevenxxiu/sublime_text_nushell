@@ -21,7 +21,8 @@ variables:
   const_str: '[A-Za-z\d\-_]+'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
-  bare_string: '[^\s#$(),;=\[\]{|}]+'
+  bare_string: '[^\s#$();\[\]{|}][^\s#$();\[\]|]*'
+  bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
   operator: |-
     (?x:
       (?<=^|\s)(?:
@@ -167,7 +168,15 @@ contexts:
 
   expression:
     - include: subexpression
-    - include: expression-content
+    - include: explicit-expression
+    - include: literal-bare-string
+    - include: variable
+
+  expression-record-list-table:
+    - include: subexpression
+    - include: explicit-expression
+    - include: literal-bare-string-record-list
+    - include: variable
 
   subexpression:
     - match: \(
@@ -177,12 +186,14 @@ contexts:
         - include: comment
         - include: where-call
         - include: function-call-inline
-        - include: expression-content
+        - include: explicit-expression
+        - include: literal-bare-string
+        - include: variable
         - match: \)
           scope: punctuation.section.group.end.nu
           pop: 1
 
-  expression-content:
+  explicit-expression:
     - include: date  # Include before integer
     - include: duration  # Include before integer
     - include: binary  # Include before file-size
@@ -196,9 +207,7 @@ contexts:
     - include: list-table
     - include: literal-null
     - include: interpolated-string
-    - include: string  # Include last to avoid conflicts
-
-    - include: variable
+    - include: string
 
   operator:
     - match: ({{operator}})
@@ -322,7 +331,6 @@ contexts:
     - include: literal-single-quoted-string
     - include: literal-backtick-quoted-string
     - include: literal-double-quoted-string
-    - include: literal-bare-string
 
   literal-single-quoted-string:
     - match: \'
@@ -362,7 +370,11 @@ contexts:
         - include: double-quoted-string-content
 
   literal-bare-string:
-    - match: (?<=[\s(),\[\]{}|]|^)(?!\({{bare_string}}\)){{bare_string}}
+    - match: '{{bare_string}}'
+      scope: string.bare.nu
+
+  literal-bare-string-record-list:
+    - match: '{{bare_string_record_list}}'
       scope: string.bare.nu
 
   variable:
@@ -458,9 +470,9 @@ contexts:
               captures:
                 1: entity.name.label.nu
                 2: punctuation.separator.key-value.nu
-            - include: expression
             - match: ','
               scope: punctuation.separator.comma.nu
+            - include: expression-record-list-table
             - match: '\}'
               scope: punctuation.section.record.end.nu
               pop: 2
@@ -478,9 +490,9 @@ contexts:
           pop: 1
         - match: (?=.|$)
           push:
-            - include: expression
             - match: ','
               scope: punctuation.separator.comma.nu
+            - include: expression-record-list-table
             - match: (?=[#;\]])
               pop: 1
 
