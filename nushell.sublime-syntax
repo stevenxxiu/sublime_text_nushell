@@ -722,7 +722,7 @@ contexts:
         - include: expression
 
   function-call-inline:
-    - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=\s|$)
+    - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s)\]|]|$)
       captures:
         1: meta.function-call.identifier.nu keyword.other.nu
         2: meta.function-call.identifier.nu support.function.nu

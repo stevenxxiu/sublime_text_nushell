@@ -274,6 +274,16 @@ let a = [0,a,b]
 #            ^ meta.list-table.nu string.bare.nu
 #             ^ meta.list-table.nu punctuation.section.list-table.end.nu
 
+let a = [(col a | min)]
+#       ^ meta.list-table.nu punctuation.section.list-table.begin.nu
+#        ^ meta.list-table.nu meta.group.nu punctuation.section.group.begin.nu
+#         ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
+#             ^ meta.list-table.nu meta.group.nu meta.function-call.arguments.nu string.bare.nu
+#               ^ meta.list-table.nu meta.group.nu keyword.operator.nu
+#                 ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
+#                    ^ meta.list-table.nu meta.group.nu punctuation.section.group.end.nu
+#                     ^ meta.list-table.nu punctuation.section.list-table.end.nu
+
 ##
 # Table
 ##
