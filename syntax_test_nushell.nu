@@ -571,6 +571,20 @@ where size > 10kb
 #            ^^^^ meta.function-call.arguments.nu constant.file-size.nu
 
 ##
+# Pipelines
+##
+
+# Spaces aren't needed
+col b|min|as c
+# <- meta.function-call.identifier.nu support.function.nu
+#   ^ meta.function-call.arguments.nu string.bare.nu
+#    ^ keyword.operator.nu
+#     ^^^ meta.function-call.identifier.nu support.function.nu
+#        ^ keyword.operator.nu
+#         ^^ meta.function-call.identifier.nu support.function.nu
+#            ^ meta.function-call.arguments.nu string.bare.nu
+
+##
 # Subexpressions
 ##
 

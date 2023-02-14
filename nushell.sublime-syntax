@@ -28,9 +28,9 @@ variables:
     (?x:
       (?<=^|\s)(?:
         \+|-|\*|/|//|\*\*|==|!=|<|<=|>|>=|=~|!~|&&|\|\||\+\+|
-        \||
         and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor
-      )(?=\s|$)
+      )(?=\s|$)|
+      (^|(?<!\|))\|(?!\|)
     )
   core_native_command: |-
     (?x:
@@ -713,7 +713,7 @@ contexts:
           pop: 2
 
   function-call:
-    - match: (?<=^|\s)(?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s;]|$)
+    - match: (?<=^|[\s|])(?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s;|]|$)
       captures:
         1: meta.function-call.identifier.nu keyword.other.nu
         2: meta.function-call.identifier.nu support.function.nu
