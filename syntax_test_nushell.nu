@@ -548,6 +548,11 @@ func foo -a --bar 1
 roll down
 # ^^^^^^^ meta.function-call.identifier.nu support.function.nu
 
+foo; bar
+# <- meta.function-call.identifier.nu variable.function.nu
+#  ^ punctuation.semi.nu
+#    ^^^ meta.function-call.identifier.nu variable.function.nu
+
 (
 # <- punctuation.section.group.begin.nu
   func
