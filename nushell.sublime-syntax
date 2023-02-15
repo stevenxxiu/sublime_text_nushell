@@ -162,12 +162,9 @@ contexts:
     - include: expression
 
   keyword:
-    - match: \b(and|catch|else|or)\b
+    - match: \b(catch|else)\b
       captures:
         1: keyword.nu
-
-    - match: \btrue|false
-      scope: keyword.other.unit.nu
 
     - match: \bout>|err>|out\+err>|err\+out>
       scope: keyword.other.redirect.nu
