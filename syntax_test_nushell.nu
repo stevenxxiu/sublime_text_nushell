@@ -566,7 +566,7 @@ where size > 10kb
 ##
 
 # Spaces aren't needed
-col b|min|as c
+col a|min|as b
 # <- meta.function-call.identifier.nu support.function.nu
 #   ^ meta.function-call.arguments.nu string.bare.nu
 #    ^ keyword.operator.nu
@@ -579,7 +579,7 @@ col b|min|as c
 # Subexpressions
 ##
 
-(col b | min | as c)
+(col a | min | as b)
 # <- punctuation.section.group.begin.nu
 # ^^ meta.function-call.identifier.nu support.function.nu
 #    ^ string.bare.nu
