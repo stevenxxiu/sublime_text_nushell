@@ -232,13 +232,13 @@ let a = 0o[
 
 let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
-  "k\x01": 1 # Foo
+  "k\"": 1 # Foo
 # ^ meta.record.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.begin.nu
-#   ^^^^ constant.character.escape.nu
-#       ^ meta.record.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
-#        ^ meta.record.nu punctuation.separator.key-value.nu
-#          ^ meta.record.nu constant.numeric.integer.nu
-#            ^ comment.line
+#   ^^ constant.character.escape.nu
+#     ^ meta.record.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
+#      ^ meta.record.nu punctuation.separator.key-value.nu
+#        ^ meta.record.nu constant.numeric.integer.nu
+#          ^ comment.line
 }
 # <- meta.record.nu punctuation.section.record.end.nu
 
@@ -398,20 +398,11 @@ let a = "foo
 # ^^^ meta.string.nu string.quoted.double.nu
 #    ^ meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
 
-let a = "\a\b\e\f\n\r\t\v\\\'\"\?"
-#        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
+let a = "\"\'\\\/\b\f\r\n\t"
+#        ^^^^^^^^^^^^^^^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
 
-let a = "\777"
-#        ^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
-
-let a = "\xFF"
-#        ^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
-
-let a = "\uFFFF"
-#        ^^^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
-
-let a = "\UFFFFFFFF"
-#        ^^^^^^^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
+let a = "\u{0}\u{0000FF}"
+#        ^^^^^^^^^^^^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
 
 let a = foo
 #       ^^^ string.bare.nu
@@ -485,18 +476,18 @@ module foo_module {
 # Command
 ##
 
-def "aaa\x12bbb" [aaa, bbb: string] {
+def "aaa\"bbb" [aaa, bbb: string] {
 # <- meta.command.nu keyword.declaration.nu
 #   ^ meta.command.nu entity.name.command.nu entity.name.command.begin.nu
-#    ^^^^^^^^^^ meta.command.nu entity.name.command.nu
-#       ^^^^ constant.character.escape.nu
-#                ^ meta.command.nu meta.command.parameters.nu punctuation.section.group.begin.nu
-#                 ^^^ meta.command.nu meta.command.parameters.nu variable.parameter.nu
-#                    ^ meta.command.nu meta.command.parameters.nu punctuation.separator.parameter.command.nu
-#                         ^ meta.command.nu meta.command.parameters.nu punctuation.separator.type.nu
-#                           ^^^^^^ meta.command.nu meta.command.parameters.nu
-#                                 ^ meta.command.nu punctuation.section.group.end.nu
-#                                   ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#    ^^^^^^^^^ meta.command.nu entity.name.command.nu
+#       ^^ constant.character.escape.nu
+#              ^ meta.command.nu meta.command.parameters.nu punctuation.section.group.begin.nu
+#               ^^^ meta.command.nu meta.command.parameters.nu variable.parameter.nu
+#                  ^ meta.command.nu meta.command.parameters.nu punctuation.separator.parameter.command.nu
+#                       ^ meta.command.nu meta.command.parameters.nu punctuation.separator.type.nu
+#                         ^^^^^^ meta.command.nu meta.command.parameters.nu
+#                               ^ meta.command.nu punctuation.section.group.end.nu
+#                                 ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
 }
 # <- meta.command.nu meta.block.nu punctuation.section.block.end.nu
 
@@ -504,12 +495,12 @@ def "aaa\x12bbb" [aaa, bbb: string] {
 # Extern
 ##
 
-extern "aaa\x12bbb" [
+extern "aaa\"bbb" [
 # <- meta.extern.nu keyword.extern.nu
 #      ^ meta.extern.nu entity.name.extern.nu entity.name.extern.begin.nu
-#          ^^^^ entity.name.extern.nu constant.character.escape.nu
-#                 ^ entity.name.extern.nu meta.extern.parameters.nu entity.name.extern.end.nu
-#                   ^ meta.extern.parameters.nu punctuation.section.group.begin.nu
+#          ^^ entity.name.extern.nu constant.character.escape.nu
+#               ^ entity.name.extern.nu meta.extern.parameters.nu entity.name.extern.end.nu
+#                 ^ meta.extern.parameters.nu punctuation.section.group.begin.nu
   foo: string@"nu-complete git branches" # Foo
 # ^ meta.extern.parameters.nu variable.parameter.nu
 #    ^ meta.extern.parameters.nu punctuation.separator.type.nu
