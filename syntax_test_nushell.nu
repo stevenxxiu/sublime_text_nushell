@@ -344,7 +344,7 @@ let a = [(col a | min)]
 #        ^ meta.list-table.nu meta.group.nu punctuation.section.group.begin.nu
 #         ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
 #             ^ meta.list-table.nu meta.group.nu meta.function-call.arguments.nu string.bare.nu
-#               ^ meta.list-table.nu meta.group.nu keyword.operator.nu
+#               ^ meta.list-table.nu meta.group.nu keyword.operator.pipe.nu
 #                 ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
 #                    ^ meta.list-table.nu meta.group.nu punctuation.section.group.end.nu
 #                     ^ meta.list-table.nu punctuation.section.list-table.end.nu
@@ -555,11 +555,17 @@ foo; bar
 )
 # <- punctuation.section.group.end.nu
 
-where size > 10kb
+where size > 10kb && size < 100kb | null
 # ^^^ meta.function-call.identifier.nu support.function.nu
-#     ^^^^ meta.function-call.arguments.nu variable.name.nu
-#          ^ meta.function-call.arguments.nu keyword.operator.nu
-#            ^^^^ meta.function-call.arguments.nu constant.file-size.nu
+#     ^^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
+#          ^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#            ^^^^ meta.function-call.arguments.row-condition.nu constant.file-size.nu
+#                 ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#                    ^^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
+#                         ^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#                           ^^^^^ meta.function-call.arguments.row-condition.nu constant.file-size.nu
+#                                 ^ keyword.operator.pipe.nu
+#                                   ^^^^ meta.function-call.identifier.nu variable.function.nu
 
 ##
 # Pipelines
@@ -569,9 +575,9 @@ where size > 10kb
 col a|min|as b
 # <- meta.function-call.identifier.nu support.function.nu
 #   ^ meta.function-call.arguments.nu string.bare.nu
-#    ^ keyword.operator.nu
+#    ^ keyword.operator.pipe.nu
 #     ^^^ meta.function-call.identifier.nu support.function.nu
-#        ^ keyword.operator.nu
+#        ^ keyword.operator.pipe.nu
 #         ^^ meta.function-call.identifier.nu support.function.nu
 #            ^ meta.function-call.arguments.nu string.bare.nu
 
@@ -583,9 +589,9 @@ col a|min|as b
 # <- punctuation.section.group.begin.nu
 # ^^ meta.function-call.identifier.nu support.function.nu
 #    ^ string.bare.nu
-#      ^ keyword.operator.nu
+#      ^ keyword.operator.pipe.nu
 #        ^^^ meta.function-call.identifier.nu support.function.nu
-#            ^ keyword.operator.nu
+#            ^ keyword.operator.pipe.nu
 #              ^^ meta.function-call.identifier.nu support.function.nu
 #                 ^ meta.group.nu meta.function-call.arguments.nu string.bare.nu
 #                  ^ meta.group.nu punctuation.section.group.end.nu
