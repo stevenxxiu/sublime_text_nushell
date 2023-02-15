@@ -27,8 +27,13 @@ variables:
   operator: |-
     (?x:
       (?<=^|\s)(?:
-        \+|-|\*|/|//|\*\*|==|!=|<|<=|>|>=|=~|!~|&&|\|\||\+\+|
-        and|bit-and|bit-or|bit-shl|bit-shr|bit-xor|ends-with|in|mod|not|not-in|or|starts-with|xor
+        \+|-|\*|/|//|mod|\*\*|
+        ==|!=|<|<=|>|>=|
+        =~|!~|
+        in|not-in|not|&&|and|\|\||or|xor|
+        bit-or|bit-xor|bit-and|bit-shl|bit-shr|
+        starts-with|ends-with|
+        \+\+
       )(?=\s|$)|
       (^|(?<!\|))\|(?!\|)
     )
