@@ -171,7 +171,15 @@ contexts:
 
   expression:
     - include: subexpression
+    - include: if-statement
     - include: explicit-expression
+    - include: literal-bare-string
+    - include: variable
+
+  expression-if:
+    - include: subexpression
+    - include: explicit-expression
+    - include: function-call
     - include: literal-bare-string
     - include: variable
 
@@ -751,8 +759,7 @@ contexts:
       captures:
         1: keyword.control.conditional.if.nu
       push:
-        - include: function-call
-        - include: expression
+        - include: expression-if
         - match: (?=\s*[#)\]{}|]|\s*$)
           pop: 1
 

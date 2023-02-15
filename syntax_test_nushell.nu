@@ -568,6 +568,20 @@ if is-admin { echo a } else { echo b }
 #                                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
 #                                    ^ meta.block.nu punctuation.section.block.end.nu
 
+let a = if false { -1 } else { 1 }
+# <- keyword.other.nu
+#   ^ variable.name.nu
+#     ^ keyword.operator.assignment.nu
+#       ^^ keyword.control.conditional.if.nu
+#          ^^^^^ constant.language.boolean.false.nu
+#                ^ meta.block.nu punctuation.section.block.begin.nu
+#                  ^^ meta.block.nu constant.numeric.integer.nu
+#                     ^ meta.block.nu punctuation.section.block.end.nu
+#                       ^^^^ keyword.nu
+#                            ^ meta.block.nu punctuation.section.block.begin.nu
+#                              ^ meta.block.nu constant.numeric.integer.nu
+#                                ^ meta.block.nu punctuation.section.block.end.nu
+
 where size > 10kb && size < 100kb | null
 # ^^^ meta.function-call.identifier.nu support.function.nu
 #     ^^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
