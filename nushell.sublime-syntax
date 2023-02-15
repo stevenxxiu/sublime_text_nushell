@@ -155,6 +155,7 @@ contexts:
     - include: module
     - include: command
     - include: extern
+    - include: if-statement
     - include: where-call
     - include: function-call
     - include: variable
@@ -189,6 +190,7 @@ contexts:
       push:
         - meta_scope: meta.group.nu
         - include: comment
+        - include: if-statement
         - include: where-call
         - include: function-call-inline
         - include: explicit-expression
@@ -746,6 +748,16 @@ contexts:
           pop: 1
         - include: comment
         - include: expression
+
+  if-statement:
+    - match: (?<=^|[\s(])(if)(?=\s|$)
+      captures:
+        1: keyword.control.conditional.if.nu
+      push:
+        - include: function-call
+        - include: expression
+        - match: (?=\s*[#)\]{}|]|\s*$)
+          pop: 1
 
   row-condition:
     - match: ({{var_name}}) ({{operator}})

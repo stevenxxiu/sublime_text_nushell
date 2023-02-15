@@ -555,6 +555,19 @@ foo; bar
 )
 # <- punctuation.section.group.end.nu
 
+if is-admin { echo a } else { echo b }
+# <- keyword.control.conditional.if.nu
+#  ^^^^^^^^ meta.function-call.identifier.nu keyword.other.nu
+#           ^ meta.block.nu punctuation.section.block.begin.nu
+#             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
+#                    ^ meta.block.nu punctuation.section.block.end.nu
+#                      ^^^^ keyword.nu
+#                           ^ meta.block.nu punctuation.section.block.begin.nu
+#                             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#                                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
+#                                    ^ meta.block.nu punctuation.section.block.end.nu
+
 where size > 10kb && size < 100kb | null
 # ^^^ meta.function-call.identifier.nu support.function.nu
 #     ^^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
