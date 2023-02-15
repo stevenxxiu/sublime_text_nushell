@@ -188,6 +188,7 @@ contexts:
         - include: where-call
         - include: function-call-inline
         - include: explicit-expression
+        - include: subexpression
         - include: literal-bare-string
         - include: variable
         - match: \)

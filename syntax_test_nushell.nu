@@ -589,3 +589,11 @@ col a|min|as b
 #              ^^ meta.function-call.identifier.nu support.function.nu
 #                 ^ meta.group.nu meta.function-call.arguments.nu string.bare.nu
 #                  ^ meta.group.nu punctuation.section.group.end.nu
+
+((col a))
+# <- meta.group.nu punctuation.section.group.begin.nu
+#^ meta.group.nu meta.group.nu punctuation.section.group.begin.nu
+# ^^^ meta.group.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
+#     ^ meta.group.nu meta.group.nu meta.function-call.arguments.nu string.bare.nu
+#      ^ meta.group.nu meta.group.nu punctuation.section.group.end.nu
+#       ^ meta.group.nu punctuation.section.group.end.nu
