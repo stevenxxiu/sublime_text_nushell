@@ -162,9 +162,11 @@ contexts:
     - include: expression
 
   keyword:
-    - match: \b(catch|else)\b
-      captures:
-        1: keyword.nu
+    - match: \belse\b
+      scope: keyword.control.conditional.else.nu
+
+    - match: \bcatch\b
+      scope: keyword.other.nu
 
     - match: \bout>|err>|out\+err>|err\+out>
       scope: keyword.other.redirect.nu

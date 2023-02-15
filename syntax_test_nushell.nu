@@ -562,7 +562,7 @@ if is-admin { echo a } else { echo b }
 #             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
 #                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
 #                    ^ meta.block.nu punctuation.section.block.end.nu
-#                      ^^^^ keyword.nu
+#                      ^^^^ keyword.control.conditional.else.nu
 #                           ^ meta.block.nu punctuation.section.block.begin.nu
 #                             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
 #                                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
@@ -577,7 +577,7 @@ let a = if false { -1 } else { 1 }
 #                ^ meta.block.nu punctuation.section.block.begin.nu
 #                  ^^ meta.block.nu constant.numeric.integer.nu
 #                     ^ meta.block.nu punctuation.section.block.end.nu
-#                       ^^^^ keyword.nu
+#                       ^^^^ keyword.control.conditional.else.nu
 #                            ^ meta.block.nu punctuation.section.block.begin.nu
 #                              ^ meta.block.nu constant.numeric.integer.nu
 #                                ^ meta.block.nu punctuation.section.block.end.nu
