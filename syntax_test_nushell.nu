@@ -19,18 +19,19 @@ foo # Foo
 $var
 # <- variable.other.nu
 
-let a = 1; mut b = 2; # Foo
+let a = 1 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
 #     ^ keyword.operator.assignment.nu
 #       ^ constant.numeric.integer.nu
-#        ^ punctuation.semi.nu
-#          ^^^ keyword.other.nu
-#              ^ variable.name.nu
-#                ^ keyword.operator.assignment.nu
-#                  ^ constant.numeric.integer.nu
-#                   ^ punctuation.semi.nu
-#                     ^^^^^ comment.line
+#         ^^^^^ comment.line
+
+mut b = 2 # Foo
+# <- keyword.other.nu
+#   ^ variable.name.nu
+#     ^ keyword.operator.assignment.nu
+#       ^ constant.numeric.integer.nu
+#         ^^^^^ comment.line
 
 { let a = 1 }
 # <- meta.block.nu punctuation.section.block.begin.nu
@@ -553,6 +554,29 @@ foo; bar
 ##
 # Special statements
 ##
+
+alias c = foo bar
+# <- keyword.other.nu
+#     ^ variable.name.nu
+#       ^ keyword.operator.assignment.nu
+#         ^^^ meta.function-call.identifier.nu variable.function.nu
+#             ^^^ meta.function-call.arguments.nu string.bare.nu
+
+alias lsname = (ls | get name)
+# <- keyword.other.nu
+#     ^^^^^^ variable.name.nu
+#            ^ keyword.operator.assignment.nu
+#              ^ meta.group.nu punctuation.section.group.begin.nu
+#                  ^ meta.group.nu keyword.operator.pipe.nu
+#                    ^^^ meta.group.nu meta.function-call.identifier.nu support.function.nu
+#                        ^^^^ meta.group.nu meta.function-call.arguments.nu string.bare.nu
+#                            ^ meta.group.nu punctuation.section.group.end.nu
+
+export alias c = foo
+# ^^^^^^^^^^ keyword.other.nu
+#            ^ variable.name.nu
+#              ^ keyword.operator.assignment.nu
+#                ^^^ meta.function-call.identifier.nu variable.function.nu
 
 if is-admin { echo a } else { echo b }
 # <- keyword.control.conditional.if.nu

@@ -412,7 +412,7 @@ contexts:
         2: meta.property.record.nu
 
   assign-variable:
-    - match: (alias|let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
+    - match: (let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
       captures:
         1: keyword.other.nu
         2: variable.name.nu
@@ -764,9 +764,21 @@ contexts:
         - include: expression
 
   special-statements:
+    - include: alias-call
     - include: if-statement
     - include: overlay-call
     - include: row-condition-call
+
+  alias-call:
+    - match: ((?:export )?alias)\s+(\$?{{var_name}})\s*(=)\s*
+      captures:
+        1: keyword.other.nu
+        2: variable.name.nu
+        3: keyword.operator.assignment.nu
+      push:
+        - include: command
+        - match: (?=.|$)
+          pop: 1
 
   if-statement:
     - match: (if)(?=\s|$)
