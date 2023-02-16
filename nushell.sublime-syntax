@@ -157,7 +157,6 @@ contexts:
     - include: extern
     - include: special-statements
     - include: function-call
-    - include: variable
     - include: expression
 
   keyword:
