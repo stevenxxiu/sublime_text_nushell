@@ -157,7 +157,7 @@ contexts:
     - include: module
     - include: command
     - include: extern
-    - include: special-statements
+    - include: if-statement
     - include: function-call
     - include: expression
 
@@ -173,7 +173,6 @@ contexts:
 
   expression:
     - include: subexpression
-    - include: special-statements
     - include: data-with-operators
     - include: literal-bare-string
     - include: variable
@@ -197,7 +196,6 @@ contexts:
       push:
         - meta_scope: meta.group.nu
         - include: comment
-        - include: special-statements
         - include: function-call-inline
         - include: data-with-operators
         - include: subexpression
@@ -418,6 +416,7 @@ contexts:
         2: variable.name.nu
         3: keyword.operator.assignment.nu
       push:
+        - include: if-statement
         - include: expression
         - match: (?=.|$)
           pop: 1
@@ -739,6 +738,7 @@ contexts:
           pop: 2
 
   function-call:
+    - include: special-call
     - match: (?<=^|[\s|])(?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s;|]|$)
       captures:
         1: meta.function-call.identifier.nu keyword.other.nu
@@ -751,6 +751,7 @@ contexts:
         - include: expression
 
   function-call-inline:
+    - include: special-call
     - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s)\]|]|$)
       captures:
         1: meta.function-call.identifier.nu keyword.other.nu
@@ -763,9 +764,8 @@ contexts:
         - include: comment
         - include: expression
 
-  special-statements:
+  special-call:
     - include: alias-call
-    - include: if-statement
     - include: overlay-call
     - include: row-condition-call
 
@@ -778,15 +778,6 @@ contexts:
       push:
         - include: command
         - match: (?=.|$)
-          pop: 1
-
-  if-statement:
-    - match: (if)(?=\s|$)
-      captures:
-        1: keyword.control.conditional.if.nu
-      push:
-        - include: expression-if
-        - match: (?=\s*[#)\]{}|]|\s*$)
           pop: 1
 
   overlay-call:
@@ -822,5 +813,14 @@ contexts:
       push:
         - meta_content_scope: meta.function-call.arguments.row-condition.nu
         - include: row-condition
+        - match: (?=\s*[#)\]{}|]|\s*$)
+          pop: 1
+
+  if-statement:
+    - match: (if)(?=\s|$)
+      captures:
+        1: keyword.control.conditional.if.nu
+      push:
+        - include: expression-if
         - match: (?=\s*[#)\]{}|]|\s*$)
           pop: 1

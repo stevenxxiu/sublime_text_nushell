@@ -578,33 +578,6 @@ export alias c = foo
 #              ^ keyword.operator.assignment.nu
 #                ^^^ meta.function-call.identifier.nu variable.function.nu
 
-if is-admin { echo a } else { echo b }
-# <- keyword.control.conditional.if.nu
-#  ^^^^^^^^ meta.function-call.identifier.nu keyword.other.nu
-#           ^ meta.block.nu punctuation.section.block.begin.nu
-#             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
-#                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
-#                    ^ meta.block.nu punctuation.section.block.end.nu
-#                      ^^^^ keyword.control.conditional.else.nu
-#                           ^ meta.block.nu punctuation.section.block.begin.nu
-#                             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
-#                                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
-#                                    ^ meta.block.nu punctuation.section.block.end.nu
-
-let a = if false { -1 } else { 1 }
-# <- keyword.other.nu
-#   ^ variable.name.nu
-#     ^ keyword.operator.assignment.nu
-#       ^^ keyword.control.conditional.if.nu
-#          ^^^^^ constant.language.boolean.false.nu
-#                ^ meta.block.nu punctuation.section.block.begin.nu
-#                  ^^ meta.block.nu constant.numeric.integer.nu
-#                     ^ meta.block.nu punctuation.section.block.end.nu
-#                       ^^^^ keyword.control.conditional.else.nu
-#                            ^ meta.block.nu punctuation.section.block.begin.nu
-#                              ^ meta.block.nu constant.numeric.integer.nu
-#                                ^ meta.block.nu punctuation.section.block.end.nu
-
 overlay use foo --prefix as bar --reload
 # <- keyword.operator.nu
 #           ^^^ string.bare.nu
@@ -642,6 +615,41 @@ where size > 10kb && size < 100kb | null
 #                           ^^^^^ meta.function-call.arguments.row-condition.nu constant.file-size.nu
 #                                 ^ keyword.operator.pipe.nu
 #                                   ^^^^ meta.function-call.identifier.nu variable.function.nu
+
+foo where
+# <- meta.function-call.identifier.nu variable.function.nu
+#   ^^^^^ meta.function-call.arguments.nu string.bare.nu
+
+##
+# If
+##
+
+if is-admin { echo a } else { echo b }
+# <- keyword.control.conditional.if.nu
+#  ^^^^^^^^ meta.function-call.identifier.nu keyword.other.nu
+#           ^ meta.block.nu punctuation.section.block.begin.nu
+#             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
+#                    ^ meta.block.nu punctuation.section.block.end.nu
+#                      ^^^^ keyword.control.conditional.else.nu
+#                           ^ meta.block.nu punctuation.section.block.begin.nu
+#                             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#                                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
+#                                    ^ meta.block.nu punctuation.section.block.end.nu
+
+let a = if false { -1 } else { 1 }
+# <- keyword.other.nu
+#   ^ variable.name.nu
+#     ^ keyword.operator.assignment.nu
+#       ^^ keyword.control.conditional.if.nu
+#          ^^^^^ constant.language.boolean.false.nu
+#                ^ meta.block.nu punctuation.section.block.begin.nu
+#                  ^^ meta.block.nu constant.numeric.integer.nu
+#                     ^ meta.block.nu punctuation.section.block.end.nu
+#                       ^^^^ keyword.control.conditional.else.nu
+#                            ^ meta.block.nu punctuation.section.block.begin.nu
+#                              ^ meta.block.nu constant.numeric.integer.nu
+#                                ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Pipelines
