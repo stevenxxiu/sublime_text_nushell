@@ -555,6 +555,10 @@ foo; bar
 )
 # <- punctuation.section.group.end.nu
 
+##
+# Special statements
+##
+
 if is-admin { echo a } else { echo b }
 # <- keyword.control.conditional.if.nu
 #  ^^^^^^^^ meta.function-call.identifier.nu keyword.other.nu

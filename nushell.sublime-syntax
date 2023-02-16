@@ -155,8 +155,7 @@ contexts:
     - include: module
     - include: command
     - include: extern
-    - include: if-statement
-    - include: where-call
+    - include: special-statements
     - include: function-call
     - include: variable
     - include: expression
@@ -173,7 +172,7 @@ contexts:
 
   expression:
     - include: subexpression
-    - include: if-statement
+    - include: special-statements
     - include: explicit-expression
     - include: literal-bare-string
     - include: variable
@@ -197,8 +196,7 @@ contexts:
       push:
         - meta_scope: meta.group.nu
         - include: comment
-        - include: if-statement
-        - include: where-call
+        - include: special-statements
         - include: function-call-inline
         - include: explicit-expression
         - include: subexpression
@@ -755,6 +753,10 @@ contexts:
           pop: 1
         - include: comment
         - include: expression
+
+  special-statements:
+    - include: if-statement
+    - include: where-call
 
   if-statement:
     - match: (?<=^|[\s(])(if)(?=\s|$)
