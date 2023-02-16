@@ -581,6 +581,14 @@ let a = if false { -1 } else { 1 }
 #                              ^ meta.block.nu constant.numeric.integer.nu
 #                                ^ meta.block.nu punctuation.section.block.end.nu
 
+overlay use foo --prefix as bar --reload
+# <- keyword.operator.nu
+#           ^^^ string.bare.nu
+#               ^^^^^^^^ string.bare.nu
+#                        ^^ keyword.operator.nu
+#                           ^^^ string.bare.nu
+#                               ^^^^^^^^ string.bare.nu
+
 where foo | null
 # <- meta.function-call.identifier.nu support.function.nu
 #     ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu

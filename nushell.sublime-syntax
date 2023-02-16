@@ -765,6 +765,7 @@ contexts:
 
   special-statements:
     - include: if-statement
+    - include: overlay-call
     - include: row-condition-call
 
   if-statement:
@@ -773,6 +774,16 @@ contexts:
         1: keyword.control.conditional.if.nu
       push:
         - include: expression-if
+        - match: (?=\s*[#)\]{}|]|\s*$)
+          pop: 1
+
+  overlay-call:
+    - match: overlay use
+      scope: keyword.operator.nu
+      push:
+        - match: \bas\b
+          scope: keyword.operator.nu
+        - include: literal-bare-string
         - match: (?=\s*[#)\]{}|]|\s*$)
           pop: 1
 
