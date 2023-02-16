@@ -759,7 +759,7 @@ contexts:
 
   special-statements:
     - include: if-statement
-    - include: where-call
+    - include: row-condition-call
 
   if-statement:
     - match: (if)(?=\s|$)
@@ -776,8 +776,8 @@ contexts:
         1: variable.name.nu
         2: keyword.operator.nu
 
-  where-call:
-    - match: (where)(?=\s|$)
+  row-condition-call:
+    - match: (all|any|where)(?=\s|$)
       captures:
         1: meta.function-call.identifier.nu support.function.nu
       push:
