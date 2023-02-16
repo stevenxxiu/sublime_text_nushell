@@ -24,13 +24,15 @@ variables:
   quoted_string: '''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
   bare_string: '[^\s#$();\[\]{|}][^\s#$();|]*'
   bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
+  pipe: '(^|(?<!\|))\|(?!\|)'
+  binary_logic_operator: '&&|and|\|\||or|xor'
   operator: |-
     (?x:
       (?<=^|\s)(?:
         \+|-|\*|/|//|mod|\*\*|
         ==|!=|<|<=|>|>=|
         =~|!~|
-        in|not-in|not|&&|and|\|\||or|xor|
+        in|not-in|not|{{binary_logic_operator}}|
         bit-or|bit-xor|bit-and|bit-shl|bit-shr|
         starts-with|ends-with|
         \+\+
@@ -172,20 +174,20 @@ contexts:
   expression:
     - include: subexpression
     - include: special-statements
-    - include: explicit-expression
+    - include: data-with-operators
     - include: literal-bare-string
     - include: variable
 
   expression-if:
     - include: subexpression
-    - include: explicit-expression
+    - include: data-with-operators
     - include: function-call
     - include: literal-bare-string
     - include: variable
 
   expression-record-list-table:
     - include: subexpression
-    - include: explicit-expression
+    - include: data-with-operators
     - include: literal-bare-string-record-list
     - include: variable
 
@@ -197,7 +199,7 @@ contexts:
         - include: comment
         - include: special-statements
         - include: function-call-inline
-        - include: explicit-expression
+        - include: data-with-operators
         - include: subexpression
         - include: literal-bare-string
         - include: variable
@@ -205,7 +207,7 @@ contexts:
           scope: punctuation.section.group.end.nu
           pop: 1
 
-  explicit-expression:
+  data-structure:
     - include: date  # Include before integer
     - include: duration  # Include before integer
     - include: binary  # Include before file-size
@@ -213,22 +215,26 @@ contexts:
     - include: range  # Include before integer
     - include: integer
     - include: decimal
-    - include: boolean
-    - include: operator  # Include after atomic types
-    - include: property-accessor
-    - include: pipe
-    - include: block-record
-    - include: list-table
-    - include: literal-null
-    - include: interpolated-string
     - include: string
+    - include: interpolated-string
+    - include: boolean
+    - include: literal-null
+
+    - include: list-table
+    - include: block-record
+
+  data-with-operators:
+    - include: data-structure
+    - include: property-accessor
+    - include: operator
+    - include: pipe
 
   operator:
     - match: ({{operator}})
       scope: keyword.operator.nu
 
   pipe:
-    - match: (^|(?<!\|))\|(?!\|)
+    - match: ({{pipe}})
       scope: keyword.operator.pipe.nu
 
   date:
@@ -771,10 +777,20 @@ contexts:
           pop: 1
 
   row-condition:
-    - match: '({{var_name}})(?: ({{operator}}))?'
-      captures:
-        1: variable.name.nu
-        2: keyword.operator.nu
+    - match: '{{var_name}}'
+      scope: variable.name.nu
+    - match: '(?!{{binary_logic_operator}}){{operator}}'
+      scope: keyword.operator.nu
+      push:
+        - include: subexpression
+        - include: data-structure
+        - include: property-accessor
+        - match: (?={{binary_logic_operator}}|{{pipe}}|$)
+          pop: 1
+        - include: literal-bare-string
+        - include: variable
+    - match: ({{binary_logic_operator}})
+      scope: keyword.operator.nu
 
   row-condition-call:
     - match: (all|any|where)(?=\s|$)
@@ -783,6 +799,5 @@ contexts:
       push:
         - meta_content_scope: meta.function-call.arguments.row-condition.nu
         - include: row-condition
-        - include: expression
         - match: (?=\s*[#)\]{}|]|\s*$)
           pop: 1

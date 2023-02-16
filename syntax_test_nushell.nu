@@ -587,6 +587,18 @@ where foo | null
 #         ^ keyword.operator.pipe.nu
 #           ^^^^ meta.function-call.identifier.nu variable.function.nu
 
+where foo == bar && foo == bar | null
+# <- meta.function-call.identifier.nu support.function.nu
+#     ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
+#         ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#            ^^^ meta.function-call.arguments.row-condition.nu string.bare.nu
+#                ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#                   ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
+#                       ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#                          ^^^ meta.function-call.arguments.row-condition.nu string.bare.nu
+#                              ^ keyword.operator.pipe.nu
+#                                ^^^^ meta.function-call.identifier.nu variable.function.nu
+
 where size > 10kb && size < 100kb | null
 # <- meta.function-call.identifier.nu support.function.nu
 #     ^^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
