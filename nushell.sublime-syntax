@@ -766,6 +766,7 @@ contexts:
 
   special-call:
     - include: alias-call
+    - include: cd-prevdir-call
     - include: overlay-call
     - include: row-condition-call
 
@@ -779,6 +780,12 @@ contexts:
         - include: command
         - match: (?=.|$)
           pop: 1
+
+  cd-prevdir-call:
+    - match: (cd)\s+(-)
+      captures:
+        1: meta.function-call.identifier.nu support.function.nu
+        2: meta.function-call.arguments.nu string.bare.nu
 
   overlay-call:
     - match: overlay use

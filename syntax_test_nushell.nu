@@ -578,6 +578,10 @@ export alias c = foo
 #              ^ keyword.operator.assignment.nu
 #                ^^^ meta.function-call.identifier.nu variable.function.nu
 
+cd -
+# <- meta.function-call.identifier.nu support.function.nu
+#  ^ meta.function-call.arguments.nu string.bare.nu
+
 overlay use foo --prefix as bar --reload
 # <- keyword.operator.nu
 #           ^^^ string.bare.nu
