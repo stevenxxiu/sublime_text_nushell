@@ -22,7 +22,7 @@ variables:
   pos_decimal: '\d+(\.\d*)?'
   double_quoted_string_escape: '\\(["''\\/bfrnt]|u\{\h{1,6}\})'
   quoted_string: '''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
-  bare_string: '[^\s#$();\[\]{|}][^\s#$();\[\]|]*'
+  bare_string: '[^\s#$();\[\]{|}][^\s#$();|]*'
   bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
   operator: |-
     (?x:

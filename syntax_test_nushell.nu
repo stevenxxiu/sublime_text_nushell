@@ -415,8 +415,8 @@ let a = $"($it.name) is ($it.size)"
 ##
 # Bare string
 ##
-let a = */.{a,b}
-#       ^^^^^^^^ string.bare.nu
+let a = *,./:<>[]{}
+#       ^^^^^^^^^^^ string.bare.nu
 
 ##
 # Variable keyword
