@@ -19,11 +19,6 @@ foo # Foo
 $var
 # <- variable.other.nu
 
-$df.prop
-# <- variable.other.nu
-#  ^ punctuation.accessor.nu
-#   ^^^^ meta.property.record.nu
-
 let a = 1; mut b = 2; # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
@@ -634,3 +629,23 @@ col a|min|as b
 #     ^ meta.group.nu meta.group.nu meta.function-call.arguments.nu string.bare.nu
 #      ^ meta.group.nu meta.group.nu punctuation.section.group.end.nu
 #       ^ meta.group.nu punctuation.section.group.end.nu
+
+##
+# Properties
+##
+
+$var.foo.bar
+# <- variable.other.nu
+#   ^ punctuation.accessor.nu
+#    ^^^ meta.property.record.nu
+#       ^ punctuation.accessor.nu
+#        ^^^ meta.property.record.nu
+
+(term size).foo.bar
+# <- meta.group.nu punctuation.section.group.begin.nu
+# ^^^^^^^^ meta.group.nu meta.function-call.identifier.nu support.function.nu
+#         ^ meta.group.nu punctuation.section.group.end.nu
+#          ^ punctuation.accessor.nu
+#           ^^^ meta.property.record.nu
+#              ^ punctuation.accessor.nu
+#               ^^^ meta.property.record.nu

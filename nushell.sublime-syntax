@@ -215,6 +215,7 @@ contexts:
     - include: decimal
     - include: boolean
     - include: operator  # Include after atomic types
+    - include: property-accessor
     - include: pipe
     - include: block-record
     - include: list-table
@@ -395,11 +396,14 @@ contexts:
       scope: string.bare.nu
 
   variable:
-    - match: (\${{var_name}})(?:(\.)({{var_name}}))?
+    - match: \${{var_name}}
+      scope: variable.other.nu
+
+  property-accessor:
+    - match: (\.)({{var_name}})
       captures:
-        1: variable.other.nu
-        2: punctuation.accessor.nu
-        3: meta.property.record.nu
+        1: punctuation.accessor.nu
+        2: meta.property.record.nu
 
   assign-variable:
     - match: (alias|let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
