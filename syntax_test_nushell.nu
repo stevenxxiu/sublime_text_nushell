@@ -581,6 +581,12 @@ let a = if false { -1 } else { 1 }
 #                              ^ meta.block.nu constant.numeric.integer.nu
 #                                ^ meta.block.nu punctuation.section.block.end.nu
 
+where foo | null
+# ^^^ meta.function-call.identifier.nu support.function.nu
+#     ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
+#         ^ keyword.operator.pipe.nu
+#           ^^^^ meta.function-call.identifier.nu variable.function.nu
+
 where size > 10kb && size < 100kb | null
 # ^^^ meta.function-call.identifier.nu support.function.nu
 #     ^^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
