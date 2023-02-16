@@ -759,7 +759,7 @@ contexts:
     - include: where-call
 
   if-statement:
-    - match: (?<=^|[\s(])(if)(?=\s|$)
+    - match: (if)(?=\s|$)
       captures:
         1: keyword.control.conditional.if.nu
       push:
@@ -774,7 +774,7 @@ contexts:
         2: keyword.operator.nu
 
   where-call:
-    - match: (?<=^|[\s(])(where)(?=\s|$)
+    - match: (where)(?=\s|$)
       captures:
         1: meta.function-call.identifier.nu support.function.nu
       push:
