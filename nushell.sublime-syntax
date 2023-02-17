@@ -815,7 +815,7 @@ contexts:
       scope: keyword.operator.nu
 
   row-condition-call:
-    - match: (all|any|where)(?=\s|$)
+    - match: (where)(?=\s|$)
       captures:
         1: meta.function-call.identifier.nu support.function.nu
       push:
