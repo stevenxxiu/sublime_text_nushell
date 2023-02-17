@@ -25,7 +25,7 @@ variables:
   bare_string: '[^\s#$();\[\]{|}][^\s#$();|]*'
   bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
   pipe: '(^|(?<!\|))\|(?!\|)'
-  binary_logic_operator: '&&|and|\|\||or|xor'
+  binary_logic_operator: '(?<=^|\s)(?:and|or|xor)(?=\s|$)'
   operator: |-
     (?x:
       (?<=^|\s)(?:
@@ -799,6 +799,8 @@ contexts:
           pop: 1
 
   row-condition:
+    - match: ({{binary_logic_operator}})
+      scope: keyword.operator.nu
     - match: '{{var_name}}'
       scope: variable.name.nu
     - match: '(?!{{binary_logic_operator}}){{operator}}'
@@ -811,8 +813,6 @@ contexts:
           pop: 1
         - include: literal-bare-string
         - include: dollar-variable
-    - match: ({{binary_logic_operator}})
-      scope: keyword.operator.nu
 
   row-condition-call:
     - match: (where)(?=\s|$)
