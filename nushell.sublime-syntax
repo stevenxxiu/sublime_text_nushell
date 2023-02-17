@@ -177,6 +177,14 @@ contexts:
     - include: literal-bare-string
     - include: variable
 
+  expression-function-call:
+    - include: subexpression
+    - include: data-structure
+    - include: property-accessor
+    - include: pipe
+    - include: literal-bare-string
+    - include: variable
+
   expression-if:
     - include: subexpression
     - include: data-with-operators
@@ -748,7 +756,7 @@ contexts:
         - meta_content_scope: meta.function-call.arguments.nu
         - match: (?=\s*[#;\]{}|]|\s*$)
           pop: 1
-        - include: expression
+        - include: expression-function-call
 
   function-call-inline:
     - include: special-call
@@ -762,11 +770,10 @@ contexts:
         - match: (?=[)\]|])
           pop: 1
         - include: comment
-        - include: expression
+        - include: expression-function-call
 
   special-call:
     - include: alias-call
-    - include: cd-prevdir-call
     - include: overlay-call
     - include: row-condition-call
 
@@ -780,12 +787,6 @@ contexts:
         - include: command
         - match: (?=.|$)
           pop: 1
-
-  cd-prevdir-call:
-    - match: (cd)\s+(-)
-      captures:
-        1: meta.function-call.identifier.nu support.function.nu
-        2: meta.function-call.arguments.nu string.bare.nu
 
   overlay-call:
     - match: overlay use

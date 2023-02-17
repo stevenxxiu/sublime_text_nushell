@@ -56,12 +56,14 @@ let a = 1a
 ##
 # Operator
 ##
-let a = 3 * (1 + 2)
-#         ^ keyword.operator.nu
-#           ^ meta.group.nu punctuation.section.group.begin.nu
+let a = -1 - 2 * (3 + 4)
+#       ^^ constant.numeric.integer.nu
+#          ^ keyword.operator.nu
 #              ^ keyword.operator.nu
-#                ^ meta.group.nu constant.numeric.integer.nu
-#                 ^ meta.group.nu punctuation.section.group.end.nu
+#                ^ meta.group.nu punctuation.section.group.begin.nu
+#                   ^ keyword.operator.nu
+#                     ^ meta.group.nu constant.numeric.integer.nu
+#                      ^ meta.group.nu punctuation.section.group.end.nu
 
 ##
 # Decimal
@@ -525,12 +527,13 @@ extern "aaa\"bbb" [
 # Function Call
 ##
 
-func foo -a --bar 1
+func foo -a --bar - 1
 # <- meta.function-call.identifier.nu variable.function.nu
 #    ^^^ meta.function-call.arguments.nu string.bare.nu
 #        ^^ meta.function-call.arguments.nu string.bare.nu
 #           ^^^^^ meta.function-call.arguments.nu string.bare.nu
-#                 ^ meta.function-call.arguments.nu constant.numeric.integer.nu
+#                 ^ meta.function-call.arguments.nu string.bare.nu
+#                   ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 
 roll down
 # ^^^^^^^ meta.function-call.identifier.nu support.function.nu
@@ -577,10 +580,6 @@ export alias c = foo
 #            ^ variable.name.nu
 #              ^ keyword.operator.assignment.nu
 #                ^^^ meta.function-call.identifier.nu variable.function.nu
-
-cd -
-# <- meta.function-call.identifier.nu support.function.nu
-#  ^ meta.function-call.arguments.nu string.bare.nu
 
 overlay use foo --prefix as bar --reload
 # <- keyword.operator.nu
