@@ -175,7 +175,7 @@ contexts:
     - include: subexpression
     - include: data-with-operators
     - include: literal-bare-string
-    - include: variable
+    - include: dollar-variable
 
   expression-function-call:
     - include: subexpression
@@ -183,20 +183,20 @@ contexts:
     - include: property-accessor
     - include: pipe
     - include: literal-bare-string
-    - include: variable
+    - include: dollar-variable
 
   expression-if:
     - include: subexpression
     - include: data-with-operators
     - include: function-call
     - include: literal-bare-string
-    - include: variable
+    - include: dollar-variable
 
   expression-record-list-table:
     - include: subexpression
     - include: data-with-operators
     - include: literal-bare-string-record-list
-    - include: variable
+    - include: dollar-variable
 
   subexpression:
     - match: \(
@@ -208,7 +208,7 @@ contexts:
         - include: data-with-operators
         - include: subexpression
         - include: literal-bare-string
-        - include: variable
+        - include: dollar-variable
         - match: \)
           scope: punctuation.section.group.end.nu
           pop: 1
@@ -407,7 +407,7 @@ contexts:
     - match: '{{bare_string_record_list}}'
       scope: string.bare.nu
 
-  variable:
+  dollar-variable:
     - match: \${{var_name}}
       scope: variable.other.nu
 
@@ -810,7 +810,7 @@ contexts:
         - match: (?={{binary_logic_operator}}|{{pipe}}|$)
           pop: 1
         - include: literal-bare-string
-        - include: variable
+        - include: dollar-variable
     - match: ({{binary_logic_operator}})
       scope: keyword.operator.nu
 
