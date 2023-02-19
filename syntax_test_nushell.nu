@@ -56,6 +56,7 @@ let a = 1a
 ##
 # Operator
 ##
+
 let a = -1 - 2 * (3 + 4)
 #       ^^ constant.numeric.integer.nu
 #          ^ keyword.operator.nu
