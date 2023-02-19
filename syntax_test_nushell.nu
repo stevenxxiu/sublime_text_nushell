@@ -1,5 +1,5 @@
 # SYNTAX TEST "Packages/Nushell/nushell.sublime-syntax"
-# <- source.shell.nu comment.line.number-sign
+# <- source.shell.nu comment.line.number-sign.nu
 
 ##
 # Comment
@@ -195,7 +195,7 @@ let a = 0x[0 FF]
 #            ^^ meta.binary.hex.nu constant.numeric.hex.nu
 let a = 0x[
   # Foo
-# ^^^^^ comment.line
+# ^^^^^ meta.binary.hex.nu comment.line
   0 FF]
 # ^ meta.binary.hex.nu constant.numeric.hex.nu
 #   ^^ meta.binary.hex.nu constant.numeric.hex.nu
@@ -207,7 +207,7 @@ let a = 0b[0 1111111]
 #            ^^^^^^^ meta.binary.bin.nu constant.numeric.bin.nu
 let a = 0b[
   # Foo
-# ^^^^^ comment.line
+# ^^^^^ meta.binary.bin.nu comment.line
   0 1111111]
 # ^ meta.binary.bin.nu constant.numeric.bin.nu
 #   ^^^^^^^ meta.binary.bin.nu constant.numeric.bin.nu
@@ -219,7 +219,7 @@ let a = 0o[0 777]
 #            ^^^ meta.binary.oct.nu constant.numeric.oct.nu
 let a = 0o[
   # Foo
-# ^^^^^ comment.line
+# ^^^^^ meta.binary.oct.nu comment.line
   0 777]
 # ^ meta.binary.oct.nu constant.numeric.oct.nu
 #   ^^^ meta.binary.oct.nu constant.numeric.oct.nu
@@ -236,7 +236,7 @@ let a = {
 #     ^ meta.record.nu meta.string.nu string.quoted.double.nu punctuation.definition.string.end.nu
 #      ^ meta.record.nu punctuation.separator.key-value.nu
 #        ^ meta.record.nu constant.numeric.integer.nu
-#          ^ comment.line
+#          ^ meta.record.nu comment.line
 }
 # <- meta.record.nu punctuation.section.record.end.nu
 
@@ -247,7 +247,7 @@ let a = {
 #   ^ meta.record.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.end.nu
 #    ^ meta.record.nu punctuation.separator.key-value.nu
 #      ^ meta.record.nu constant.numeric.integer.nu
-#        ^ comment.line
+#        ^ meta.record.nu comment.line
 }
 # <- meta.record.nu punctuation.section.record.end.nu
 
@@ -258,7 +258,7 @@ let a = {
 #   ^ meta.record.nu meta.string.nu string.quoted.backtick.nu punctuation.definition.string.end.nu
 #    ^ meta.record.nu punctuation.separator.key-value.nu
 #      ^ meta.record.nu constant.numeric.integer.nu
-#        ^ comment.line
+#        ^ meta.record.nu comment.line
 }
 # <- meta.record.nu punctuation.section.record.end.nu
 
@@ -278,7 +278,7 @@ let a = {
 let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
   # Foo
-# ^^^^^ comment.line
+# ^^^^^ meta.record.nu comment.line
   k1: { k2: v1 } # Foo
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
@@ -326,7 +326,7 @@ let a = [a bb ccc]
 let a = [a bb
   ccc # Foo
 # ^^^ meta.list-table.nu string.bare.nu
-#     ^^^^^ comment.line
+#     ^^^^^ meta.list-table.nu comment.line
 ]
 # <- meta.list-table.nu punctuation.section.list-table.end.nu
 
@@ -514,7 +514,7 @@ extern "aaa\"bbb" [
   --foo(-f) # Foo
 # ^^^^^ meta.extern.parameters.nu variable.parameter.long.nu
 #       ^^ meta.extern.parameters.nu variable.parameter.short.nu
-#           ^ comment.line
+#           ^ meta.extern.parameters.nu comment.line
   -a: string # Foo
 # ^ meta.extern.parameters.nu variable.parameter.short.nu
 #            ^^^^^ meta.extern.parameters.nu comment.line
