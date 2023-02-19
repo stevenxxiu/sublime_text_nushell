@@ -693,7 +693,7 @@ contexts:
 
         - match: ({{var_name}})
           scope: entity.name.command.nu
-          set: command-parameters
+          push: command-parameters
 
         - include: code-block
 
