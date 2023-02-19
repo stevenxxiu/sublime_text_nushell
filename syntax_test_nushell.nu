@@ -736,18 +736,18 @@ col a|min|as b
 # Properties
 ##
 
-$var.foo.bar
+$var.1.bar
 # <- variable.other.nu
 #   ^ punctuation.accessor.nu
-#    ^^^ meta.property.record.nu
-#       ^ punctuation.accessor.nu
-#        ^^^ meta.property.record.nu
+#    ^ meta.property.nu
+#     ^ punctuation.accessor.nu
+#      ^^^ meta.property.nu
 
 (term size).foo.bar
 # <- meta.group.nu punctuation.section.group.begin.nu
 # ^^^^^^^^ meta.group.nu meta.function-call.identifier.nu support.function.nu
 #         ^ meta.group.nu punctuation.section.group.end.nu
 #          ^ punctuation.accessor.nu
-#           ^^^ meta.property.record.nu
+#           ^^^ meta.property.nu
 #              ^ punctuation.accessor.nu
-#               ^^^ meta.property.record.nu
+#               ^^^ meta.property.nu

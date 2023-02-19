@@ -15,6 +15,7 @@ first_line_match: |-
 
 variables:
   var_name: '[A-Za-z_][A-Za-z\d\-_]*'
+  property_name: '\d+|[A-Za-z_][A-Za-z\d\-_]*'
   type_name: '[A-Za-z_][A-Za-z\d\-_]*'
   long_flag: '--[A-Za-z\d\-_]+'
   short_flag: '-[A-Za-z\d\-_]'
@@ -412,10 +413,10 @@ contexts:
       scope: variable.other.nu
 
   property-accessor:
-    - match: (\.)({{var_name}})
+    - match: (\.)({{property_name}})
       captures:
         1: punctuation.accessor.nu
-        2: meta.property.record.nu
+        2: meta.property.nu
 
   assign-variable:
     - match: (let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
