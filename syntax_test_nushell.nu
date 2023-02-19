@@ -436,7 +436,7 @@ each {
 # <- meta.function-call.identifier.nu support.function.nu
   # Foo
 # ^^^^^ meta.closure.nu comment.line
-  |aaa, bbb: int| print $aaa
+  |aaa, bbb: int| print $aaa | ccc
 # ^ meta.closure.nu meta.parameters.nu punctuation.section.group.begin.nu
 #  ^^^ meta.closure.nu meta.parameters.nu variable.parameter.nu
 #     ^ meta.closure.nu meta.parameters.nu punctuation.separator.parameter.nu
@@ -446,10 +446,12 @@ each {
 #               ^ meta.closure.nu meta.parameters.nu punctuation.section.group.end.nu
 #                 ^^^^^ meta.closure.nu meta.function-call.identifier.nu support.function.nu
 #                       ^^^^ meta.closure.nu meta.function-call.arguments.nu variable.other.nu
+#                            ^ meta.closure.nu keyword.operator.pipe.nu
+#                              ^^^ meta.closure.nu meta.function-call.identifier.nu variable.function.nu
 }
 # <- meta.closure.nu punctuation.section.closure.end.nu
 
-each { |aaa, bbb: int| print $aaa }
+each { |aaa, bbb: int| print $aaa | ccc }
 # <- meta.function-call.identifier.nu support.function.nu
 #    ^ meta.closure.nu punctuation.section.closure.begin.nu
 #      ^ meta.closure.nu meta.parameters.nu punctuation.section.group.begin.nu
@@ -461,7 +463,9 @@ each { |aaa, bbb: int| print $aaa }
 #                    ^ meta.closure.nu meta.parameters.nu punctuation.section.group.end.nu
 #                      ^^^^^ meta.closure.nu meta.function-call.identifier.nu support.function.nu
 #                            ^^^^ meta.closure.nu meta.function-call.arguments.nu variable.other.nu
-#                                 ^ meta.closure.nu punctuation.section.closure.end.nu
+#                                 ^ meta.closure.nu keyword.operator.pipe.nu
+#                                   ^^^ meta.closure.nu meta.function-call.identifier.nu variable.function.nu
+#                                       ^ meta.closure.nu punctuation.section.closure.end.nu
 
 ##
 # Block

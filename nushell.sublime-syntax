@@ -477,19 +477,6 @@ contexts:
           scope: punctuation.section.block.end.nu
           pop: 2
 
-  closure-parameters:
-    - meta_scope: meta.parameters.nu
-    - match: \|
-      scope: punctuation.section.group.begin.nu
-      push:
-        - include: parameter
-        - match: \,
-          scope: punctuation.separator.parameter.nu
-        - include: comment
-        - match: \|
-          scope: punctuation.section.group.end.nu
-          pop: 2
-
   closure:
     - match: '\{'
       scope: punctuation.section.closure.begin.nu
@@ -498,12 +485,21 @@ contexts:
         - include: comment
         - match: '(?=({{var_name}}|{{quoted_string}}):)'
           fail: open-curly
-        - match: (?=\|)
-          push: closure-parameters
-        - include: main
-        - match: '\}'
-          scope: punctuation.section.closure.end.nu
-          pop: 2
+        - match: \|
+          scope: punctuation.section.group.begin.nu
+          push:
+            - meta_scope: meta.parameters.nu
+            - include: parameter
+            - match: \,
+              scope: punctuation.separator.parameter.nu
+            - include: comment
+            - match: \|
+              scope: punctuation.section.group.end.nu
+              set:
+                - include: main
+                - match: '\}'
+                  scope: punctuation.section.closure.end.nu
+                  pop: 3
 
   record:
     - match: '\{'
