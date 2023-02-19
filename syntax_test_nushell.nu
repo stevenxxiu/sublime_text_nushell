@@ -429,17 +429,48 @@ let a = $b
 #       ^^ variable.other.nu
 
 ##
+# Closure
+##
+
+each {
+# <- meta.function-call.identifier.nu support.function.nu
+  # Foo
+# ^^^^^ meta.closure.nu comment.line
+  |aaa, bbb| print $aaa
+# ^ meta.closure.nu meta.closure.parameters.nu punctuation.section.group.begin.nu
+#  ^^^ meta.closure.parameters.nu variable.parameter.nu
+#     ^ meta.closure.parameters.nu punctuation.separator.parameter.nu
+#       ^^^ meta.closure.parameters.nu variable.parameter.nu
+#          ^ meta.closure.parameters.nu meta.closure.nu punctuation.section.group.end.nu
+#            ^^^^^ meta.closure.nu meta.function-call.identifier.nu support.function.nu
+#                  ^^^^ meta.closure.nu meta.function-call.arguments.nu variable.other.nu
+}
+# <- meta.closure.nu punctuation.section.closure.end.nu
+
+each { |aaa, bbb| print $aaa }
+# <- meta.function-call.identifier.nu support.function.nu
+#    ^ meta.closure.nu punctuation.section.closure.begin.nu
+#      ^ meta.closure.nu meta.closure.parameters.nu punctuation.section.group.begin.nu
+#       ^^^ meta.closure.parameters.nu variable.parameter.nu
+#          ^ meta.closure.parameters.nu punctuation.separator.parameter.nu
+#            ^^^ meta.closure.parameters.nu variable.parameter.nu
+#               ^ meta.closure.parameters.nu meta.closure.nu punctuation.section.group.end.nu
+#                 ^^^^^ meta.closure.nu meta.function-call.identifier.nu support.function.nu
+#                       ^^^^ meta.closure.nu meta.function-call.arguments.nu variable.other.nu
+#                            ^ meta.closure.nu punctuation.section.closure.end.nu
+
+##
 # Block
 ##
 
-each { |aaa, bbb| print $aaa }
-# <- support.function.nu
-#    ^ meta.block.nu punctuation.section.block.begin.nu
-#      ^ meta.block.nu meta.block.parameters.nu
-#       ^^^ meta.block.parameters.nu variable.parameter.nu
-#          ^ meta.block.parameters.nu punctuation.separator.parameter.command.nu
-#            ^^^ meta.block.parameters.nu variable.parameter.nu
-#               ^ meta.block.parameters.nu
+{ aaa |
+# <- meta.block.nu punctuation.section.block.begin.nu
+# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#     ^ meta.block.nu keyword.operator.pipe.nu
+  bbb
+# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+}
+# <- meta.block.nu punctuation.section.block.end.nu
 
 loop { break }
 # <- meta.function-call.identifier.nu keyword.other.nu
