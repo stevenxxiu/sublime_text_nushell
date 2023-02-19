@@ -517,14 +517,16 @@ def "aaa\"bbb" [aaa, bbb: string] {
 # <- meta.command.nu keyword.declaration.nu
 #   ^ meta.command.nu entity.name.command.nu entity.name.command.begin.nu
 #    ^^^^^^^^^ meta.command.nu entity.name.command.nu
-#       ^^ constant.character.escape.nu
-#              ^ meta.command.nu meta.command.parameters.nu punctuation.section.group.begin.nu
-#               ^^^ meta.command.nu meta.command.parameters.nu variable.parameter.nu
-#                  ^ meta.command.nu meta.command.parameters.nu punctuation.separator.parameter.command.nu
-#                       ^ meta.command.nu meta.command.parameters.nu punctuation.separator.type.nu
-#                         ^^^^^^ meta.command.nu meta.command.parameters.nu
+#       ^^ meta.command.nu entity.name.command.nu constant.character.escape.nu
+#              ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
+#               ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+#                  ^ meta.command.nu meta.parameters.nu punctuation.separator.parameter.nu
+#                       ^ meta.command.nu meta.parameters.nu punctuation.separator.type.nu
+#                         ^^^^^^ meta.command.nu meta.parameters.nu
 #                               ^ meta.command.nu punctuation.section.group.end.nu
 #                                 ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+  foo
+# ^^^ meta.command.nu meta.block.nu meta.function-call.identifier.nu variable.function.nu
 }
 # <- meta.command.nu meta.block.nu punctuation.section.block.end.nu
 
@@ -535,31 +537,31 @@ def "aaa\"bbb" [aaa, bbb: string] {
 extern "aaa\"bbb" [
 # <- meta.extern.nu keyword.extern.nu
 #      ^ meta.extern.nu entity.name.extern.nu entity.name.extern.begin.nu
-#          ^^ entity.name.extern.nu constant.character.escape.nu
-#               ^ entity.name.extern.nu meta.extern.parameters.nu entity.name.extern.end.nu
-#                 ^ meta.extern.parameters.nu punctuation.section.group.begin.nu
+#          ^^ meta.extern.nu entity.name.extern.nu constant.character.escape.nu
+#               ^ meta.extern.nu entity.name.extern.nu meta.parameters.nu entity.name.extern.end.nu
+#                 ^ meta.extern.nu meta.parameters.nu punctuation.section.group.begin.nu
   foo: string@"nu-complete git branches" # Foo
-# ^ meta.extern.parameters.nu variable.parameter.nu
-#    ^ meta.extern.parameters.nu punctuation.separator.type.nu
-#      ^^^^^^ meta.extern.parameters.nu storage.type.nu
-#            ^ meta.extern.parameters.nu keyword.operator.completion.nu
-#             ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.extern.parameters.nu variable.function.completion.nu
-#                                        ^^^^^ meta.extern.parameters.nu comment.line
+# ^ meta.extern.nu meta.parameters.nu variable.parameter.nu
+#    ^ meta.extern.nu meta.parameters.nu punctuation.separator.type.nu
+#      ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
+#            ^ meta.extern.nu meta.parameters.nu keyword.operator.completion.nu
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.extern.nu meta.parameters.nu variable.function.completion.nu
+#                                        ^^^^^ meta.parameters.nu comment.line
   foo?: string@"nu-complete git branches" # Foo
-#    ^ meta.extern.parameters.nu keyword.operator.optional.nu
+#    ^ meta.extern.nu meta.parameters.nu keyword.operator.optional.nu
   --foo # Foo
-# ^^^^^ meta.extern.parameters.nu variable.parameter.long.nu
-#       ^^^^^ meta.extern.parameters.nu comment.line
+# ^^^^^ meta.extern.nu meta.parameters.nu variable.parameter.long.nu
+#       ^^^^^ meta.extern.nu meta.parameters.nu comment.line
   --foo(-f) # Foo
-# ^^^^^ meta.extern.parameters.nu variable.parameter.long.nu
-#       ^^ meta.extern.parameters.nu variable.parameter.short.nu
-#           ^ meta.extern.parameters.nu comment.line
+# ^^^^^ meta.extern.nu meta.parameters.nu variable.parameter.long.nu
+#       ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
+#           ^ meta.extern.nu meta.parameters.nu comment.line
   -a: string # Foo
-# ^ meta.extern.parameters.nu variable.parameter.short.nu
-#            ^^^^^ meta.extern.parameters.nu comment.line
+# ^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
+#            ^^^^^ meta.extern.nu meta.parameters.nu comment.line
   -a # Foo
-# ^ meta.extern.parameters.nu variable.parameter.short.nu
-#    ^^^^^ meta.extern.parameters.nu comment.line
+# ^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
+#    ^^^^^ meta.extern.nu meta.parameters.nu comment.line
 ]
 
 ##

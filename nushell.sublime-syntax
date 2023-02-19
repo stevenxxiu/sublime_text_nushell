@@ -595,20 +595,7 @@ contexts:
 
         - include: code-block
 
-  command-parameters:
-    - meta_scope: meta.command.parameters.nu
-    - match: \[
-      scope: punctuation.section.group.begin.nu
-      push:
-        - include: command-parameter
-        - match: \,
-          scope: punctuation.separator.parameter.command.nu
-        - include: comment
-        - match: \]
-          scope: punctuation.section.group.end.nu
-          pop: 2
-
-  command-parameter:
+  parameter:
     - match: |-
         (?x:
           ({{var_name}})
@@ -645,6 +632,19 @@ contexts:
         1: variable.parameter.short.nu
         2: punctuation.separator.type.nu
         3: storage.type.nu
+
+  command-parameters:
+    - meta_scope: meta.parameters.nu
+    - match: \[
+      scope: punctuation.section.group.begin.nu
+      push:
+        - include: parameter
+        - match: \,
+          scope: punctuation.separator.parameter.nu
+        - include: comment
+        - match: \]
+          scope: punctuation.section.group.end.nu
+          pop: 2
 
   command:
     - match: \b(export\s+)?(def|def-env)\s+
@@ -697,6 +697,19 @@ contexts:
 
         - include: code-block
 
+  extern-parameters:
+    - meta_scope: meta.parameters.nu
+    - match: \[
+      scope: punctuation.section.group.begin.nu
+      push:
+        - include: parameter
+        - match: \,
+          scope: punctuation.separator.parameter.nu
+        - include: comment
+        - match: \]
+          scope: punctuation.section.group.end.nu
+          pop: 3
+
   extern:
     - match: \b(export\s+)?(extern)\s+
       captures:
@@ -706,7 +719,7 @@ contexts:
         - meta_scope: meta.extern.nu
         - match: \'
           scope: entity.name.extern.begin.nu
-          set:
+          push:
             - meta_include_prototype: false
             - meta_scope: entity.name.extern.nu
             - match: \'
@@ -718,7 +731,7 @@ contexts:
 
         - match: \`
           scope: entity.name.extern.begin.nu
-          set:
+          push:
             - meta_include_prototype: false
             - meta_scope: entity.name.extern.nu
             - match: \`
@@ -730,7 +743,7 @@ contexts:
 
         - match: \"
           scope: entity.name.extern.begin.nu
-          set:
+          push:
             - meta_include_prototype: false
             - meta_scope: entity.name.extern.nu
             - match: \"
@@ -743,18 +756,7 @@ contexts:
 
         - match: ({{var_name}})
           scope: entity.name.extern.nu
-          set: extern-parameters
-
-  extern-parameters:
-    - meta_scope: meta.extern.parameters.nu
-    - match: \[
-      scope: punctuation.section.group.begin.nu
-      push:
-        - include: command-parameter
-        - include: comment
-        - match: \]
-          scope: punctuation.section.group.end.nu
-          pop: 2
+          push: extern-parameters
 
   function-call:
     - include: special-call
