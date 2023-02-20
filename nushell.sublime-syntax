@@ -599,6 +599,7 @@ contexts:
   parameter:
     - match: |-
         (?x:
+          (\.\.\.)?
           ({{var_name}})
           (\?)?
           (?:
@@ -607,12 +608,13 @@ contexts:
           )?
         )
       captures:
-        1: variable.parameter.nu
-        2: keyword.operator.optional.nu
-        3: punctuation.separator.type.nu
-        4: storage.type.nu
-        5: keyword.operator.completion.nu
-        6: variable.function.completion.nu
+        1: keyword.operator.spread.nu
+        2: variable.parameter.nu
+        3: keyword.operator.optional.nu
+        4: punctuation.separator.type.nu
+        5: storage.type.nu
+        6: keyword.operator.completion.nu
+        7: variable.function.completion.nu
       push:
         - match: =
           scope: keyword.operator.assignment.nu

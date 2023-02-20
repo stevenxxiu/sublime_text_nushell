@@ -582,6 +582,16 @@ def aaa [bbb?] {}
 #              ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
 #               ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
 
+def aaa [...bbb] {}
+# <- meta.command.nu keyword.declaration.nu
+#   ^^^ meta.command.nu meta.parameters.nu entity.name.command.nu
+#       ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
+#        ^^^ meta.command.nu meta.parameters.nu keyword.operator.spread.nu
+#           ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+#              ^ meta.command.nu meta.parameters.nu punctuation.section.group.end.nu
+#                ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#                 ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
+
 ##
 # Extern
 ##
