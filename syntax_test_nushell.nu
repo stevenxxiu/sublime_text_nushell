@@ -514,22 +514,63 @@ module foo_module {
 # Command
 ##
 
-def "aaa\"bbb" [aaa, bbb: string] {
+def "aaa\"bbb" [] {
 # <- meta.command.nu keyword.declaration.nu
 #   ^ meta.command.nu entity.name.command.nu entity.name.command.begin.nu
 #    ^^^^^^^^^ meta.command.nu entity.name.command.nu
-#       ^^ meta.command.nu entity.name.command.nu constant.character.escape.nu
 #              ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
-#               ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
-#                  ^ meta.command.nu meta.parameters.nu punctuation.separator.parameter.nu
-#                       ^ meta.command.nu meta.parameters.nu punctuation.separator.type.nu
-#                         ^^^^^^ meta.command.nu meta.parameters.nu
-#                               ^ meta.command.nu punctuation.section.group.end.nu
-#                                 ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#               ^ meta.command.nu meta.parameters.nu punctuation.section.group.end.nu
+#                 ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
   foo
 # ^^^ meta.command.nu meta.block.nu meta.function-call.identifier.nu variable.function.nu
 }
 # <- meta.command.nu meta.block.nu punctuation.section.block.end.nu
+
+def aaa [bbb, ccc] {}
+# <- meta.command.nu keyword.declaration.nu
+#   ^^^ meta.command.nu meta.parameters.nu entity.name.command.nu
+#       ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
+#        ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+#           ^ meta.command.nu meta.parameters.nu punctuation.separator.parameter.nu
+#             ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+#                ^ meta.command.nu meta.parameters.nu punctuation.section.group.end.nu
+#                  ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#                   ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
+
+def aaa [
+# <- meta.command.nu keyword.declaration.nu
+#   ^^^ meta.command.nu meta.parameters.nu entity.name.command.nu
+#       ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
+  bbb
+# ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+  ccc
+# ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+] {}
+# <- meta.command.nu meta.parameters.nu punctuation.section.group.end.nu
+# ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#  ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
+
+def aaa [bbb: string] {}
+# <- meta.command.nu keyword.declaration.nu
+#   ^^^ meta.command.nu meta.parameters.nu entity.name.command.nu
+#       ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
+#        ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+#           ^ meta.command.nu meta.parameters.nu punctuation.separator.type.nu
+#             ^^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#                   ^ meta.command.nu meta.parameters.nu punctuation.section.group.end.nu
+#                     ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#                      ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
+
+def aaa [bbb = 10] {}
+# <- meta.command.nu keyword.declaration.nu
+#   ^^^ meta.command.nu meta.parameters.nu entity.name.command.nu
+#       ^ meta.command.nu meta.parameters.nu punctuation.section.group.begin.nu
+#        ^^^ meta.command.nu meta.parameters.nu variable.parameter.nu
+#            ^ meta.command.nu meta.parameters.nu keyword.operator.assignment.nu
+#              ^^ meta.command.nu meta.parameters.nu constant.numeric.integer.nu
+#                ^ meta.command.nu meta.parameters.nu punctuation.section.group.end.nu
+#                  ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
+#                   ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Extern

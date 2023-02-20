@@ -613,6 +613,16 @@ contexts:
         4: storage.type.nu
         5: keyword.operator.completion.nu
         6: variable.function.completion.nu
+      push:
+        - match: =
+          scope: keyword.operator.assignment.nu
+          push:
+            - match: (?=[#,\]|\n])
+              pop: 2
+            - include: expression
+        - match: (?=[#,\]|\n])
+          pop: 1
+
     - match: |-
         (?x:
           ({{long_flag}})
@@ -624,6 +634,7 @@ contexts:
         2: variable.parameter.short.nu
         3: punctuation.separator.type.nu
         4: storage.type.nu
+
     - match: |-
         (?x:
           ({{short_flag}})
