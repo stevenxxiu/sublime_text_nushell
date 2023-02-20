@@ -163,9 +163,6 @@ contexts:
     - include: expression
 
   keyword:
-    - match: \belse\b
-      scope: keyword.control.conditional.else.nu
-
     - match: \bcatch\b
       scope: keyword.other.nu
 
@@ -174,6 +171,7 @@ contexts:
 
   expression:
     - include: subexpression
+    - include: if-statement
     - include: data-with-operators
     - include: literal-bare-string
     - include: dollar-variable
@@ -205,6 +203,7 @@ contexts:
       push:
         - meta_scope: meta.group.nu
         - include: comment
+        - include: if-statement
         - include: function-call-inline
         - include: data-with-operators
         - include: subexpression
@@ -425,7 +424,6 @@ contexts:
         2: variable.name.nu
         3: keyword.operator.assignment.nu
       push:
-        - include: if-statement
         - include: expression
         - match: (?=.|$)
           pop: 1
@@ -859,3 +857,5 @@ contexts:
         - include: expression-if
         - match: (?=\s*[#)\]{}|]|\s*$)
           pop: 1
+    - match: \belse\b
+      scope: keyword.control.conditional.else.nu

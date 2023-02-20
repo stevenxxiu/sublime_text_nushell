@@ -757,6 +757,25 @@ let a = if false { -1 } else { 1 }
 #                              ^ meta.block.nu constant.numeric.integer.nu
 #                                ^ meta.block.nu punctuation.section.block.end.nu
 
+let a = (
+#       ^ meta.group.nu punctuation.section.group.begin.nu
+  if false {
+# ^^ meta.group.nu keyword.control.conditional.if.nu
+#    ^^^^^ meta.group.nu constant.language.boolean.false.nu
+#          ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
+    -1
+#   ^^ meta.group.nu meta.block.nu constant.numeric.integer.nu
+  } else {
+# ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
+#   ^^^^ meta.group.nu keyword.control.conditional.else.nu
+#        ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
+    1
+#   ^ meta.group.nu meta.block.nu constant.numeric.integer.nu
+  }
+# ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
+)
+# <- meta.group.nu punctuation.section.group.end.nu
+
 ##
 # Pipelines
 ##
