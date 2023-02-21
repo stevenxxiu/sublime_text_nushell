@@ -435,9 +435,6 @@ contexts:
         3: keyword.other.nu
 
   punctuation:
-    - match: \,
-      scope: punctuation.comma.nu
-
     - match: ;
       scope: punctuation.semi.nu
 
