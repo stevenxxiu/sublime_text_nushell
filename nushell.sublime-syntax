@@ -232,11 +232,11 @@ contexts:
     - include: pipe
 
   operator:
-    - match: ({{operator}})
+    - match: '{{operator}}'
       scope: keyword.operator.nu
 
   pipe:
-    - match: ({{pipe}})
+    - match: '{{pipe}}'
       scope: keyword.operator.pipe.nu
 
   date:
@@ -507,7 +507,7 @@ contexts:
           captures:
             1: entity.name.label.nu
             2: punctuation.separator.key-value.nu
-        - match: (?=({{quoted_string}}):)
+        - match: (?=(?:{{quoted_string}}):)
           push:
             - include: string
             - match: ':'
@@ -586,7 +586,7 @@ contexts:
               scope: invalid.illegal.newline.nu
             - include: double-quoted-string-content
 
-        - match: ({{var_name}})
+        - match: '{{var_name}}'
           scope: entity.name.module.nu
 
         - include: code-block
@@ -700,7 +700,7 @@ contexts:
               set: command-parameters
             - include: double-quoted-string-content
 
-        - match: ({{var_name}})
+        - match: '{{var_name}}'
           scope: entity.name.command.nu
           push: command-parameters
 
@@ -763,7 +763,7 @@ contexts:
               set: extern-parameters
             - include: double-quoted-string-content
 
-        - match: ({{var_name}})
+        - match: '{{var_name}}'
           scope: entity.name.extern.nu
           push: extern-parameters
 
@@ -821,7 +821,7 @@ contexts:
           pop: 1
 
   row-condition:
-    - match: ({{binary_logic_operator}})
+    - match: '{{binary_logic_operator}}'
       scope: keyword.operator.nu
     - match: '{{var_name}}'
       scope: variable.name.nu
