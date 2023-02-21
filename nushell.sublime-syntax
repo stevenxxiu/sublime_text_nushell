@@ -150,7 +150,6 @@ variables:
 contexts:
   main:
     - include: assign-variable
-    - include: punctuation
     - include: comment
     - include: curly-block
     - include: for-variable
@@ -161,6 +160,7 @@ contexts:
     - include: try-statement
     - include: function-call
     - include: expression
+    - include: terminator
 
   expression:
     - include: subexpression
@@ -434,9 +434,9 @@ contexts:
         2: variable.name.nu
         3: keyword.other.nu
 
-  punctuation:
+  terminator:
     - match: ;
-      scope: punctuation.semi.nu
+      scope: punctuation.terminator.statement.nu
 
   comment:
     - match: (#)(.*)

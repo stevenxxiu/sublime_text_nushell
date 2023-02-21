@@ -643,7 +643,7 @@ roll down
 
 foo; bar
 # <- meta.function-call.identifier.nu variable.function.nu
-#  ^ punctuation.semi.nu
+#  ^ punctuation.terminator.statement.nu
 #    ^^^ meta.function-call.identifier.nu variable.function.nu
 
 (
