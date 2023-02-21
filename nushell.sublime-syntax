@@ -26,7 +26,9 @@ variables:
   bare_string: '[^\s#$();\[\]{|}][^\s#$();|]*'
   bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
   pipe: '(^|(?<!\|))\|(?!\|)'
-  binary_logic_operator: '(?<=^|\s)(?:and|or|xor)(?=\s|$)'
+  identifier_break: (?=\s|[#);\]{}|]|$)
+  expression_break: (?=\s*[#);\]{}|]|\s*$)
+  binary_logic_operator: '(?<=^|\s)(?:and|or|xor){{identifier_break}}'
   operator: |-
     (?x:
       (?<=^|\s)(?:
@@ -37,7 +39,7 @@ variables:
         bit-or|bit-xor|bit-and|bit-shl|bit-shr|
         starts-with|ends-with|
         \+\+
-      )(?=\s|$)
+      ){{identifier_break}}
     )
   core_native_command: |-
     (?x:
@@ -445,7 +447,7 @@ contexts:
         2: comment.line.nu
 
   literal-null:
-    - match: \bnull\b
+    - match: null(?:{{expression_break}}|\s)
       scope: constant.language.null.nu
 
   curly-block:
@@ -548,7 +550,7 @@ contexts:
           pop: 2
 
   module:
-    - match: \b(module)\s+
+    - match: (module)\s+
       captures:
         1: keyword.module.nu
       push:
@@ -654,7 +656,7 @@ contexts:
           pop: 2
 
   command:
-    - match: \b(export\s+)?(def|def-env)\s+
+    - match: (export\s+)?(def|def-env)\s+
       captures:
         1: keyword.declaration.nu
         2: keyword.declaration.nu
@@ -718,7 +720,7 @@ contexts:
           pop: 3
 
   extern:
-    - match: \b(export\s+)?(extern)\s+
+    - match: (export\s+)?(extern)\s+
       captures:
         1: keyword.extern.nu
         2: keyword.extern.nu
@@ -780,7 +782,7 @@ contexts:
 
   function-call-inline:
     - include: special-call
-    - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s)\]|]|$)
+    - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}})){{identifier_break}}
       captures:
         1: meta.function-call.identifier.nu keyword.other.nu
         2: meta.function-call.identifier.nu support.function.nu
@@ -812,10 +814,10 @@ contexts:
     - match: overlay use
       scope: keyword.operator.nu
       push:
-        - match: \bas\b
+        - match: as{{identifier_break}}
           scope: keyword.operator.nu
         - include: literal-bare-string
-        - match: (?=\s*[#)\]{}|]|\s*$)
+        - match: '{{expression_break}}'
           pop: 1
 
   row-condition:
@@ -835,28 +837,26 @@ contexts:
         - include: dollar-variable
 
   row-condition-call:
-    - match: (where)(?=\s|$)
-      captures:
-        1: meta.function-call.identifier.nu support.function.nu
+    - match: where{{identifier_break}}
+      scope: meta.function-call.identifier.nu support.function.nu
       push:
         - meta_content_scope: meta.function-call.arguments.row-condition.nu
         - include: row-condition
-        - match: (?=\s*[#)\]{}|]|\s*$)
+        - match: '{{expression_break}}'
           pop: 1
 
   if-statement:
-    - match: (if)(?=\s|$)
-      captures:
-        1: keyword.control.conditional.if.nu
+    - match: if{{identifier_break}}
+      scope: keyword.control.conditional.if.nu
       push:
         - include: expression-if
-        - match: (?=\s*[#)\]{}|]|\s*$)
+        - match: '{{expression_break}}'
           pop: 1
-    - match: \belse\b
+    - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu
 
   try-statement:
-    - match: \btry\b
+    - match: try{{identifier_break}}
       scope: keyword.control.exception.try.nu
-    - match: \bcatch\b
+    - match: catch{{identifier_break}}
       scope: keyword.control.exception.catch.nu
