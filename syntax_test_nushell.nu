@@ -658,6 +658,16 @@ foo; bar
 # <- punctuation.section.group.end.nu
 
 ##
+# Output redirection
+##
+
+foo bar out> output.txt
+# <- meta.function-call.identifier.nu variable.function.nu
+#   ^^^ meta.function-call.arguments.nu string.bare.nu
+#       ^^^^ meta.function-call.arguments.nu keyword.other.redirect.nu
+#            ^^^^^^^^^^ meta.function-call.arguments.nu string.bare.nu
+
+##
 # Special statements
 ##
 

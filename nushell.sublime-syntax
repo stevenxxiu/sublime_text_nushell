@@ -166,9 +166,6 @@ contexts:
     - match: \bcatch\b
       scope: keyword.other.nu
 
-    - match: \bout>|err>|out\+err>|err\+out>
-      scope: keyword.other.redirect.nu
-
   expression:
     - include: subexpression
     - include: if-statement
@@ -181,6 +178,7 @@ contexts:
     - include: data-structure
     - include: property-accessor
     - include: pipe
+    - include: redirect-output
     - include: literal-bare-string
     - include: dollar-variable
 
@@ -416,6 +414,10 @@ contexts:
       captures:
         1: punctuation.accessor.nu
         2: meta.property.nu
+
+  redirect-output:
+    - match: out>|err>|out\+err>|err\+out>
+      scope: keyword.other.redirect.nu
 
   assign-variable:
     - match: (let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
