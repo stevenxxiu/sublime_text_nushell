@@ -787,6 +787,21 @@ let a = (
 # <- meta.group.nu punctuation.section.group.end.nu
 
 ##
+# Try
+##
+
+try {
+# <- keyword.control.exception.try.nu
+  aaa
+# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+} catch {
+# ^^^^^ keyword.control.exception.catch.nu
+  bbb
+# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+}
+# <- meta.block.nu punctuation.section.block.end.nu
+
+##
 # Pipelines
 ##
 

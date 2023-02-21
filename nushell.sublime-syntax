@@ -152,19 +152,15 @@ contexts:
     - include: assign-variable
     - include: punctuation
     - include: comment
-    - include: keyword
     - include: curly-block
     - include: for-variable
     - include: module
     - include: command
     - include: extern
     - include: if-statement
+    - include: try-statement
     - include: function-call
     - include: expression
-
-  keyword:
-    - match: \bcatch\b
-      scope: keyword.other.nu
 
   expression:
     - include: subexpression
@@ -861,3 +857,9 @@ contexts:
           pop: 1
     - match: \belse\b
       scope: keyword.control.conditional.else.nu
+
+  try-statement:
+    - match: \btry\b
+      scope: keyword.control.exception.try.nu
+    - match: \bcatch\b
+      scope: keyword.control.exception.catch.nu
