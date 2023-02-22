@@ -618,8 +618,8 @@ contexts:
 
     - match: |-
         (?x:
-          ({{long_flag}})
-          (?:\(({{short_flag}})\))?
+          ({{long_flag}})\s*
+          (?:\(({{short_flag}})\))?\s*
           (?:(:)\s*({{type_name}}))?
         )
       captures:
@@ -630,7 +630,7 @@ contexts:
 
     - match: |-
         (?x:
-          ({{short_flag}})
+          ({{short_flag}})\s*
           (?:(:)\s*({{type_name}}))?
         )
       captures:
