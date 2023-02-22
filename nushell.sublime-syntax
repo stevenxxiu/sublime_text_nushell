@@ -27,8 +27,9 @@ variables:
   bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
   pipe: '(^|(?<!\|))\|(?!\|)'
   identifier_break: (?=\s|[#);\]{}|]|$)
-  expression_break: (?=\s*[#);\]{}|]|\s*$)
-  binary_logic_operator: '(?:and|or|xor){{identifier_break}}'
+  expression_end: (?=\s*[#);\]{}|]|\s*$)
+  expression_break: (?=\s|{{expression_end}})
+  binary_logic_operator: '(?<=^|\s)(?:and|or|xor){{identifier_break}}'
   operator: |-
     (?x:
       (?:
@@ -39,7 +40,7 @@ variables:
         bit-or|bit-xor|bit-and|bit-shl|bit-shr|
         starts-with|ends-with|
         \+\+
-      ){{identifier_break}}
+      ){{expression_break}}
     )
   core_native_command: |-
     (?x:
@@ -453,7 +454,7 @@ contexts:
         2: comment.line.nu
 
   literal-null:
-    - match: null(?:{{expression_break}}|\s)
+    - match: null{{expression_break}}
       scope: constant.language.null.nu
 
   curly-block:
@@ -823,7 +824,7 @@ contexts:
         - match: as{{identifier_break}}
           scope: keyword.operator.nu
         - include: literal-bare-string
-        - match: '{{expression_break}}'
+        - match: '{{expression_end}}'
           pop: 1
 
   row-condition:
@@ -848,7 +849,7 @@ contexts:
       push:
         - meta_content_scope: meta.function-call.arguments.row-condition.nu
         - include: row-condition
-        - match: '{{expression_break}}'
+        - match: '{{expression_end}}'
           pop: 1
 
   if-statement:
@@ -856,7 +857,7 @@ contexts:
       scope: keyword.control.conditional.if.nu
       push:
         - include: expression-if
-        - match: '{{expression_break}}'
+        - match: '{{expression_end}}'
           pop: 1
     - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu

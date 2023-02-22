@@ -870,6 +870,8 @@ aaa 1|bbb|ccc 2
 #    ^^^ meta.group.nu meta.function-call.identifier.nu variable.function.nu
 #       ^ meta.group.nu punctuation.section.group.end.nu
 
+($a == null and $b != null)
+
 ##
 # Properties
 ##
