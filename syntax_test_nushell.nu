@@ -338,13 +338,13 @@ let a = [0,a,b]
 #            ^ meta.list-table.nu string.bare.nu
 #             ^ meta.list-table.nu punctuation.section.list-table.end.nu
 
-let a = [(col a | min)]
+let a = [(aaa 1 | bbb)]
 #       ^ meta.list-table.nu punctuation.section.list-table.begin.nu
 #        ^ meta.list-table.nu meta.group.nu punctuation.section.group.begin.nu
-#         ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
-#             ^ meta.list-table.nu meta.group.nu meta.function-call.arguments.nu string.bare.nu
+#         ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu variable.function.nu
+#             ^ meta.list-table.nu meta.group.nu meta.function-call.arguments.nu constant.numeric.integer.nu
 #               ^ meta.list-table.nu meta.group.nu keyword.operator.pipe.nu
-#                 ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
+#                 ^^^ meta.list-table.nu meta.group.nu meta.function-call.identifier.nu variable.function.nu
 #                    ^ meta.list-table.nu meta.group.nu punctuation.section.group.end.nu
 #                     ^ meta.list-table.nu punctuation.section.list-table.end.nu
 
@@ -638,8 +638,9 @@ func foo -a --bar - 1
 #                 ^ meta.function-call.arguments.nu string.bare.nu
 #                   ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 
-roll down
-# ^^^^^^^ meta.function-call.identifier.nu support.function.nu
+path expand $foo
+# ^^^^^^^^^ meta.function-call.identifier.nu support.function.nu
+#           ^^^^ variable.other.nu
 
 foo; bar
 # <- meta.function-call.identifier.nu variable.function.nu
@@ -806,35 +807,35 @@ try {
 ##
 
 # Spaces aren't needed
-col a|min|as b
-# <- meta.function-call.identifier.nu support.function.nu
-#   ^ meta.function-call.arguments.nu string.bare.nu
+aaa 1|bbb|ccc 2
+# <- meta.function-call.identifier.nu variable.function.nu
+#   ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 #    ^ keyword.operator.pipe.nu
-#     ^^^ meta.function-call.identifier.nu support.function.nu
+#     ^^^ meta.function-call.identifier.nu variable.function.nu
 #        ^ keyword.operator.pipe.nu
-#         ^^ meta.function-call.identifier.nu support.function.nu
-#            ^ meta.function-call.arguments.nu string.bare.nu
+#         ^^^ meta.function-call.identifier.nu variable.function.nu
+#             ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 
 ##
 # Subexpressions
 ##
 
-(col a | min | as b)
+(aaa 1 | bbb | ccc 2)
 # <- punctuation.section.group.begin.nu
-# ^^ meta.function-call.identifier.nu support.function.nu
-#    ^ string.bare.nu
+# ^^ meta.function-call.identifier.nu variable.function.nu
+#    ^ meta.group.nu meta.function-call.arguments.nu constant.numeric.integer.nu
 #      ^ keyword.operator.pipe.nu
-#        ^^^ meta.function-call.identifier.nu support.function.nu
+#        ^^^ meta.function-call.identifier.nu variable.function.nu
 #            ^ keyword.operator.pipe.nu
-#              ^^ meta.function-call.identifier.nu support.function.nu
-#                 ^ meta.group.nu meta.function-call.arguments.nu string.bare.nu
-#                  ^ meta.group.nu punctuation.section.group.end.nu
+#              ^^^ meta.function-call.identifier.nu variable.function.nu
+#                  ^ meta.group.nu meta.function-call.arguments.nu constant.numeric.integer.nu
+#                   ^ meta.group.nu punctuation.section.group.end.nu
 
-((col a))
+((aaa 1))
 # <- meta.group.nu punctuation.section.group.begin.nu
 #^ meta.group.nu meta.group.nu punctuation.section.group.begin.nu
-# ^^^ meta.group.nu meta.group.nu meta.function-call.identifier.nu support.function.nu
-#     ^ meta.group.nu meta.group.nu meta.function-call.arguments.nu string.bare.nu
+# ^^^ meta.group.nu meta.group.nu meta.function-call.identifier.nu variable.function.nu
+#     ^ meta.group.nu meta.group.nu meta.function-call.arguments.nu constant.numeric.integer.nu
 #      ^ meta.group.nu meta.group.nu punctuation.section.group.end.nu
 #       ^ meta.group.nu punctuation.section.group.end.nu
 
@@ -849,11 +850,11 @@ $var.1.bar
 #     ^ punctuation.accessor.nu
 #      ^^^ meta.property.nu
 
-(term size).foo.bar
+(aaa).foo.bar
 # <- meta.group.nu punctuation.section.group.begin.nu
-# ^^^^^^^^ meta.group.nu meta.function-call.identifier.nu support.function.nu
-#         ^ meta.group.nu punctuation.section.group.end.nu
-#          ^ punctuation.accessor.nu
-#           ^^^ meta.property.nu
-#              ^ punctuation.accessor.nu
-#               ^^^ meta.property.nu
+# ^^ meta.group.nu meta.function-call.identifier.nu variable.function.nu
+#   ^ meta.group.nu punctuation.section.group.end.nu
+#    ^ punctuation.accessor.nu
+#     ^^^ meta.property.nu
+#        ^ punctuation.accessor.nu
+#         ^^^ meta.property.nu
