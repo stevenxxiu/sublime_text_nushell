@@ -839,6 +839,12 @@ aaa 1|bbb|ccc 2
 #      ^ meta.group.nu meta.group.nu punctuation.section.group.end.nu
 #       ^ meta.group.nu punctuation.section.group.end.nu
 
+(not aaa)
+# <- meta.group.nu punctuation.section.group.begin.nu
+# ^^ meta.group.nu keyword.operator.nu
+#    ^^^ meta.group.nu meta.function-call.identifier.nu variable.function.nu
+#       ^ meta.group.nu punctuation.section.group.end.nu
+
 ##
 # Properties
 ##
