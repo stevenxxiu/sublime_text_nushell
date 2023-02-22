@@ -28,10 +28,10 @@ variables:
   pipe: '(^|(?<!\|))\|(?!\|)'
   identifier_break: (?=\s|[#);\]{}|]|$)
   expression_break: (?=\s*[#);\]{}|]|\s*$)
-  binary_logic_operator: '(?<=^|\s)(?:and|or|xor){{identifier_break}}'
+  binary_logic_operator: '(?:and|or|xor){{identifier_break}}'
   operator: |-
     (?x:
-      (?<=^|\s)(?:
+      (?:
         \+|-|\*|/|//|mod|\*\*|
         ==|!=|<|<=|>|>=|
         =~|!~|
