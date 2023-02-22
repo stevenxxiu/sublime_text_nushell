@@ -155,6 +155,7 @@ contexts:
     - include: command
     - include: extern
     - include: if-statement
+    - include: while-statement
     - include: try-statement
     - include: function-call
     - include: expression
@@ -859,6 +860,14 @@ contexts:
           pop: 1
     - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu
+
+  while-statement:
+    - match: while{{identifier_break}}
+      scope: keyword.control.loop.while.nu
+      push:
+        - include: expression-if
+        - match: '{{expression_break}}'
+          pop: 1
 
   try-statement:
     - match: try{{identifier_break}}

@@ -795,6 +795,24 @@ let a = (
 # <- meta.group.nu punctuation.section.group.end.nu
 
 ##
+# While
+##
+while $x < 10 {
+# <- keyword.control.loop.while.nu
+#     ^^ variable.other.nu
+#        ^ keyword.operator.nu
+#          ^^ constant.numeric.integer.nu
+#             ^ meta.block.nu punctuation.section.block.begin.nu
+  $x = $x + 1
+# ^^ meta.block.nu variable.name.nu
+#    ^ meta.block.nu keyword.operator.assignment.nu
+#      ^^ meta.block.nu variable.other.nu
+#         ^ meta.block.nu keyword.operator.nu
+#           ^ meta.block.nu constant.numeric.integer.nu
+}
+# <- meta.block.nu punctuation.section.block.end.nu
+
+##
 # Try
 ##
 
