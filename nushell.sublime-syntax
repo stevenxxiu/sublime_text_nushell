@@ -424,6 +424,15 @@ contexts:
         - match: (?=.|$)
           pop: 1
 
+    - match: (\${{var_name}})\s*(=)\s*
+      captures:
+        1: variable.name.nu
+        2: keyword.operator.assignment.nu
+      push:
+        - include: expression
+        - match: (?=.|$)
+          pop: 1
+
   for-variable:
     - match: (for)\s+(\$?{{var_name}})\s+(in)
       scope: variable.nu

@@ -33,6 +33,13 @@ mut b = 2 # Foo
 #       ^ constant.numeric.integer.nu
 #         ^^^^^ comment.line
 
+$b = $a + 1
+# <- variable.name.nu
+#  ^ keyword.operator.assignment.nu
+#    ^^ variable.other.nu
+#       ^ keyword.operator.nu
+#         ^ constant.numeric.integer.nu
+
 { let a = 1 }
 # <- meta.block.nu punctuation.section.block.begin.nu
 # ^^^ meta.block.nu keyword.other.nu
