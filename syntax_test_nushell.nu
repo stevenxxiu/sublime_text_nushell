@@ -625,12 +625,12 @@ extern "aaa\"bbb" [
 # ^^^^^ meta.extern.nu meta.parameters.nu variable.parameter.long.nu
 #       ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
 #           ^ meta.extern.nu meta.parameters.nu comment.line
-  -a: string # Foo
-# ^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
-#            ^^^^^ meta.extern.nu meta.parameters.nu comment.line
   -a # Foo
-# ^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
+# ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
 #    ^^^^^ meta.extern.nu meta.parameters.nu comment.line
+  -a: string # Foo
+# ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
+#            ^^^^^ meta.extern.nu meta.parameters.nu comment.line
 ]
 
 ##
