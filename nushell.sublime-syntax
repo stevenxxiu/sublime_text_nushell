@@ -16,7 +16,6 @@ first_line_match: |-
 variables:
   var_name: '[A-Za-z_][A-Za-z\d\-_]*'
   property_name: '\d+|[A-Za-z_][A-Za-z\d\-_]*'
-  type_name: '[A-Za-z_][A-Za-z\d\-_]*'
   long_flag: '--[A-Za-z\d\-_]+'
   short_flag: '-[A-Za-z\d\-_]'
   number: '[+-]?\d+'
@@ -29,6 +28,8 @@ variables:
   identifier_break: (?=\s|[#);\]{}|]|$)
   expression_end: (?=\s*[#);\]{}|]|\s*$)
   expression_break: (?=\s|{{expression_end}})
+  parameter_end: (?=[#,=\]|\n]|$)
+  parameter_type_end: (?=\s|[#,<=>@\]|\n])
   binary_logic_operator: '(?<=^|\s)(?:and|or|xor){{identifier_break}}'
   operator: |-
     (?x:
@@ -510,22 +511,25 @@ contexts:
       push:
         - meta_scope: meta.record.nu
         - include: comment
-        - match: '({{var_name}})(:)'
-          captures:
-            1: entity.name.label.nu
-            2: punctuation.separator.key-value.nu
-        - match: (?=(?:{{quoted_string}}):)
-          push:
-            - include: string
-            - match: ':'
-              scope: punctuation.separator.key-value.nu
-              pop: 1
+        - include: record-key
         - include: expression-record-list-table
         - match: ','
           scope: punctuation.separator.comma.nu
         - match: '\}'
           scope: punctuation.section.record.end.nu
           pop: 2
+
+  record-key:
+    - match: '({{var_name}})(:)'
+      captures:
+        1: entity.name.label.nu
+        2: punctuation.separator.key-value.nu
+    - match: (?=(?:{{quoted_string}}):)
+      push:
+        - include: string
+        - match: ':'
+          scope: punctuation.separator.key-value.nu
+          pop: 1
 
   list-table:
     - match: '\['
@@ -599,55 +603,75 @@ contexts:
         - include: code-block
 
   parameter:
-    - match: |-
-        (?x:
-          (\.\.\.)?
-          ({{var_name}})
-          (\?)?
-          (?:
-            (:)\s*({{type_name}})
-            (?:(@)(".+?"))?
-          )?
-        )
+    - match: (\.\.\.)?({{var_name}})(\?)?
       captures:
         1: keyword.operator.spread.nu
         2: variable.parameter.nu
         3: keyword.operator.optional.nu
-        4: punctuation.separator.type.nu
-        5: storage.type.nu
-        6: keyword.operator.completion.nu
-        7: variable.function.completion.nu
       push:
+        - include: parameter-type
         - match: =
           scope: keyword.operator.assignment.nu
           push:
-            - match: (?=[#,\]|\n])
+            - match: '{{parameter_end}}'
               pop: 2
             - include: expression
-        - match: (?=[#,\]|\n])
+        - match: '{{parameter_end}}'
           pop: 1
 
-    - match: |-
-        (?x:
-          ({{long_flag}})\s*
-          (?:\(({{short_flag}})\))?\s*
-          (?:(:)\s*({{type_name}}))?
-        )
+    - match: ({{long_flag}})\s*(?:\(({{short_flag}})\))?
       captures:
         1: variable.parameter.long.nu
         2: variable.parameter.short.nu
-        3: punctuation.separator.type.nu
-        4: storage.type.nu
+      push:
+        - include: parameter-type
+        - match: '{{parameter_end}}'
+          pop: 1
 
+    - match: '{{short_flag}}'
+      scope: variable.parameter.short.nu
+      push:
+        - include: parameter-type
+        - match: '{{parameter_end}}'
+          pop: 1
+
+  parameter-type:
+    - match: ':'
+      scope: punctuation.separator.type.nu
+      push:
+        - include: type
+        - include: parameter-completion
+        - match: '{{parameter_end}}'
+          pop: 1
+
+  type:
     - match: |-
         (?x:
-          ({{short_flag}})\s*
-          (?:(:)\s*({{type_name}}))?
-        )
-      captures:
-        1: variable.parameter.short.nu
-        2: punctuation.separator.type.nu
-        3: storage.type.nu
+          any|block|cell-path|duration|path|expr|filesize|glob|int|math|number|operator|range|cond|bool|signature|
+          string|variable|record|list|table|error
+        ){{parameter_type_end}}
+      scope: storage.type.nu
+
+    - match: <
+      scope: punctuation.definition.type.begin.nu
+      push:
+        - include: type
+        - match: \,
+          scope: punctuation.separator.type.nu
+        - include: record-key
+        - match: \>
+          scope: punctuation.definition.type.end.nu
+          pop: 1
+
+  parameter-completion:
+    - match: '@'
+      scope: keyword.operator.completion.nu
+      push:
+        - meta_scope: meta.function.completion.nu
+        - include: string
+        - include: literal-bare-string
+        - match: '{{parameter_end}}'
+          pop: 1
 
   command-parameters:
     - meta_scope: meta.parameters.nu

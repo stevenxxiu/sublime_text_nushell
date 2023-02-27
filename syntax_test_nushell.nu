@@ -599,6 +599,51 @@ def aaa [...bbb] {}
 #                ^ meta.command.nu meta.block.nu punctuation.section.block.begin.nu
 #                 ^ meta.command.nu meta.block.nu punctuation.section.block.end.nu
 
+def aaa [
+  a: string@foo # bar
+#    ^^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#          ^ meta.command.nu meta.parameters.nu meta.function.completion.nu keyword.operator.completion.nu
+#           ^^^ meta.command.nu meta.parameters.nu meta.function.completion.nu string.bare.nu
+#               ^ meta.command.nu meta.parameters.nu comment.line.number-sign.nu
+#                ^^^^ meta.command.nu meta.parameters.nu comment.line.nu
+  a: string@'foo' # bar
+#    ^^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#          ^ meta.command.nu meta.parameters.nu meta.function.completion.nu keyword.operator.completion.nu
+#           ^ meta.command.nu meta.parameters.nu meta.function.completion.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#            ^^^ meta.command.nu meta.parameters.nu meta.function.completion.nu meta.string.nu string.quoted.single.nu
+#               ^ meta.command.nu meta.parameters.nu meta.function.completion.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.end.nu
+#                 ^ meta.command.nu meta.parameters.nu comment.line.number-sign.nu
+#                  ^^^^ meta.command.nu meta.parameters.nu comment.line.nu
+  a: list<string>
+#    ^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#        ^ meta.command.nu meta.parameters.nu punctuation.definition.type.begin.nu
+#         ^^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#               ^ meta.command.nu meta.parameters.nu punctuation.definition.type.end.nu
+  a: record<foo: string, 'bar': int>
+#    ^^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#          ^ meta.command.nu meta.parameters.nu punctuation.definition.type.begin.nu
+#           ^^^ meta.command.nu meta.parameters.nu entity.name.label.nu
+#              ^ meta.command.nu meta.parameters.nu punctuation.separator.key-value.nu
+#                ^^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#                      ^ meta.command.nu meta.parameters.nu punctuation.separator.type.nu
+#                        ^ meta.command.nu meta.parameters.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#                         ^^^ meta.command.nu meta.parameters.nu meta.string.nu string.quoted.single.nu
+#                            ^ meta.command.nu meta.parameters.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.end.nu
+#                             ^ meta.command.nu meta.parameters.nu punctuation.separator.key-value.nu
+#                               ^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#                                  ^ meta.command.nu meta.parameters.nu punctuation.definition.type.end.nu
+
+  a = foo
+#   ^ meta.command.nu meta.parameters.nu keyword.operator.assignment.nu
+#     ^^^ meta.command.nu meta.parameters.nu string.bare.nu
+  a: range = 1..3
+#    ^^^^^ meta.command.nu meta.parameters.nu storage.type.nu
+#          ^ meta.command.nu meta.parameters.nu keyword.operator.assignment.nu
+#            ^^^^ meta.command.nu meta.parameters.nu constant.range.nu
+  a: string1
+#    ^^^^^^^ meta.command.nu meta.parameters.nu - storage.type.nu
+] {}
+
 ##
 # Extern
 ##
@@ -609,28 +654,28 @@ extern "aaa\"bbb" [
 #          ^^ meta.extern.nu entity.name.extern.nu constant.character.escape.nu
 #               ^ meta.extern.nu entity.name.extern.nu meta.parameters.nu entity.name.extern.end.nu
 #                 ^ meta.extern.nu meta.parameters.nu punctuation.section.group.begin.nu
-  foo: string@"nu-complete git branches" # Foo
+  foo: string
 # ^ meta.extern.nu meta.parameters.nu variable.parameter.nu
 #    ^ meta.extern.nu meta.parameters.nu punctuation.separator.type.nu
 #      ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
-#            ^ meta.extern.nu meta.parameters.nu keyword.operator.completion.nu
-#             ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.extern.nu meta.parameters.nu variable.function.completion.nu
-#                                        ^^^^^ meta.parameters.nu comment.line
-  foo?: string@"nu-complete git branches" # Foo
+  foo?: string
 #    ^ meta.extern.nu meta.parameters.nu keyword.operator.optional.nu
-  --foo # Foo
+#     ^ meta.extern.nu meta.parameters.nu punctuation.separator.type.nu
+#       ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
+  --foo
 # ^^^^^ meta.extern.nu meta.parameters.nu variable.parameter.long.nu
-#       ^^^^^ meta.extern.nu meta.parameters.nu comment.line
-  --foo(-f) # Foo
+  --foo: string
+# ^^^^^ meta.extern.nu meta.parameters.nu variable.parameter.long.nu
+#      ^ meta.extern.nu meta.parameters.nu punctuation.separator.type.nu
+#        ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
+  --foo(-f): string
 # ^^^^^ meta.extern.nu meta.parameters.nu variable.parameter.long.nu
 #       ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
-#           ^ meta.extern.nu meta.parameters.nu comment.line
-  -a # Foo
+#          ^ meta.extern.nu meta.parameters.nu punctuation.separator.type.nu
+#            ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
+  -a: string
 # ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
-#    ^^^^^ meta.extern.nu meta.parameters.nu comment.line
-  -a: string # Foo
-# ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
-#            ^^^^^ meta.extern.nu meta.parameters.nu comment.line
+#     ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
 ]
 
 ##
