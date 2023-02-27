@@ -614,6 +614,8 @@ def aaa [
 #               ^ meta.command.nu meta.parameters.nu meta.function.completion.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.end.nu
 #                 ^ meta.command.nu meta.parameters.nu comment.line.number-sign.nu
 #                  ^^^^ meta.command.nu meta.parameters.nu comment.line.nu
+  a: string@foo,
+#              ^ meta.command.nu meta.parameters.nu punctuation.separator.parameter.nu
   a: list<string>
 #    ^^^^ meta.command.nu meta.parameters.nu storage.type.nu
 #        ^ meta.command.nu meta.parameters.nu punctuation.definition.type.begin.nu

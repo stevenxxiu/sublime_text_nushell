@@ -669,7 +669,7 @@ contexts:
       push:
         - meta_scope: meta.function.completion.nu
         - include: string
-        - include: literal-bare-string
+        - include: literal-bare-string-record-list
         - match: '{{parameter_end}}'
           pop: 1
 
