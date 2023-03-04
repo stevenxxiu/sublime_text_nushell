@@ -919,6 +919,18 @@ aaa 1|bbb|ccc 2
 
 ($a == null and $b != null)
 
+(try { foo } catch { null })
+# <- meta.group.nu punctuation.section.group.begin.nu
+# ^^ meta.group.nu keyword.control.exception.try.nu
+#    ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
+#      ^^^ meta.group.nu meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#          ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
+#            ^^^^^ meta.group.nu keyword.control.exception.catch.nu
+#                  ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
+#                    ^^^^ meta.group.nu meta.block.nu constant.language.null.nu
+#                         ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
+#                          ^ meta.group.nu punctuation.section.group.end.nu
+
 ##
 # Properties
 ##

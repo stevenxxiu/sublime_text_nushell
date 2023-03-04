@@ -166,6 +166,7 @@ contexts:
   expression:
     - include: subexpression
     - include: if-statement
+    - include: try-statement
     - include: data-with-operators
     - include: literal-bare-string
     - include: dollar-variable
@@ -199,6 +200,7 @@ contexts:
         - meta_scope: meta.group.nu
         - include: comment
         - include: if-statement
+        - include: try-statement
         - include: data-with-operators
         - include: function-call-inline
         - include: subexpression
