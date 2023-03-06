@@ -19,14 +19,14 @@ foo # Foo
 $var
 # <- variable.other.nu
 
-let a = 1 # Foo
+let 1 = 2 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
 #     ^ keyword.operator.assignment.nu
 #       ^ constant.numeric.integer.nu
 #         ^^^^^ comment.line
 
-mut b = 2 # Foo
+mut a = 2 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
 #     ^ keyword.operator.assignment.nu
@@ -58,7 +58,7 @@ let a = -65535
 #       ^^^^^^ constant.numeric.integer.nu
 
 let a = 1a
-#       ^^ string.bare.nu
+#       ^^ meta.function-call.identifier.nu variable.function.nu
 
 ##
 # Operator
@@ -92,7 +92,7 @@ let a = +Infinity
 let a = -Infinity
 #       ^^^^^^^^^ constant.numeric.decimal.nu
 let a = Infinitya
-#       ^^^^^^^^^ string.bare.nu
+#       ^^^^^^^^^ meta.function-call.identifier.nu variable.function.nu
 let a = NaN
 #       ^^^ constant.numeric.decimal.nu
 let a = +NaN
@@ -100,7 +100,7 @@ let a = +NaN
 let a = -NaN
 #       ^^^^ constant.numeric.decimal.nu
 let a = NaNa
-#       ^^^^ string.bare.nu
+#       ^^^^ meta.function-call.identifier.nu variable.function.nu
 
 ##
 # Boolean
@@ -409,9 +409,6 @@ let a = "\"\'\\\/\b\f\r\n\t"
 
 let a = "\u{0}\u{0000FF}"
 #        ^^^^^^^^^^^^^^^ meta.string.nu string.quoted.double.nu constant.character.escape.nu
-
-let a = foo
-#       ^^^ string.bare.nu
 
 ##
 # Interpolated string
@@ -761,7 +758,7 @@ where foo | null
 # <- meta.function-call.identifier.nu support.function.nu
 #     ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
 #         ^ keyword.operator.pipe.nu
-#           ^^^^ meta.function-call.identifier.nu variable.function.nu
+#           ^^^^ source.shell.nu constant.language.null.nu
 
 where foo == bar and foo == bar | null
 # <- meta.function-call.identifier.nu support.function.nu
@@ -773,7 +770,7 @@ where foo == bar and foo == bar | null
 #                        ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
 #                           ^^^ meta.function-call.arguments.row-condition.nu string.bare.nu
 #                               ^ keyword.operator.pipe.nu
-#                                 ^^^^ meta.function-call.identifier.nu variable.function.nu
+#                                 ^^^^ source.shell.nu constant.language.null.nu
 
 where size > 10kb and size < 100kb | null
 # <- meta.function-call.identifier.nu support.function.nu
@@ -785,7 +782,7 @@ where size > 10kb and size < 100kb | null
 #                          ^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
 #                            ^^^^^ meta.function-call.arguments.row-condition.nu constant.file-size.nu
 #                                  ^ keyword.operator.pipe.nu
-#                                    ^^^^ meta.function-call.identifier.nu variable.function.nu
+#                                    ^^^^ source.shell.nu constant.language.null.nu
 
 foo where
 # <- meta.function-call.identifier.nu variable.function.nu

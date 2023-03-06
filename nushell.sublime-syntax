@@ -14,8 +14,7 @@ first_line_match: |-
   )
 
 variables:
-  var_name: '[A-Za-z_][A-Za-z\d\-_]*'
-  property_name: '\d+|[A-Za-z_][A-Za-z\d\-_]*'
+  var_name: '[A-Za-z\d_][A-Za-z\d\-_]*'
   long_flag: '--[A-Za-z\d\-_]+'
   short_flag: '-[A-Za-z\d\-_]'
   number: '[+-]?\d+'
@@ -159,7 +158,6 @@ contexts:
     - include: if-statement
     - include: while-statement
     - include: try-statement
-    - include: function-call
     - include: expression
     - include: terminator
 
@@ -167,6 +165,13 @@ contexts:
     - include: subexpression
     - include: if-statement
     - include: try-statement
+    - include: data-with-operators
+    - include: function-call
+    - include: dollar-variable
+    - include: literal-bare-string
+
+  expression-parameter:
+    - include: subexpression
     - include: data-with-operators
     - include: dollar-variable
     - include: literal-bare-string
@@ -409,7 +414,7 @@ contexts:
       scope: variable.other.nu
 
   property-accessor:
-    - match: (\.)({{property_name}})
+    - match: (\.)({{var_name}})
       captures:
         1: punctuation.accessor.nu
         2: meta.property.nu
@@ -617,7 +622,7 @@ contexts:
           push:
             - match: '{{parameter_end}}'
               pop: 2
-            - include: expression
+            - include: expression-parameter
         - match: '{{parameter_end}}'
           pop: 1
 
