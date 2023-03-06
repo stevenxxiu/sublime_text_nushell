@@ -168,8 +168,8 @@ contexts:
     - include: if-statement
     - include: try-statement
     - include: data-with-operators
-    - include: literal-bare-string
     - include: dollar-variable
+    - include: literal-bare-string
 
   expression-function-call:
     - include: subexpression
@@ -177,21 +177,21 @@ contexts:
     - include: property-accessor
     - include: pipe
     - include: redirect-output
-    - include: literal-bare-string
     - include: dollar-variable
+    - include: literal-bare-string
 
   expression-if:
     - include: subexpression
     - include: data-with-operators
     - include: function-call
-    - include: literal-bare-string
     - include: dollar-variable
+    - include: literal-bare-string
 
   expression-record-list-table:
     - include: subexpression
     - include: data-with-operators
-    - include: literal-bare-string-record-list
     - include: dollar-variable
+    - include: literal-bare-string-record-list
 
   subexpression:
     - match: \(
