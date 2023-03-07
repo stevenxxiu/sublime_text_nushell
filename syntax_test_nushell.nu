@@ -19,6 +19,17 @@ foo # Foo
 $var
 # <- variable.other.nu
 
+$env $in $nothing $nu
+# ^^ variable.language.nu
+#    ^^^ variable.language.nu
+#        ^^^^^^^^ variable.language.nu
+#                 ^^^ variable.language.nu
+
+$env.PATH
+# ^^ variable.language.nu
+#   ^ punctuation.accessor.nu
+#    ^^^^ meta.property.nu
+
 let 1 = 2 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
@@ -425,13 +436,6 @@ let a = $"($it.name) is ($it.size)"
 ##
 let a = *,./:<>[]{}
 #       ^^^^^^^^^^^ string.bare.nu
-
-##
-# Variable keyword
-##
-
-let a = $b
-#       ^^ variable.other.nu
 
 ##
 # Closure

@@ -408,6 +408,9 @@ contexts:
       scope: string.bare.nu
 
   dollar-variable:
+    - match: \$(env|in|nothing|nu)
+      scope: variable.language.nu
+
     - match: \${{var_name}}
       scope: variable.other.nu
 
