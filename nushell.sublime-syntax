@@ -185,7 +185,7 @@ contexts:
     - include: dollar-variable
     - include: literal-bare-string
 
-  expression-if:
+  expression-condition:
     - include: subexpression
     - include: data-with-operators
     - include: function-call
@@ -887,7 +887,7 @@ contexts:
     - match: if{{identifier_break}}
       scope: keyword.control.conditional.if.nu
       push:
-        - include: expression-if
+        - include: expression-condition
         - match: '{{expression_end}}'
           pop: 1
     - match: else{{identifier_break}}
@@ -897,7 +897,7 @@ contexts:
     - match: while{{identifier_break}}
       scope: keyword.control.loop.while.nu
       push:
-        - include: expression-if
+        - include: expression-condition
         - match: '{{expression_break}}'
           pop: 1
 
