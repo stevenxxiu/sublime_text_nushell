@@ -155,9 +155,6 @@ contexts:
     - include: module
     - include: command
     - include: extern
-    - include: if-statement
-    - include: while-statement
-    - include: try-statement
     - include: expression
     - include: terminator
 
@@ -165,6 +162,7 @@ contexts:
     - include: subexpression
     - include: if-statement
     - include: try-statement
+    - include: while-statement
     - include: data-with-operators
     - include: function-call
     - include: dollar-variable
