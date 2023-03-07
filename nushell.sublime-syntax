@@ -544,18 +544,14 @@ contexts:
       push:
         - meta_scope: meta.list-table.nu
         - include: comment
+        - match: ','
+          scope: punctuation.separator.comma.nu
         - match: ;
           scope: punctuation.terminator.header.nu
+        - include: expression-record-list-table
         - match: '\]'
           scope: punctuation.section.list-table.end.nu
           pop: 1
-        - match: (?=.|$)
-          push:
-            - match: ','
-              scope: punctuation.separator.comma.nu
-            - include: expression-record-list-table
-            - match: (?=[#;\]])
-              pop: 1
 
   code-block:
     - match: '\{'
