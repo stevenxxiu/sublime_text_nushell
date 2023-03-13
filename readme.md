@@ -1,5 +1,5 @@
 # Sublime Text Nushell Package
-Adds syntax highlighting for *Nushell*.
+*Nushell* plugin for *Sublime Text*.
 
 # Install
 
