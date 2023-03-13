@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[for ${1:i} in ${2:} {
+	${0:$TM_SELECTED_TEXT}
+}]]></content>
+	<tabTrigger>for</tabTrigger>
+	<scope>source.shell.nu</scope>
+	<description>for</description>
+</snippet>

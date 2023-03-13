@@ -1,0 +1,11 @@
+<snippet>
+	<content><![CDATA[# ${1: Docs}
+def ${2:command_name} [
+    --${3:foo}(-${4:f}): ${5:string}	# ${6:Docs}
+] {
+	${0:# Body}
+}]]></content>
+	<tabTrigger>def</tabTrigger>
+	<scope>source.shell.nu</scope>
+	<description>Command</description>
+</snippet>

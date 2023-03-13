@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[|${1:arg}| {
+	${0:# Body}
+}]]></content>
+	<tabTrigger>clo</tabTrigger>
+	<scope>source.shell.nu</scope>
+	<description>Closure</description>
+</snippet>

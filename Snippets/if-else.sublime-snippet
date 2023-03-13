@@ -1,0 +1,10 @@
+<snippet>
+	<content><![CDATA[if ${1:true} {
+	${0:$TM_SELECTED_TEXT}
+} else {
+
+}]]></content>
+	<tabTrigger>ife</tabTrigger>
+	<scope>source.shell.nu</scope>
+	<description>if … else</description>
+</snippet>
