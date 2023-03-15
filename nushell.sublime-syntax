@@ -100,8 +100,8 @@ variables:
       all|any|append|collect|columns|compact|default|drop\ column|drop\ nth|each\ while|enumerate|every|filter|find|
       first|flatten|get|group|headers|insert|is-empty|last|length|lines|merge|move|par-each|prepend|query\ json|
       query\ xml|range|reject|rename|reverse|roll\ down|roll\ left|roll\ right|roll\ up|rotate|select|shuffle|
-      skip\ until|skip\ while|sort|sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|
-      values|where|window|wrap|zip|
+      skip\ until|skip\ while|sort|sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|
+      where|window|wrap|zip|
       # formats
       from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|from\ tsv|from\ url|from\ vcf|
       from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|to\ toml|to\ tsv|to\ xml|
