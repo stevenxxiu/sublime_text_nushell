@@ -137,13 +137,13 @@ variables:
       str\ index-of|str\ join|str\ kebab-case|str\ length|str\ pascal-case|str\ replace|str\ reverse|
       str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ title-case|url\ encode|
       # system
-      complete|exec|ps|run-external|sys|which|
+      complete|exec|ps|registry\ query|run-external|sys|which|
       # viewers
       explore|grid|table|
 
       # Commands with subcommands
       ansi|bits|bytes|config|date|decode|detect|dfr|drop|each|encode|error|export|format|from|hash|help|history|http|
-      into|keybindings|math|overlay|path|query|random|roll|seq|skip|split|str|take|term|to|update|url|view
+      into|keybindings|math|overlay|path|query|random|registry|roll|seq|skip|split|str|take|term|to|update|url|view
     )
 
 contexts:
