@@ -835,7 +835,7 @@ contexts:
     - include: row-condition-call
 
   alias-call:
-    - match: ((?:export )?alias)\s+(\$?{{var_name}})\s*(=)\s*
+    - match: ((?:export )?alias|old-alias)\s+(\$?{{var_name}})\s*(=)\s*
       captures:
         1: keyword.other.nu
         2: variable.name.nu
