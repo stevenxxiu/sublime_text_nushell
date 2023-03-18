@@ -45,9 +45,9 @@ variables:
   core_native_command: |-
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
-      export\ def-env|export\ extern|export\ use|extern|for|help\ aliases|help\ commands|help\ modules|help\ operators|
-      hide|hide-env|if|ignore|is-admin|let|loop|module|mut|overlay\ hide|overlay\ list|overlay\ new|overlay\ use|
-      register|return|source|source-env|try|use|while
+      export\ def-env|export\ extern|export\ old-alias|export\ use|extern|for|help\ aliases|help\ commands|
+      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|module|mut|old-alias|
+      overlay\ hide|overlay\ list|overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
     )
   native_command: |-
     (?x:
@@ -79,9 +79,9 @@ variables:
       # debug
       ast|debug|explain|inspect|metadata|profile|timeit|view\ files|view\ source|view\ span|
       # default
-      group-by|hash\ md5|hash\ sha256|histogram|inc|into\ decimal|path\ basename|path\ dirname|path\ exists|
-      path\ expand|path\ join|path\ parse|path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|
-      str\ trim|str\ upcase|transpose|version|
+      group-by|histogram|inc|into\ decimal|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|
+      path\ parse|path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|str\ upcase|
+      transpose|version|
       # deprecated
       hash\ base64|math\ eval|str\ collect|str\ find-replace|str\ lpad|str\ rpad|str\ to-datetime|str\ to-decimal|
       str\ to-int|
@@ -109,7 +109,7 @@ variables:
       # generators
       cal|seq\ char|seq\ date|
       # hash
-      decode\ base64|encode\ base64|
+      decode\ base64|encode\ base64|hash\ md5|hash\ sha256|
       # lazyframe
       dfr\ agg|dfr\ cache|dfr\ collect|dfr\ fetch|dfr\ fill-nan|dfr\ fill-null|dfr\ filter|dfr\ group-by|dfr\ into-lazy|
       dfr\ join|dfr\ reverse|dfr\ select|dfr\ sort-by|
@@ -121,7 +121,8 @@ variables:
       # misc
       history\ session|tutor|
       # network
-      http\ get|http\ post|port|query\ web|url\ build-query|url\ join|url\ parse|
+      http\ delete|http\ get|http\ head|http\ patch|http\ post|http\ put|port|query\ web|url\ build-query|url\ join|
+      url\ parse|
       # platform
       ansi\ gradient|ansi\ link|ansi\ strip|clear|input|keybindings\ default|keybindings\ list|keybindings\ listen|kill|
       sleep|term\ size|
