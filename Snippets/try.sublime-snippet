@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[try {
+	$1
+}]]></content>
+	<tabTrigger>try</tabTrigger>
+	<scope>source.shell.nu</scope>
+	<description>try</description>
+</snippet>
