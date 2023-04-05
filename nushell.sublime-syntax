@@ -15,8 +15,8 @@ first_line_match: |-
 
 variables:
   var_name: '[A-Za-z\d_][A-Za-z\d\-_]*'
-  long_flag: '--[A-Za-z\d\-_]+'
-  short_flag: '-[A-Za-z\d\-_]'
+  long_flag: '--[A-Za-z\d\-_]*'
+  short_flag: '-[A-Za-z\d_]?'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
   double_quoted_string_escape: '\\(["''\\/bfrnt]|u\{\h{1,6}\})'
