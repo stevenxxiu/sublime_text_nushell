@@ -3,7 +3,7 @@
 def ${2:command_name} [
     --${3:foo}(-${4:f}): ${5:string}	# ${6:Docs}
 ] {
-	${0:# Body}
+	${0:$TM_SELECTED_TEXT}
 }]]></content>
 	<tabTrigger>def</tabTrigger>
 	<scope>source.shell.nu</scope>

@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[|${1:arg}| {
-	${0:# Body}
+	${0:$TM_SELECTED_TEXT}
 }]]></content>
 	<tabTrigger>clo</tabTrigger>
 	<scope>source.shell.nu</scope>
