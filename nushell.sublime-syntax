@@ -159,6 +159,7 @@ contexts:
   expression:
     - include: subexpression
     - include: if-statement
+    - include: match-statement
     - include: try-statement
     - include: while-statement
     - include: loop-statement
@@ -204,6 +205,7 @@ contexts:
         - meta_scope: meta.group.nu
         - include: comment
         - include: if-statement
+        - include: match-statement
         - include: try-statement
         - include: data-with-operators
         - include: function-call-inline
@@ -881,6 +883,58 @@ contexts:
     - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu
       push: block
+
+  match-statement:
+    - match: match{{identifier_break}}
+      scope: keyword.control.match.nu
+      push:
+        - include: expression-condition
+        - match: '{{expression_end}}'
+          set:
+          - match: '\{'
+            scope: punctuation.section.match.begin.nu
+            push:
+              - include: comment
+              - include: match-pattern
+              - match: =>
+                scope: keyword.operator.arrow.nu
+                push: block
+              - match: '\}'
+                scope: punctuation.section.match.end.nu
+                pop: 2
+
+  match-pattern:
+    - match: '\['
+      scope: punctuation.section.list.begin.nu
+      push:
+        - match: ','
+          scope: punctuation.separator.comma.nu
+        - match: '(..)?(\${{var_name}})'
+          captures:
+            1: operator.spread.nu
+            2: variable.other.nu
+        - include: data-structure
+        - match: '\]'
+          scope: punctuation.section.list.end.nu
+          pop: 1
+
+    - match: '\{'
+      scope: punctuation.section.record.begin.nu
+      push:
+        - meta_scope: meta.record.nu
+        - include: record-key
+        - include: data-structure
+        - include: dollar-variable
+        - match: ','
+          scope: punctuation.separator.comma.nu
+        - match: '\}'
+          scope: punctuation.section.record.end.nu
+          pop: 1
+
+    - include: data-structure
+
+    - match: _
+      scope: keyword.match.any.nu
 
   loop-statement:
     - match: loop
