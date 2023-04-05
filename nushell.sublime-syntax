@@ -418,10 +418,11 @@ contexts:
       scope: variable.other.nu
 
   property-accessor:
-    - match: (\.)({{var_name}})
+    - match: (\.)({{var_name}})(\?)?
       captures:
         1: punctuation.accessor.nu
         2: meta.property.nu
+        3: keyword.operator.optional.nu
 
   redirect-output:
     - match: out>|err>|out\+err>|err\+out>

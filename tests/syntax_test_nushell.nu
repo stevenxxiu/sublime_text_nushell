@@ -25,10 +25,15 @@ $env $in $nothing $nu
 #        ^^^^^^^^ variable.language.nu
 #                 ^^^ variable.language.nu
 
-$env.PATH
+$env.aaa.bbb?.ccc
 # ^^ variable.language.nu
 #   ^ punctuation.accessor.nu
-#    ^^^^ meta.property.nu
+#    ^^^ meta.property.nu
+#       ^ punctuation.accessor.nu
+#        ^^^ meta.property.nu
+#           ^ keyword.operator.optional.nu
+#            ^ punctuation.accessor.nu
+#             ^^^ meta.property.nu
 
 let 1 = 2 # Foo
 # <- keyword.other.nu
