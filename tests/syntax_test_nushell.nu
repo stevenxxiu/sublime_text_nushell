@@ -25,10 +25,15 @@ $env $in $nothing $nu
 #        ^^^^^^^^ variable.language.nu
 #                 ^^^ variable.language.nu
 
-$env.PATH
+$env.aaa.bbb?.ccc
 # ^^ variable.language.nu
 #   ^ punctuation.accessor.nu
-#    ^^^^ meta.property.nu
+#    ^^^ meta.property.nu
+#       ^ punctuation.accessor.nu
+#        ^^^ meta.property.nu
+#           ^ keyword.operator.optional.nu
+#            ^ punctuation.accessor.nu
+#             ^^^ meta.property.nu
 
 let 1 = 2 # Foo
 # <- keyword.other.nu
@@ -50,14 +55,6 @@ $b = $a + 1
 #    ^^ variable.other.nu
 #       ^ keyword.operator.nu
 #         ^ constant.numeric.integer.nu
-
-{ let a = 1 }
-# <- meta.block.nu punctuation.section.block.begin.nu
-# ^^^ meta.block.nu keyword.other.nu
-#     ^ meta.block.nu variable.name.nu
-#       ^ meta.block.nu keyword.operator.assignment.nu
-#         ^ meta.block.nu constant.numeric.integer.nu
-#           ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Integer
@@ -94,8 +91,6 @@ let a = +9.9999
 #       ^^^^^^^ constant.numeric.decimal.nu
 let a = -9.9999
 #       ^^^^^^^ constant.numeric.decimal.nu
-let a = -9.9999a
-#       ^^^^^^^^ string.bare.nu
 let a = Infinity
 #       ^^^^^^^^ constant.numeric.decimal.nu
 let a = +Infinity
@@ -283,14 +278,14 @@ let a = {
 
 let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
-  k1: v1
+  k1: a
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
-#     ^^ meta.record.nu string.bare.nu
-  k2: v2
+#     ^ meta.record.nu string.bare.nu
+  k2: b
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
-#     ^^ meta.record.nu string.bare.nu
+#     ^ meta.record.nu string.bare.nu
 }
 # <- meta.record.nu punctuation.section.record.end.nu
 
@@ -298,14 +293,15 @@ let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
   # Foo
 # ^^^^^ meta.record.nu comment.line
-  k1: { k2: v1 } # Foo
+  k1: { k2: a } # Foo
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
 #     ^ meta.record.nu punctuation.section.record.begin.nu
 #       ^^ meta.record.nu meta.record.nu entity.name.label.nu
 #         ^ meta.record.nu meta.record.nu punctuation.separator.key-value.nu
-#           ^^ meta.record.nu meta.record.nu string.bare.nu
-#                ^^^^^ meta.record.nu comment.line
+#           ^ meta.record.nu meta.record.nu string.bare.nu
+#             ^ meta.record.nu meta.record.nu punctuation.section.record.end.nu
+#               ^^^^^ meta.record.nu comment.line
 #
 }
 # <- meta.record.nu punctuation.section.record.end.nu
@@ -432,12 +428,6 @@ let a = $"($it.name) is ($it.size)"
 #                        ^^^ variable.other.nu
 
 ##
-# Bare string
-##
-let a = *,./:<>[]{}
-#       ^^^^^^^^^^^ string.bare.nu
-
-##
 # Closure
 ##
 
@@ -479,18 +469,19 @@ each { |aaa, bbb: int| print $aaa | ccc }
 ##
 # Block
 ##
-
-{ aaa |
-# <- meta.block.nu punctuation.section.block.begin.nu
+loop {
+# ^^ keyword.control.loop.nu
+#    ^ meta.block.nu punctuation.section.block.begin.nu
+  aaa |
 # ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
 #     ^ meta.block.nu keyword.operator.pipe.nu
-  bbb
-# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+    bbb
+#   ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
 }
 # <- meta.block.nu punctuation.section.block.end.nu
 
 loop { break }
-# <- meta.function-call.identifier.nu keyword.other.nu
+# ^^ keyword.control.loop.nu
 #    ^ meta.block.nu punctuation.section.block.begin.nu
 #      ^^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
 #            ^ meta.block.nu
@@ -499,8 +490,9 @@ loop { break }
 # For loop
 ##
 for i in 1..10 { print $i }
-# <- variable.nu keyword.other.nu
+# ^ variable.nu keyword.control.loop.for.nu
 #   ^ variable.nu variable.name.nu
+#     ^^ variable.nu keyword.control.loop.in.nu
 #        ^^^^^ constant.range.nu
 #              ^ meta.block.nu punctuation.section.block.begin.nu
 #                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
@@ -688,9 +680,9 @@ extern "aaa\"bbb" [
 func foo -a --bar - 1
 # <- meta.function-call.identifier.nu variable.function.nu
 #    ^^^ meta.function-call.arguments.nu string.bare.nu
-#        ^^ meta.function-call.arguments.nu string.bare.nu
-#           ^^^^^ meta.function-call.arguments.nu string.bare.nu
-#                 ^ meta.function-call.arguments.nu string.bare.nu
+#        ^^ meta.function-call.arguments.nu string.flag.short.nu
+#           ^^^^^ meta.function-call.arguments.nu string.flag.long.nu
+#                 ^ meta.function-call.arguments.nu string.flag.short.nu
 #                   ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 
 path expand $foo
@@ -717,11 +709,11 @@ foo; bar
 # Output redirection
 ##
 
-foo bar out> output.txt
+foo bar out> output_file
 # <- meta.function-call.identifier.nu variable.function.nu
 #   ^^^ meta.function-call.arguments.nu string.bare.nu
 #       ^^^^ meta.function-call.arguments.nu keyword.other.redirect.nu
-#            ^^^^^^^^^^ meta.function-call.arguments.nu string.bare.nu
+#            ^^^^^^^^^^^ meta.function-call.arguments.nu string.bare.nu
 
 ##
 # Special statements
@@ -753,10 +745,10 @@ export alias c = foo
 overlay use foo --prefix as bar --reload
 # <- keyword.operator.nu
 #           ^^^ string.bare.nu
-#               ^^^^^^^^ string.bare.nu
+#               ^^^^^^^^ string.flag.long.nu
 #                        ^^ keyword.operator.nu
 #                           ^^^ string.bare.nu
-#                               ^^^^^^^^ string.bare.nu
+#                               ^^^^^^^^ string.flag.long.nu
 
 where foo | null
 # <- meta.function-call.identifier.nu support.function.nu
@@ -841,6 +833,58 @@ let a = (
 # ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
 )
 # <- meta.group.nu punctuation.section.group.end.nu
+
+##
+# Match
+##
+match 1 {
+# ^^^ keyword.control.match.nu
+#     ^ constant.numeric.integer.nu
+#       ^ punctuation.section.match.begin.nu
+  1 => { 'foo' }
+# ^ constant.numeric.integer.nu
+#   ^^ keyword.operator.arrow.nu
+#      ^ meta.block.nu punctuation.section.block.begin.nu
+#        ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#              ^ meta.block.nu punctuation.section.block.end.nu
+  1..10 => { 'foo' }
+# ^^^^^ constant.range.nu
+#       ^^ keyword.operator.arrow.nu
+#          ^ meta.block.nu punctuation.section.block.begin.nu
+#            ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#                  ^ meta.block.nu punctuation.section.block.end.nu
+  [$head, ..$tail] => { 'foo' }
+# ^ punctuation.section.list.begin.nu
+#  ^^^^ variable.other.nu
+#       ^ punctuation.separator.comma.nu
+#         ^^ operator.spread.nu
+#           ^^^^^ variable.other.nu
+#                ^ punctuation.section.list.end.nu
+#                  ^^ keyword.operator.arrow.nu
+#                     ^ meta.block.nu punctuation.section.block.begin.nu
+#                       ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#                             ^ meta.block.nu punctuation.section.block.end.nu
+  {a: $a, b: 2} => { 'foo' }
+# ^ meta.record.nu punctuation.section.record.begin.nu
+#  ^ meta.record.nu entity.name.label.nu
+#   ^ meta.record.nu punctuation.separator.key-value.nu
+#     ^^ meta.record.nu variable.other.nu
+#       ^ meta.record.nu punctuation.separator.comma.nu
+#         ^ meta.record.nu entity.name.label.nu
+#          ^ meta.record.nu punctuation.separator.key-value.nu
+#            ^ meta.record.nu constant.numeric.integer.nu
+#             ^ meta.record.nu punctuation.section.record.end.nu
+#               ^^ keyword.operator.arrow.nu
+#                  ^ meta.block.nu punctuation.section.block.begin.nu
+#                    ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#                          ^ meta.block.nu punctuation.section.block.end.nu
+  _ => { 'foo' }
+# ^ keyword.match.any.nu
+#   ^^ keyword.operator.arrow.nu
+#      ^ meta.block.nu punctuation.section.block.begin.nu
+#        ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#              ^ meta.block.nu punctuation.section.block.end.nu
+}
 
 ##
 # While

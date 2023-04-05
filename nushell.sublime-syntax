@@ -15,14 +15,13 @@ first_line_match: |-
 
 variables:
   var_name: '[A-Za-z\d_][A-Za-z\d\-_]*'
-  long_flag: '--[A-Za-z\d\-_]+'
-  short_flag: '-[A-Za-z\d\-_]'
+  long_flag: '--[A-Za-z\d\-_]*'
+  short_flag: '-[A-Za-z\d_]?'
   number: '[+-]?\d+'
   pos_decimal: '\d+(\.\d*)?'
   double_quoted_string_escape: '\\(["''\\/bfrnt]|u\{\h{1,6}\})'
   quoted_string: '''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
-  bare_string: '[^\s#$();\[\]{|}][^\s#$();|]*'
-  bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
+  bare_string: '\w+'
   pipe: '(^|(?<!\|))\|(?!\|)'
   identifier_break: (?=\s|[#);\]{}|]|$)
   expression_end: (?=\s*[#);\]{}|]|\s*$)
@@ -46,7 +45,7 @@ variables:
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
       export\ def-env|export\ extern|export\ old-alias|export\ use|extern|for|help\ aliases|help\ commands|
-      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|module|mut|old-alias|
+      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|match|module|mut|old-alias|
       overlay\ hide|overlay\ list|overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
     )
   native_command: |-
@@ -79,14 +78,14 @@ variables:
       # debug
       ast|debug|explain|inspect|metadata|profile|timeit|view\ files|view\ source|view\ span|
       # default
-      group-by|histogram|inc|into\ decimal|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|
+      group-by|histogram|inc|into\ decimal|join|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|
       path\ parse|path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|str\ upcase|
       transpose|version|
       # deprecated
       hash\ base64|math\ eval|str\ collect|str\ find-replace|str\ lpad|str\ rpad|str\ to-datetime|str\ to-decimal|
       str\ to-int|
       # env
-      config\ env|config\ nu|config\ reset|env|export-env|let-env|with-env|
+      config\ env|config\ nu|config\ reset|export-env|let-env|with-env|
       # experimental
       from\ nuon|to\ nuon|
       # expression
@@ -103,9 +102,9 @@ variables:
       skip\ until|skip\ while|sort|sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|
       where|window|wrap|zip|
       # formats
-      from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|from\ tsv|from\ url|from\ vcf|
-      from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|to\ toml|to\ tsv|to\ xml|
-      to\ yaml|
+      decode\ hex|encode\ hex|from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|
+      from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|
+      to\ toml|to\ tsv|to\ xml|to\ yaml|
       # generators
       cal|seq\ char|seq\ date|
       # hash
@@ -115,9 +114,9 @@ variables:
       dfr\ join|dfr\ reverse|dfr\ select|dfr\ sort-by|
       # math
       math\ abs|math\ arccos|math\ arccosh|math\ arcsin|math\ arcsinh|math\ arctan|math\ arctanh|math\ avg|math\ ceil|
-      math\ cos|math\ cosh|math\ e|math\ floor|math\ ln|math\ log|math\ max|math\ median|math\ min|math\ mode|math\ pi|
-      math\ product|math\ round|math\ sin|math\ sinh|math\ sqrt|math\ stddev|math\ sum|math\ tan|math\ tanh|math\ tau|
-      math\ variance|
+      math\ cos|math\ cosh|math\ e|math\ exp|math\ floor|math\ ln|math\ log|math\ max|math\ median|math\ min|math\ mode|
+      math\ pi|math\ product|math\ round|math\ sin|math\ sinh|math\ sqrt|math\ stddev|math\ sum|math\ tan|math\ tanh|
+      math\ tau|math\ variance|
       # misc
       history\ session|tutor|
       # network
@@ -138,7 +137,7 @@ variables:
       str\ index-of|str\ join|str\ kebab-case|str\ length|str\ pascal-case|str\ replace|str\ reverse|
       str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ title-case|url\ encode|
       # system
-      complete|exec|ps|registry\ query|run-external|sys|which|
+      complete|ps|registry\ query|run-external|sys|which|
       # viewers
       explore|grid|table|
 
@@ -151,8 +150,6 @@ contexts:
   main:
     - include: assign-variable
     - include: comment
-    - include: curly-block
-    - include: for-variable
     - include: module
     - include: command
     - include: extern
@@ -162,8 +159,11 @@ contexts:
   expression:
     - include: subexpression
     - include: if-statement
+    - include: match-statement
     - include: try-statement
     - include: while-statement
+    - include: loop-statement
+    - include: for-statement
     - include: data-with-operators
     - include: function-call
     - include: dollar-variable
@@ -182,6 +182,7 @@ contexts:
     - include: pipe
     - include: redirect-output
     - include: dollar-variable
+    - include: literal-flag
     - include: literal-bare-string
 
   expression-condition:
@@ -195,7 +196,7 @@ contexts:
     - include: subexpression
     - include: data-with-operators
     - include: dollar-variable
-    - include: literal-bare-string-record-list
+    - include: literal-bare-string
 
   subexpression:
     - match: \(
@@ -204,6 +205,7 @@ contexts:
         - meta_scope: meta.group.nu
         - include: comment
         - include: if-statement
+        - include: match-statement
         - include: try-statement
         - include: data-with-operators
         - include: function-call-inline
@@ -404,9 +406,11 @@ contexts:
     - match: '{{bare_string}}'
       scope: string.bare.nu
 
-  literal-bare-string-record-list:
-    - match: '{{bare_string_record_list}}'
-      scope: string.bare.nu
+  literal-flag:
+    - match: '{{long_flag}}'
+      scope: string.flag.long.nu
+    - match: '{{short_flag}}'
+      scope: string.flag.short.nu
 
   dollar-variable:
     - match: \$(env|in|nothing|nu)
@@ -416,10 +420,11 @@ contexts:
       scope: variable.other.nu
 
   property-accessor:
-    - match: (\.)({{var_name}})
+    - match: (\.)({{var_name}})(\?)?
       captures:
         1: punctuation.accessor.nu
         2: meta.property.nu
+        3: keyword.operator.optional.nu
 
   redirect-output:
     - match: out>|err>|out\+err>|err\+out>
@@ -445,14 +450,6 @@ contexts:
         - match: (?=.|$)
           pop: 1
 
-  for-variable:
-    - match: (for)\s+(\$?{{var_name}})\s+(in)
-      scope: variable.nu
-      captures:
-        1: keyword.other.nu
-        2: variable.name.nu
-        3: keyword.other.nu
-
   terminator:
     - match: ;
       scope: punctuation.terminator.statement.nu
@@ -471,24 +468,8 @@ contexts:
     - match: (?=\{)
       branch_point: open-curly
       branch:
-        - block
         - closure
         - record
-
-  block:
-    - match: '\{'
-      scope: punctuation.section.block.begin.nu
-      push:
-        - meta_scope: meta.block.nu
-        - include: comment
-        - match: '(?=({{var_name}}|{{quoted_string}}):)'
-          fail: open-curly
-        - match: '(?=\|\s*({{var_name}}\s*,\s*)*{{var_name}}\s*\|)'
-          fail: open-curly
-        - include: main
-        - match: '\}'
-          scope: punctuation.section.block.end.nu
-          pop: 2
 
   closure:
     - match: '\{'
@@ -674,7 +655,7 @@ contexts:
       push:
         - meta_scope: meta.function.completion.nu
         - include: string
-        - include: literal-bare-string-record-list
+        - include: literal-bare-string
         - match: '{{parameter_end}}'
           pop: 1
 
@@ -852,6 +833,7 @@ contexts:
       push:
         - match: as{{identifier_break}}
           scope: keyword.operator.nu
+        - include: literal-flag
         - include: literal-bare-string
         - match: '{{expression_end}}'
           pop: 1
@@ -881,26 +863,108 @@ contexts:
         - match: '{{expression_end}}'
           pop: 1
 
+  block:
+    - match: '\{'
+      scope: punctuation.section.block.begin.nu
+      push:
+        - meta_scope: meta.block.nu
+        - include: main
+        - match: '\}'
+          scope: punctuation.section.block.end.nu
+          pop: 2
+
   if-statement:
     - match: if{{identifier_break}}
       scope: keyword.control.conditional.if.nu
       push:
         - include: expression-condition
         - match: '{{expression_end}}'
-          pop: 1
+          set: block
     - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu
+      push: block
+
+  match-statement:
+    - match: match{{identifier_break}}
+      scope: keyword.control.match.nu
+      push:
+        - include: expression-condition
+        - match: '{{expression_end}}'
+          set:
+          - match: '\{'
+            scope: punctuation.section.match.begin.nu
+            push:
+              - include: comment
+              - include: match-pattern
+              - match: =>
+                scope: keyword.operator.arrow.nu
+                push: block
+              - match: '\}'
+                scope: punctuation.section.match.end.nu
+                pop: 2
+
+  match-pattern:
+    - match: '\['
+      scope: punctuation.section.list.begin.nu
+      push:
+        - match: ','
+          scope: punctuation.separator.comma.nu
+        - match: '(..)?(\${{var_name}})'
+          captures:
+            1: operator.spread.nu
+            2: variable.other.nu
+        - include: data-structure
+        - match: '\]'
+          scope: punctuation.section.list.end.nu
+          pop: 1
+
+    - match: '\{'
+      scope: punctuation.section.record.begin.nu
+      push:
+        - meta_scope: meta.record.nu
+        - include: record-key
+        - include: data-structure
+        - include: dollar-variable
+        - match: ','
+          scope: punctuation.separator.comma.nu
+        - match: '\}'
+          scope: punctuation.section.record.end.nu
+          pop: 1
+
+    - include: data-structure
+
+    - match: _
+      scope: keyword.match.any.nu
+
+  loop-statement:
+    - match: loop
+      scope: keyword.control.loop.nu
+      push: block
+
+  for-statement:
+    - match: (for)\s+(\$?{{var_name}})\s+(in)
+      scope: variable.nu
+      captures:
+        1: keyword.control.loop.for.nu
+        2: variable.name.nu
+        3: keyword.control.loop.in.nu
+      push:
+        - include: expression-condition
+        - match: '{{expression_end}}'
+          set: block
 
   while-statement:
     - match: while{{identifier_break}}
       scope: keyword.control.loop.while.nu
       push:
         - include: expression-condition
-        - match: '{{expression_break}}'
-          pop: 1
+        - match: '{{expression_end}}'
+          set: block
 
   try-statement:
     - match: try{{identifier_break}}
       scope: keyword.control.exception.try.nu
+      push: block
     - match: catch{{identifier_break}}
       scope: keyword.control.exception.catch.nu
+      push: block

@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[match $1 {
+	${2:pattern} => { ${0:$TM_SELECTED_TEXT} }
+}]]></content>
+	<tabTrigger>mat</tabTrigger>
+	<scope>source.shell.nu</scope>
+	<description>match</description>
+</snippet>
