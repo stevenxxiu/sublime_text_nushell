@@ -150,8 +150,6 @@ contexts:
   main:
     - include: assign-variable
     - include: comment
-    - include: curly-block
-    - include: for-variable
     - include: module
     - include: command
     - include: extern
@@ -163,6 +161,8 @@ contexts:
     - include: if-statement
     - include: try-statement
     - include: while-statement
+    - include: loop-statement
+    - include: for-statement
     - include: data-with-operators
     - include: function-call
     - include: dollar-variable
@@ -448,14 +448,6 @@ contexts:
         - match: (?=.|$)
           pop: 1
 
-  for-variable:
-    - match: (for)\s+(\$?{{var_name}})\s+(in)
-      scope: variable.nu
-      captures:
-        1: keyword.other.nu
-        2: variable.name.nu
-        3: keyword.other.nu
-
   terminator:
     - match: ;
       scope: punctuation.terminator.statement.nu
@@ -474,24 +466,8 @@ contexts:
     - match: (?=\{)
       branch_point: open-curly
       branch:
-        - block
         - closure
         - record
-
-  block:
-    - match: '\{'
-      scope: punctuation.section.block.begin.nu
-      push:
-        - meta_scope: meta.block.nu
-        - include: comment
-        - match: '(?=({{var_name}}|{{quoted_string}}):)'
-          fail: open-curly
-        - match: '(?=\|\s*({{var_name}}\s*,\s*)*{{var_name}}\s*\|)'
-          fail: open-curly
-        - include: main
-        - match: '\}'
-          scope: punctuation.section.block.end.nu
-          pop: 2
 
   closure:
     - match: '\{'
@@ -885,26 +861,56 @@ contexts:
         - match: '{{expression_end}}'
           pop: 1
 
+  block:
+    - match: '\{'
+      scope: punctuation.section.block.begin.nu
+      push:
+        - meta_scope: meta.block.nu
+        - include: main
+        - match: '\}'
+          scope: punctuation.section.block.end.nu
+          pop: 2
+
   if-statement:
     - match: if{{identifier_break}}
       scope: keyword.control.conditional.if.nu
       push:
         - include: expression-condition
         - match: '{{expression_end}}'
-          pop: 1
+          set: block
     - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu
+      push: block
+
+  loop-statement:
+    - match: loop
+      scope: keyword.control.loop.nu
+      push: block
+
+  for-statement:
+    - match: (for)\s+(\$?{{var_name}})\s+(in)
+      scope: variable.nu
+      captures:
+        1: keyword.control.loop.for.nu
+        2: variable.name.nu
+        3: keyword.control.loop.in.nu
+      push:
+        - include: expression-condition
+        - match: '{{expression_end}}'
+          set: block
 
   while-statement:
     - match: while{{identifier_break}}
       scope: keyword.control.loop.while.nu
       push:
         - include: expression-condition
-        - match: '{{expression_break}}'
-          pop: 1
+        - match: '{{expression_end}}'
+          set: block
 
   try-statement:
     - match: try{{identifier_break}}
       scope: keyword.control.exception.try.nu
+      push: block
     - match: catch{{identifier_break}}
       scope: keyword.control.exception.catch.nu
+      push: block

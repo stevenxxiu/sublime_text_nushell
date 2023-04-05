@@ -56,14 +56,6 @@ $b = $a + 1
 #       ^ keyword.operator.nu
 #         ^ constant.numeric.integer.nu
 
-{ let a = 1 }
-# <- meta.block.nu punctuation.section.block.begin.nu
-# ^^^ meta.block.nu keyword.other.nu
-#     ^ meta.block.nu variable.name.nu
-#       ^ meta.block.nu keyword.operator.assignment.nu
-#         ^ meta.block.nu constant.numeric.integer.nu
-#           ^ meta.block.nu punctuation.section.block.end.nu
-
 ##
 # Integer
 ##
@@ -477,18 +469,19 @@ each { |aaa, bbb: int| print $aaa | ccc }
 ##
 # Block
 ##
-
-{ aaa |
-# <- meta.block.nu punctuation.section.block.begin.nu
+loop {
+# ^^ keyword.control.loop.nu
+#    ^ meta.block.nu punctuation.section.block.begin.nu
+  aaa |
 # ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
 #     ^ meta.block.nu keyword.operator.pipe.nu
-  bbb
-# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+    bbb
+#   ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
 }
 # <- meta.block.nu punctuation.section.block.end.nu
 
 loop { break }
-# <- meta.function-call.identifier.nu keyword.other.nu
+# ^^ keyword.control.loop.nu
 #    ^ meta.block.nu punctuation.section.block.begin.nu
 #      ^^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
 #            ^ meta.block.nu
@@ -497,8 +490,9 @@ loop { break }
 # For loop
 ##
 for i in 1..10 { print $i }
-# <- variable.nu keyword.other.nu
+# ^ variable.nu keyword.control.loop.for.nu
 #   ^ variable.nu variable.name.nu
+#     ^^ variable.nu keyword.control.loop.in.nu
 #        ^^^^^ constant.range.nu
 #              ^ meta.block.nu punctuation.section.block.begin.nu
 #                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
