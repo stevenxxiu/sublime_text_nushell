@@ -46,7 +46,7 @@ variables:
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
       export\ def-env|export\ extern|export\ old-alias|export\ use|extern|for|help\ aliases|help\ commands|
-      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|module|mut|old-alias|
+      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|match|module|mut|old-alias|
       overlay\ hide|overlay\ list|overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
     )
   native_command: |-
@@ -79,14 +79,14 @@ variables:
       # debug
       ast|debug|explain|inspect|metadata|profile|timeit|view\ files|view\ source|view\ span|
       # default
-      group-by|histogram|inc|into\ decimal|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|
+      group-by|histogram|inc|into\ decimal|join|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|
       path\ parse|path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|str\ upcase|
       transpose|version|
       # deprecated
       hash\ base64|math\ eval|str\ collect|str\ find-replace|str\ lpad|str\ rpad|str\ to-datetime|str\ to-decimal|
       str\ to-int|
       # env
-      config\ env|config\ nu|config\ reset|env|export-env|let-env|with-env|
+      config\ env|config\ nu|config\ reset|export-env|let-env|with-env|
       # experimental
       from\ nuon|to\ nuon|
       # expression
@@ -103,9 +103,9 @@ variables:
       skip\ until|skip\ while|sort|sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|
       where|window|wrap|zip|
       # formats
-      from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|from\ tsv|from\ url|from\ vcf|
-      from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|to\ toml|to\ tsv|to\ xml|
-      to\ yaml|
+      decode\ hex|encode\ hex|from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|
+      from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|
+      to\ toml|to\ tsv|to\ xml|to\ yaml|
       # generators
       cal|seq\ char|seq\ date|
       # hash
@@ -115,9 +115,9 @@ variables:
       dfr\ join|dfr\ reverse|dfr\ select|dfr\ sort-by|
       # math
       math\ abs|math\ arccos|math\ arccosh|math\ arcsin|math\ arcsinh|math\ arctan|math\ arctanh|math\ avg|math\ ceil|
-      math\ cos|math\ cosh|math\ e|math\ floor|math\ ln|math\ log|math\ max|math\ median|math\ min|math\ mode|math\ pi|
-      math\ product|math\ round|math\ sin|math\ sinh|math\ sqrt|math\ stddev|math\ sum|math\ tan|math\ tanh|math\ tau|
-      math\ variance|
+      math\ cos|math\ cosh|math\ e|math\ exp|math\ floor|math\ ln|math\ log|math\ max|math\ median|math\ min|math\ mode|
+      math\ pi|math\ product|math\ round|math\ sin|math\ sinh|math\ sqrt|math\ stddev|math\ sum|math\ tan|math\ tanh|
+      math\ tau|math\ variance|
       # misc
       history\ session|tutor|
       # network
@@ -138,7 +138,7 @@ variables:
       str\ index-of|str\ join|str\ kebab-case|str\ length|str\ pascal-case|str\ replace|str\ reverse|
       str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ title-case|url\ encode|
       # system
-      complete|exec|ps|registry\ query|run-external|sys|which|
+      complete|ps|registry\ query|run-external|sys|which|
       # viewers
       explore|grid|table|
 
