@@ -163,6 +163,7 @@ contexts:
     - include: while-statement
     - include: for-statement
     - include: try-statement
+    - include: with-env-statement
 
   expression:
     - include: subexpression
@@ -231,7 +232,7 @@ contexts:
     - include: literal-null
 
     - include: list-table
-    - include: curly-block
+    - include: closure-record
 
   data-with-operators:
     - include: data-structure
@@ -465,7 +466,26 @@ contexts:
     - match: null{{expression_break}}
       scope: constant.language.null.nu
 
-  curly-block:
+  record-key:
+    - match: '({{var_name}})(:)'
+      captures:
+        1: entity.name.label.nu
+        2: punctuation.separator.key-value.nu
+    - match: (?=(?:{{quoted_string}}):)
+      push:
+        - include: string
+        - match: ':'
+          scope: punctuation.separator.key-value.nu
+          pop: 1
+
+  record-body:
+    - include: comment
+    - include: record-key
+    - include: expression-record-list-table
+    - match: ','
+      scope: punctuation.separator.comma.nu
+
+  closure-record:
     - match: (?=\{)
       branch_point: open-curly
       branch:
@@ -501,26 +521,10 @@ contexts:
       scope: punctuation.section.record.begin.nu
       push:
         - meta_scope: meta.record.nu
-        - include: comment
-        - include: record-key
-        - include: expression-record-list-table
-        - match: ','
-          scope: punctuation.separator.comma.nu
+        - include: record-body
         - match: '\}'
           scope: punctuation.section.record.end.nu
           pop: 2
-
-  record-key:
-    - match: '({{var_name}})(:)'
-      captures:
-        1: entity.name.label.nu
-        2: punctuation.separator.key-value.nu
-    - match: (?=(?:{{quoted_string}}):)
-      push:
-        - include: string
-        - match: ':'
-          scope: punctuation.separator.key-value.nu
-          pop: 1
 
   list-table:
     - match: '\['
@@ -969,3 +973,21 @@ contexts:
     - match: catch{{identifier_break}}
       scope: keyword.control.exception.catch.nu
       push: block
+
+  with-env-statement:
+    - match: with-env{{identifier_break}}
+      scope: keyword.other.nu
+      push:
+        - match: '(?=\[)'
+          set:
+            - include: list-table
+            - include: block
+        - match: '\{'
+          scope: punctuation.section.record.begin.nu
+          push:
+            - meta_scope: meta.record.nu
+            - include: record-body
+            - match: '\}'
+              scope: punctuation.section.record.end.nu
+              set: block
+              pop: 2

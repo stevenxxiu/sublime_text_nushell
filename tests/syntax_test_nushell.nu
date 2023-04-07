@@ -931,6 +931,52 @@ try {
 # <- meta.block.nu punctuation.section.block.end.nu
 
 ##
+# with-env
+##
+
+with-env [A B] { foo }
+# ^^^^^^ keyword.other.nu
+#        ^ meta.list-table.nu punctuation.section.list-table.begin.nu
+#         ^ meta.list-table.nu string.bare.nu
+#           ^ meta.list-table.nu string.bare.nu
+#            ^ meta.list-table.nu punctuation.section.list-table.end.nu
+#              ^ meta.block.nu punctuation.section.block.begin.nu
+#                ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#                    ^ meta.block.nu punctuation.section.block.end.nu
+
+with-env [[A B]; [C D]] { foo }
+# ^^^^^^ keyword.other.nu
+#        ^ meta.list-table.nu punctuation.section.list-table.begin.nu
+#         ^ meta.list-table.nu meta.list-table.nu punctuation.section.list-table.begin.nu
+#          ^ meta.list-table.nu meta.list-table.nu string.bare.nu
+#            ^ meta.list-table.nu meta.list-table.nu string.bare.nu
+#             ^ meta.list-table.nu meta.list-table.nu punctuation.section.list-table.end.nu
+#              ^ meta.list-table.nu punctuation.terminator.header.nu
+#                ^ meta.list-table.nu meta.list-table.nu punctuation.section.list-table.begin.nu
+#                 ^ meta.list-table.nu meta.list-table.nu string.bare.nu
+#                   ^ meta.list-table.nu meta.list-table.nu string.bare.nu
+#                    ^ meta.list-table.nu meta.list-table.nu punctuation.section.list-table.end.nu
+#                     ^ meta.list-table.nu punctuation.section.list-table.end.nu
+#                       ^ meta.block.nu punctuation.section.block.begin.nu
+#                         ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#                             ^ meta.block.nu punctuation.section.block.end.nu
+
+with-env {A: B, C: D} { foo }
+# ^^^^^^ keyword.other.nu
+#        ^ meta.record.nu punctuation.section.record.begin.nu
+#         ^ meta.record.nu entity.name.label.nu
+#          ^ meta.record.nu punctuation.separator.key-value.nu
+#            ^ meta.record.nu string.bare.nu
+#             ^ meta.record.nu punctuation.separator.comma.nu
+#               ^ meta.record.nu entity.name.label.nu
+#                ^ meta.record.nu punctuation.separator.key-value.nu
+#                  ^ meta.record.nu string.bare.nu
+#                   ^ meta.record.nu punctuation.section.record.end.nu
+#                     ^ meta.block.nu punctuation.section.block.begin.nu
+#                       ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#                           ^ meta.block.nu punctuation.section.block.end.nu
+
+##
 # Pipelines
 ##
 
