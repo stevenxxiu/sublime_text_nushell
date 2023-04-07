@@ -474,41 +474,6 @@ each { |aaa, bbb: int| print $aaa | ccc }
 #                                       ^ meta.closure.nu punctuation.section.closure.end.nu
 
 ##
-# Loop
-##
-
-loop {
-# ^^ keyword.control.loop.nu
-#    ^ meta.block.nu punctuation.section.block.begin.nu
-  aaa |
-# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
-#     ^ meta.block.nu keyword.operator.pipe.nu
-    bbb
-#   ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
-}
-# <- meta.block.nu punctuation.section.block.end.nu
-
-loop { break }
-# ^^ keyword.control.loop.nu
-#    ^ meta.block.nu punctuation.section.block.begin.nu
-#      ^^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
-#            ^ meta.block.nu
-
-##
-# For loop
-##
-
-for i in 1..10 { print $i }
-# ^ variable.nu keyword.control.loop.for.nu
-#   ^ variable.nu variable.name.nu
-#     ^^ variable.nu keyword.control.loop.in.nu
-#        ^^^^^ constant.range.nu
-#              ^ meta.block.nu punctuation.section.block.begin.nu
-#                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
-#                      ^^ meta.block.nu meta.function-call.arguments.nu variable.other.nu
-#                         ^ meta.block.nu punctuation.section.block.end.nu
-
-##
 # Module
 ##
 
@@ -897,6 +862,27 @@ match 1 {
 }
 
 ##
+# Loop
+##
+
+loop {
+# ^^ keyword.control.loop.nu
+#    ^ meta.block.nu punctuation.section.block.begin.nu
+  aaa |
+# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#     ^ meta.block.nu keyword.operator.pipe.nu
+    bbb
+#   ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+}
+# <- meta.block.nu punctuation.section.block.end.nu
+
+loop { break }
+# ^^ keyword.control.loop.nu
+#    ^ meta.block.nu punctuation.section.block.begin.nu
+#      ^^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#            ^ meta.block.nu
+
+##
 # While
 ##
 
@@ -914,6 +900,20 @@ while $x < 10 {
 #           ^ meta.block.nu constant.numeric.integer.nu
 }
 # <- meta.block.nu punctuation.section.block.end.nu
+
+##
+# For loop
+##
+
+for i in 1..10 { print $i }
+# ^ variable.nu keyword.control.loop.for.nu
+#   ^ variable.nu variable.name.nu
+#     ^^ variable.nu keyword.control.loop.in.nu
+#        ^^^^^ constant.range.nu
+#              ^ meta.block.nu punctuation.section.block.begin.nu
+#                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
+#                      ^^ meta.block.nu meta.function-call.arguments.nu variable.other.nu
+#                         ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Try

@@ -156,14 +156,17 @@ contexts:
     - include: expression
     - include: terminator
 
-  expression:
-    - include: subexpression
+  statement:
     - include: if-statement
     - include: match-statement
-    - include: try-statement
-    - include: while-statement
     - include: loop-statement
+    - include: while-statement
     - include: for-statement
+    - include: try-statement
+
+  expression:
+    - include: subexpression
+    - include: statement
     - include: data-with-operators
     - include: function-call
     - include: dollar-variable
@@ -204,9 +207,7 @@ contexts:
       push:
         - meta_scope: meta.group.nu
         - include: comment
-        - include: if-statement
-        - include: match-statement
-        - include: try-statement
+        - include: statement
         - include: data-with-operators
         - include: function-call-inline
         - include: subexpression
@@ -941,6 +942,14 @@ contexts:
       scope: keyword.control.loop.nu
       push: block
 
+  while-statement:
+    - match: while{{identifier_break}}
+      scope: keyword.control.loop.while.nu
+      push:
+        - include: expression-condition
+        - match: '{{expression_end}}'
+          set: block
+
   for-statement:
     - match: (for)\s+(\$?{{var_name}})\s+(in)
       scope: variable.nu
@@ -948,14 +957,6 @@ contexts:
         1: keyword.control.loop.for.nu
         2: variable.name.nu
         3: keyword.control.loop.in.nu
-      push:
-        - include: expression-condition
-        - match: '{{expression_end}}'
-          set: block
-
-  while-statement:
-    - match: while{{identifier_break}}
-      scope: keyword.control.loop.while.nu
       push:
         - include: expression-condition
         - match: '{{expression_end}}'
