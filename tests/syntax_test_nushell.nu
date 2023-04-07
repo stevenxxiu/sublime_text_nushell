@@ -467,7 +467,7 @@ each { |aaa, bbb: int| print $aaa | ccc }
 #                                       ^ meta.closure.nu punctuation.section.closure.end.nu
 
 ##
-# Block
+# Loop
 ##
 
 loop {
