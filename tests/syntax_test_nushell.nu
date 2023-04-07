@@ -469,6 +469,7 @@ each { |aaa, bbb: int| print $aaa | ccc }
 ##
 # Block
 ##
+
 loop {
 # ^^ keyword.control.loop.nu
 #    ^ meta.block.nu punctuation.section.block.begin.nu
@@ -489,6 +490,7 @@ loop { break }
 ##
 # For loop
 ##
+
 for i in 1..10 { print $i }
 # ^ variable.nu keyword.control.loop.for.nu
 #   ^ variable.nu variable.name.nu
@@ -837,6 +839,7 @@ let a = (
 ##
 # Match
 ##
+
 match 1 {
 # ^^^ keyword.control.match.nu
 #     ^ constant.numeric.integer.nu
@@ -889,6 +892,7 @@ match 1 {
 ##
 # While
 ##
+
 while $x < 10 {
 # <- keyword.control.loop.while.nu
 #     ^^ variable.other.nu
