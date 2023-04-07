@@ -428,6 +428,13 @@ let a = $"($it.name) is ($it.size)"
 #                        ^^^ variable.other.nu
 
 ##
+# Bare string
+##
+
+let a = *./~
+#       ^^^^ string.bare.nu
+
+##
 # Closure
 ##
 
