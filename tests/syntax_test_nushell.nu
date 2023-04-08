@@ -91,6 +91,8 @@ let a = +9.9999
 #       ^^^^^^^ constant.numeric.decimal.nu
 let a = -9.9999
 #       ^^^^^^^ constant.numeric.decimal.nu
+let a = -9.9999a
+#       ^^^^^^^^ string.bare.nu
 let a = Infinity
 #       ^^^^^^^^ constant.numeric.decimal.nu
 let a = +Infinity
@@ -278,14 +280,14 @@ let a = {
 
 let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
-  k1: a
+  k1: v1
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
-#     ^ meta.record.nu string.bare.nu
-  k2: b
+#     ^^ meta.record.nu string.bare.nu
+  k2: v2
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
-#     ^ meta.record.nu string.bare.nu
+#     ^^ meta.record.nu string.bare.nu
 }
 # <- meta.record.nu punctuation.section.record.end.nu
 
@@ -293,15 +295,14 @@ let a = {
 #       ^ meta.record.nu punctuation.section.record.begin.nu
   # Foo
 # ^^^^^ meta.record.nu comment.line
-  k1: { k2: a } # Foo
+  k1: { k2: v1 } # Foo
 # ^^ meta.record.nu entity.name.label.nu
 #   ^ meta.record.nu punctuation.separator.key-value.nu
 #     ^ meta.record.nu punctuation.section.record.begin.nu
 #       ^^ meta.record.nu meta.record.nu entity.name.label.nu
 #         ^ meta.record.nu meta.record.nu punctuation.separator.key-value.nu
-#           ^ meta.record.nu meta.record.nu string.bare.nu
-#             ^ meta.record.nu meta.record.nu punctuation.section.record.end.nu
-#               ^^^^^ meta.record.nu comment.line
+#           ^^ meta.record.nu meta.record.nu string.bare.nu
+#                ^^^^^ meta.record.nu comment.line
 #
 }
 # <- meta.record.nu punctuation.section.record.end.nu
@@ -431,8 +432,11 @@ let a = $"($it.name) is ($it.size)"
 # Bare string
 ##
 
-let a = *./~
-#       ^^^^ string.bare.nu
+let a = *,./:<>[]{}
+#       ^^^^^^^^^^^ string.bare.nu
+
+let a = 1*
+#       ^ constant.numeric.integer.nu
 
 ##
 # Closure
@@ -654,9 +658,9 @@ extern "aaa\"bbb" [
 func foo -a --bar - 1
 # <- meta.function-call.identifier.nu variable.function.nu
 #    ^^^ meta.function-call.arguments.nu string.bare.nu
-#        ^^ meta.function-call.arguments.nu string.flag.short.nu
-#           ^^^^^ meta.function-call.arguments.nu string.flag.long.nu
-#                 ^ meta.function-call.arguments.nu string.flag.short.nu
+#        ^^ meta.function-call.arguments.nu string.bare.nu
+#           ^^^^^ meta.function-call.arguments.nu string.bare.nu
+#                 ^ meta.function-call.arguments.nu string.bare.nu
 #                   ^ meta.function-call.arguments.nu constant.numeric.integer.nu
 
 path expand $foo
@@ -683,11 +687,11 @@ foo; bar
 # Output redirection
 ##
 
-foo bar out> output_file
+foo bar out> output.txt
 # <- meta.function-call.identifier.nu variable.function.nu
 #   ^^^ meta.function-call.arguments.nu string.bare.nu
 #       ^^^^ meta.function-call.arguments.nu keyword.other.redirect.nu
-#            ^^^^^^^^^^^ meta.function-call.arguments.nu string.bare.nu
+#            ^^^^^^^^^^ meta.function-call.arguments.nu string.bare.nu
 
 ##
 # Special statements
@@ -719,10 +723,10 @@ export alias c = foo
 overlay use foo --prefix as bar --reload
 # <- keyword.operator.nu
 #           ^^^ string.bare.nu
-#               ^^^^^^^^ string.flag.long.nu
+#               ^^^^^^^^ string.bare.nu
 #                        ^^ keyword.operator.nu
 #                           ^^^ string.bare.nu
-#                               ^^^^^^^^ string.flag.long.nu
+#                               ^^^^^^^^ string.bare.nu
 
 where foo | null
 # <- meta.function-call.identifier.nu support.function.nu
