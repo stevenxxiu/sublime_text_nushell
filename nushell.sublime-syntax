@@ -151,6 +151,7 @@ contexts:
   main:
     - include: assign-variable
     - include: comment
+    - include: curly-block
     - include: module
     - include: command
     - include: extern
@@ -232,7 +233,7 @@ contexts:
     - include: literal-null
 
     - include: list-table
-    - include: closure-record
+    - include: curly-block
 
   data-with-operators:
     - include: data-structure
@@ -483,12 +484,28 @@ contexts:
     - match: ','
       scope: punctuation.separator.comma.nu
 
-  closure-record:
+  curly-block:
     - match: (?=\{)
       branch_point: open-curly
       branch:
+        - block
         - closure
         - record
+
+  block:
+    - match: '\{'
+      scope: punctuation.section.block.begin.nu
+      push:
+        - meta_scope: meta.block.nu
+        - include: comment
+        - match: '(?=({{var_name}}|{{quoted_string}}):)'
+          fail: open-curly
+        - match: '(?=\|\s*({{var_name}}\s*,\s*)*{{var_name}}\s*\|)'
+          fail: open-curly
+        - include: main
+        - match: '\}'
+          scope: punctuation.section.block.end.nu
+          pop: 2
 
   closure:
     - match: '\{'
@@ -864,16 +881,6 @@ contexts:
         - include: row-condition
         - match: '{{expression_end}}'
           pop: 1
-
-  block:
-    - match: '\{'
-      scope: punctuation.section.block.begin.nu
-      push:
-        - meta_scope: meta.block.nu
-        - include: main
-        - match: '\}'
-          scope: punctuation.section.block.end.nu
-          pop: 2
 
   if-statement:
     - match: if{{identifier_break}}

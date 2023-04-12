@@ -56,6 +56,14 @@ $b = $a + 1
 #       ^ keyword.operator.nu
 #         ^ constant.numeric.integer.nu
 
+{ let a = 1 }
+# <- meta.block.nu punctuation.section.block.begin.nu
+# ^^^ meta.block.nu keyword.other.nu
+#     ^ meta.block.nu variable.name.nu
+#       ^ meta.block.nu keyword.operator.assignment.nu
+#         ^ meta.block.nu constant.numeric.integer.nu
+#           ^ meta.block.nu punctuation.section.block.end.nu
+
 ##
 # Integer
 ##
@@ -476,6 +484,25 @@ each { |aaa, bbb: int| print $aaa | ccc }
 #                                 ^ meta.closure.nu keyword.operator.pipe.nu
 #                                   ^^^ meta.closure.nu meta.function-call.identifier.nu variable.function.nu
 #                                       ^ meta.closure.nu punctuation.section.closure.end.nu
+
+##
+# Block
+##
+
+{
+# <- meta.block.nu punctuation.section.block.begin.nu
+  aaa |
+# ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+#     ^ meta.block.nu keyword.operator.pipe.nu
+    bbb
+#   ^^^ meta.block.nu meta.function-call.identifier.nu variable.function.nu
+}
+# <- meta.block.nu punctuation.section.block.end.nu
+
+{ break }
+# <- meta.block.nu punctuation.section.block.begin.nu
+# ^^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#       ^ meta.block.nu punctuation.section.block.end.nu
 
 ##
 # Module
