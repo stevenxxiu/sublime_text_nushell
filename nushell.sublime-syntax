@@ -21,8 +21,7 @@ variables:
   pos_decimal: '\d+(\.\d*)?'
   double_quoted_string_escape: '\\(["''\\/bfrnt]|u\{\h{1,6}\})'
   quoted_string: '''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
-  bare_string: '[^\s\d#$();\[\]{|}][^\s#$();|]*'
-  bare_string_record_list: '[^\s#$(),;\[\]{|}]+'
+  bare_string: '[\w*./~]+'
   pipe: '(^|(?<!\|))\|(?!\|)'
   identifier_break: (?=\s|[#);\]{}|]|$)
   expression_end: (?=\s*[#);\]{}|]|\s*$)
@@ -188,6 +187,7 @@ contexts:
     - include: pipe
     - include: redirect-output
     - include: dollar-variable
+    - include: literal-flag
     - include: literal-bare-string
 
   expression-condition:
@@ -201,7 +201,7 @@ contexts:
     - include: subexpression
     - include: data-with-operators
     - include: dollar-variable
-    - include: literal-bare-string-record-list
+    - include: literal-bare-string
 
   subexpression:
     - match: \(
@@ -409,9 +409,11 @@ contexts:
     - match: '{{bare_string}}'
       scope: string.bare.nu
 
-  literal-bare-string-record-list:
-    - match: '{{bare_string_record_list}}'
-      scope: string.bare.nu
+  literal-flag:
+    - match: '{{long_flag}}'
+      scope: string.flag.long.nu
+    - match: '{{short_flag}}'
+      scope: string.flag.short.nu
 
   dollar-variable:
     - match: \$(env|in|nothing|nu)
@@ -675,7 +677,7 @@ contexts:
       push:
         - meta_scope: meta.function.completion.nu
         - include: string
-        - include: literal-bare-string-record-list
+        - include: literal-bare-string
         - match: '{{parameter_end}}'
           pop: 1
 
@@ -853,6 +855,7 @@ contexts:
       push:
         - match: as{{identifier_break}}
           scope: keyword.operator.nu
+        - include: literal-flag
         - include: literal-bare-string
         - match: '{{expression_end}}'
           pop: 1
