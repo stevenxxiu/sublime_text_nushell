@@ -56,8 +56,8 @@ variables:
       bytes\ add|bytes\ at|bytes\ build|bytes\ collect|bytes\ ends-with|bytes\ index-of|bytes\ length|bytes\ remove|
       bytes\ replace|bytes\ reverse|bytes\ starts-with|
       # conversions
-      fill|fmt|into\ binary|into\ bool|into\ datetime|into\ duration|into\ filesize|into\ int|into\ record|into\ sqlite|
-      into\ string|
+      fill|fmt|into\ binary|into\ bool|into\ datetime|into\ decimal|into\ duration|into\ filesize|into\ int|
+      into\ record|into\ sqlite|into\ string|
       # database
       query\ db|schema|
       # dataframe
@@ -78,9 +78,8 @@ variables:
       # debug
       ast|debug|explain|inspect|metadata|profile|timeit|view\ files|view\ source|view\ span|
       # default
-      group-by|histogram|inc|into\ decimal|join|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|
-      path\ parse|path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|str\ upcase|
-      transpose|version|
+      group-by|histogram|inc|join|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|path\ parse|
+      path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|str\ upcase|transpose|version|
       # deprecated
       hash\ base64|math\ eval|str\ collect|str\ find-replace|str\ lpad|str\ rpad|str\ to-datetime|str\ to-decimal|
       str\ to-int|
@@ -97,7 +96,7 @@ variables:
       cd|cp|glob|load-env|ls|mkdir|mv|open|rm|save|start|touch|watch|
       # filters
       all|any|append|collect|columns|compact|default|drop\ column|drop\ nth|each\ while|enumerate|every|filter|find|
-      first|flatten|get|group|headers|insert|is-empty|last|length|lines|merge|move|par-each|prepend|query\ json|
+      first|flatten|get|group|headers|insert|is-empty|items|last|length|lines|merge|move|par-each|prepend|query\ json|
       query\ xml|range|reject|rename|reverse|roll\ down|roll\ left|roll\ right|roll\ up|rotate|select|shuffle|
       skip\ until|skip\ while|sort|sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|
       where|window|wrap|zip|
@@ -137,7 +136,7 @@ variables:
       str\ index-of|str\ join|str\ kebab-case|str\ length|str\ pascal-case|str\ replace|str\ reverse|
       str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ title-case|url\ encode|
       # system
-      complete|ps|registry\ query|run-external|sys|which|
+      complete|exec|ps|registry\ query|run-external|sys|which|
       # viewers
       explore|grid|table|
 
