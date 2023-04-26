@@ -789,32 +789,24 @@ foo where
 # If
 ##
 
-if is-admin { echo a } else { echo b }
+if is-admin { echo a } else if false { echo b } else { echo c }
 # <- keyword.control.conditional.if.nu
 #  ^^^^^^^^ meta.function-call.identifier.nu keyword.other.nu
 #           ^ meta.block.nu punctuation.section.block.begin.nu
 #             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
 #                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
 #                    ^ meta.block.nu punctuation.section.block.end.nu
-#                      ^^^^ keyword.control.conditional.else.nu
-#                           ^ meta.block.nu punctuation.section.block.begin.nu
-#                             ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
-#                                  ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
-#                                    ^ meta.block.nu punctuation.section.block.end.nu
-
-let a = if false { -1 } else { 1 }
-# <- keyword.other.nu
-#   ^ variable.name.nu
-#     ^ keyword.operator.assignment.nu
-#       ^^ keyword.control.conditional.if.nu
-#          ^^^^^ constant.language.boolean.false.nu
-#                ^ meta.block.nu punctuation.section.block.begin.nu
-#                  ^^ meta.block.nu constant.numeric.integer.nu
-#                     ^ meta.block.nu punctuation.section.block.end.nu
-#                       ^^^^ keyword.control.conditional.else.nu
-#                            ^ meta.block.nu punctuation.section.block.begin.nu
-#                              ^ meta.block.nu constant.numeric.integer.nu
-#                                ^ meta.block.nu punctuation.section.block.end.nu
+#                      ^^^^^^^ keyword.control.conditional.elseif.nu
+#                              ^^^^^ constant.language.boolean.false.nu
+#                                    ^ meta.block.nu punctuation.section.block.begin.nu
+#                                      ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#                                           ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
+#                                             ^ meta.block.nu punctuation.section.block.end.nu
+#                                               ^^^^ keyword.control.conditional.else.nu
+#                                                    ^ meta.block.nu punctuation.section.block.begin.nu
+#                                                      ^^^^ meta.block.nu meta.function-call.identifier.nu keyword.other.nu
+#                                                           ^ meta.block.nu meta.function-call.arguments.nu string.bare.nu
+#                                                             ^ meta.block.nu punctuation.section.block.end.nu
 
 let a = (
 #       ^ meta.group.nu punctuation.section.group.begin.nu
@@ -822,13 +814,20 @@ let a = (
 # ^^ meta.group.nu keyword.control.conditional.if.nu
 #    ^^^^^ meta.group.nu constant.language.boolean.false.nu
 #          ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
-    -1
-#   ^^ meta.group.nu meta.block.nu constant.numeric.integer.nu
+    1
+#   ^ meta.group.nu meta.block.nu constant.numeric.integer.nu
+  } else if false {
+# ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
+#   ^^^^^^^ meta.group.nu keyword.control.conditional.elseif.nu
+#           ^^^^^ meta.group.nu constant.language.boolean.false.nu
+#                 ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
+    2
+#   ^ meta.group.nu meta.block.nu constant.numeric.integer.nu
   } else {
 # ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu
 #   ^^^^ meta.group.nu keyword.control.conditional.else.nu
 #        ^ meta.group.nu meta.block.nu punctuation.section.block.begin.nu
-    1
+    3
 #   ^ meta.group.nu meta.block.nu constant.numeric.integer.nu
   }
 # ^ meta.group.nu meta.block.nu punctuation.section.block.end.nu

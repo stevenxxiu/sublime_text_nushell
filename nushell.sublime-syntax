@@ -891,6 +891,12 @@ contexts:
         - include: expression-condition
         - match: '{{expression_end}}'
           set: block
+    - match: else if{{identifier_break}}
+      scope: keyword.control.conditional.elseif.nu
+      push:
+        - include: expression-condition
+        - match: '{{expression_end}}'
+          set: block
     - match: else{{identifier_break}}
       scope: keyword.control.conditional.else.nu
       push: block
