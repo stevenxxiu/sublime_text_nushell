@@ -44,9 +44,9 @@ variables:
   core_native_command: |-
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
-      export\ def-env|export\ extern|export\ old-alias|export\ use|extern|for|help\ aliases|help\ commands|
-      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|match|module|mut|old-alias|
-      overlay\ hide|overlay\ list|overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
+      export\ def-env|export\ extern|export\ use|extern|for|help\ aliases|help\ commands|help\ externs|help\ modules|
+      help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|match|module|mut|overlay\ hide|overlay\ list|
+      overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
     )
   native_command: |-
     (?x:
@@ -838,7 +838,7 @@ contexts:
     - include: row-condition-call
 
   alias-call:
-    - match: ((?:export )?alias|old-alias)\s+(\$?{{var_name}})\s*(=)\s*
+    - match: ((?:export )?alias)\s+(\$?{{var_name}})\s*(=)\s*
       captures:
         1: keyword.other.nu
         2: variable.name.nu
