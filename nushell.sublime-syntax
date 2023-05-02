@@ -433,7 +433,7 @@ contexts:
       scope: keyword.other.redirect.nu
 
   assign-variable:
-    - match: (let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
+    - match: (const|let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
       captures:
         1: keyword.other.nu
         2: variable.name.nu

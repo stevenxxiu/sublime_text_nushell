@@ -35,14 +35,28 @@ $env.aaa.bbb?.ccc
 #            ^ punctuation.accessor.nu
 #             ^^^ meta.property.nu
 
-let 1 = 2 # Foo
+const a = 1 # Foo
+# <- keyword.other.nu
+#     ^ variable.name.nu
+#       ^ keyword.operator.assignment.nu
+#         ^ constant.numeric.integer.nu
+#           ^^^^^ comment.line
+
+let a = 1 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
 #     ^ keyword.operator.assignment.nu
 #       ^ constant.numeric.integer.nu
 #         ^^^^^ comment.line
 
-mut a = 2 # Foo
+let-env a = 1 # Foo
+# <- keyword.other.nu
+#       ^ variable.name.nu
+#         ^ keyword.operator.assignment.nu
+#           ^ constant.numeric.integer.nu
+#             ^^^^^ comment.line
+
+mut a = 1 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
 #     ^ keyword.operator.assignment.nu
