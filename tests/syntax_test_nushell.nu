@@ -795,6 +795,19 @@ where size > 10kb and size < 100kb | null
 #                                  ^ keyword.operator.pipe.nu
 #                                    ^^^^ source.shell.nu constant.language.null.nu
 
+(where foo == bar)
+# <- meta.group.nu punctuation.section.group.begin.nu
+# ^^^^ meta.group.nu meta.function-call.identifier.nu support.function.nu
+#      ^^^ meta.group.nu meta.function-call.arguments.row-condition.nu variable.name.nu
+#          ^^ meta.group.nu meta.function-call.arguments.row-condition.nu keyword.operator.nu
+#             ^^^ meta.group.nu meta.function-call.arguments.row-condition.nu string.bare.nu
+#                ^ meta.group.nu punctuation.section.group.end.nu
+let foo = bar
+# <- keyword.other.nu
+#   ^^^ variable.name.nu
+#       ^ keyword.operator.assignment.nu
+#         ^^^ meta.function-call.identifier.nu variable.function.nu
+
 foo where
 # <- meta.function-call.identifier.nu variable.function.nu
 #   ^^^^^ meta.function-call.arguments.nu string.bare.nu

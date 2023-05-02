@@ -41,6 +41,7 @@ variables:
         \+\+
       ){{expression_break}}
     )
+  row_condition_end: (?={{binary_logic_operator}}|[#);\]{}|]|$)
   core_native_command: |-
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
@@ -870,7 +871,7 @@ contexts:
         - include: subexpression
         - include: data-structure
         - include: property-accessor
-        - match: (?={{binary_logic_operator}}|{{pipe}}|$)
+        - match: (?={{row_condition_end}})
           pop: 1
         - include: literal-bare-string
         - include: dollar-variable
