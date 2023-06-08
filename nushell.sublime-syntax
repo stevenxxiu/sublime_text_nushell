@@ -45,14 +45,12 @@ variables:
   core_native_command: |-
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
-      export\ def-env|export\ extern|export\ use|extern|for|help\ aliases|help\ commands|help\ externs|help\ modules|
-      help\ operators|hide|hide-env|if|ignore|is-admin|let|loop|match|module|mut|overlay\ hide|overlay\ list|
-      overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
+      export\ def-env|export\ extern|export\ module|export\ use|extern|for|help\ aliases|help\ commands|help\ externs|
+      help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|lazy\ make|let|loop|match|module|mut|overlay\ hide|
+      overlay\ list|overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
     )
   native_command: |-
     (?x:
-      # bits
-      bits\ and|bits\ not|bits\ or|bits\ rol|bits\ ror|bits\ shl|bits\ shr|bits\ xor|
       # bytes
       bytes\ add|bytes\ at|bytes\ build|bytes\ collect|bytes\ ends-with|bytes\ index-of|bytes\ length|bytes\ remove|
       bytes\ replace|bytes\ reverse|bytes\ starts-with|
@@ -69,7 +67,7 @@ variables:
       dfr\ get-weekday|dfr\ get-year|dfr\ into-df|dfr\ is-duplicated|dfr\ is-unique|dfr\ lowercase|dfr\ ls|dfr\ melt|
       dfr\ not|dfr\ open|dfr\ query|dfr\ replace|dfr\ replace-all|dfr\ rolling|dfr\ sample|dfr\ set|dfr\ set-with-idx|
       dfr\ shape|dfr\ slice|dfr\ str-lengths|dfr\ str-slice|dfr\ strftime|dfr\ summary|dfr\ take|dfr\ to-arrow|
-      dfr\ to-csv|dfr\ to-parquet|dfr\ uppercase|dfr\ value-counts|
+      dfr\ to-csv|dfr\ to-jsonl|dfr\ to-parquet|dfr\ uppercase|dfr\ value-counts|
       # dataframe expression
       dfr\ first|dfr\ into-nu|dfr\ is-in|dfr\ is-not-null|dfr\ is-null|dfr\ last|dfr\ n-unique|
       # dataframe or lazyframe
@@ -89,8 +87,8 @@ variables:
       # experimental
       from\ nuon|to\ nuon|
       # expression
-      dfr\ agg-groups|dfr\ arg-where|dfr\ as|dfr\ col|dfr\ concat-str|dfr\ count|dfr\ explode|dfr\ expr-not|
-      dfr\ flatten|dfr\ list|dfr\ lit|dfr\ otherwise|dfr\ when|
+      dfr\ agg-groups|dfr\ arg-where|dfr\ as|dfr\ col|dfr\ concat-str|dfr\ count|dfr\ datepart|dfr\ explode|
+      dfr\ expr-not|dfr\ flatten|dfr\ implode|dfr\ lit|dfr\ otherwise|dfr\ when|
       # expression lazyframe
       dfr\ max|dfr\ mean|dfr\ median|dfr\ min|dfr\ quantile|dfr\ std|dfr\ sum|dfr\ var|
       # filesystem
@@ -123,8 +121,8 @@ variables:
       http\ delete|http\ get|http\ head|http\ patch|http\ post|http\ put|port|query\ web|url\ build-query|url\ join|
       url\ parse|
       # platform
-      ansi\ gradient|ansi\ link|ansi\ strip|clear|input|keybindings\ default|keybindings\ list|keybindings\ listen|kill|
-      sleep|term\ size|
+      ansi\ gradient|ansi\ link|ansi\ strip|clear|input\ list|keybindings\ default|keybindings\ list|
+      keybindings\ listen|kill|sleep|term\ size|
       # prompt
       gstat|
       # random
@@ -142,8 +140,8 @@ variables:
       explore|grid|table|
 
       # Commands with subcommands
-      ansi|bits|bytes|config|date|decode|detect|dfr|drop|each|encode|error|export|format|from|hash|help|history|http|
-      into|keybindings|math|overlay|path|query|random|registry|roll|seq|skip|split|str|take|term|to|update|url|view
+      ansi|bytes|config|date|decode|detect|dfr|drop|each|encode|error|export|format|from|hash|help|history|http|input|
+      into|keybindings|lazy|math|overlay|path|query|random|registry|roll|seq|skip|split|str|take|term|to|update|url|view
     )
 
 contexts:
