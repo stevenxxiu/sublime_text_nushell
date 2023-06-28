@@ -51,9 +51,6 @@ variables:
     )
   native_command: |-
     (?x:
-      # bytes
-      bytes\ add|bytes\ at|bytes\ build|bytes\ collect|bytes\ ends-with|bytes\ index-of|bytes\ length|bytes\ remove|
-      bytes\ replace|bytes\ reverse|bytes\ starts-with|
       # conversions
       fill|fmt|into\ binary|into\ bool|into\ datetime|into\ decimal|into\ duration|into\ filesize|into\ int|
       into\ record|into\ sqlite|into\ string|
@@ -96,9 +93,9 @@ variables:
       # filters
       all|any|append|collect|columns|compact|default|drop\ column|drop\ nth|each\ while|enumerate|every|filter|find|
       first|flatten|get|group|headers|insert|is-empty|items|last|length|lines|merge|move|par-each|prepend|query\ json|
-      query\ xml|range|reject|rename|reverse|roll\ down|roll\ left|roll\ right|roll\ up|rotate|select|shuffle|
-      skip\ until|skip\ while|sort|sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|
-      where|window|wrap|zip|
+      query\ xml|range|reject|rename|reverse|roll\ down|roll\ left|roll\ right|roll\ up|rotate|scope\ aliases|
+      scope\ commands|scope\ engine-stats|scope\ modules|scope\ variables|select|shuffle|skip\ until|skip\ while|sort|
+      sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|where|window|wrap|zip|
       # formats
       decode\ hex|encode\ hex|from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|
       from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|
@@ -118,8 +115,8 @@ variables:
       # misc
       history\ session|tutor|
       # network
-      http\ delete|http\ get|http\ head|http\ patch|http\ post|http\ put|port|query\ web|url\ build-query|url\ join|
-      url\ parse|
+      http\ delete|http\ get|http\ head|http\ options|http\ patch|http\ post|http\ put|port|query\ web|url\ build-query|
+      url\ join|url\ parse|
       # platform
       ansi\ gradient|ansi\ link|ansi\ strip|clear|input\ list|keybindings\ default|keybindings\ list|
       keybindings\ listen|kill|sleep|term\ size|
@@ -140,8 +137,9 @@ variables:
       explore|grid|table|
 
       # Commands with subcommands
-      ansi|bytes|config|date|decode|detect|dfr|drop|each|encode|error|export|format|from|hash|help|history|http|input|
-      into|keybindings|lazy|math|overlay|path|query|random|registry|roll|seq|skip|split|str|take|term|to|update|url|view
+      ansi|config|date|decode|detect|dfr|drop|each|encode|error|export|format|from|hash|help|history|http|input|into|
+      keybindings|lazy|math|overlay|path|query|random|registry|roll|scope|seq|skip|split|str|take|term|to|update|url|
+      view
     )
 
 contexts:
