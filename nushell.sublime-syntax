@@ -80,7 +80,7 @@ variables:
       hash\ base64|math\ eval|str\ collect|str\ find-replace|str\ lpad|str\ rpad|str\ to-datetime|str\ to-decimal|
       str\ to-int|
       # env
-      config\ env|config\ nu|config\ reset|export-env|let-env|with-env|
+      config\ env|config\ nu|config\ reset|export-env|with-env|
       # experimental
       from\ nuon|to\ nuon|
       # expression
@@ -430,7 +430,7 @@ contexts:
       scope: keyword.other.redirect.nu
 
   assign-variable:
-    - match: (const|let|let-env|mut)\s+(\$?{{var_name}})\s*(=)\s*
+    - match: (const|let|mut)\s+(\$?{{var_name}})\s*(=)\s*
       captures:
         1: keyword.other.nu
         2: variable.name.nu

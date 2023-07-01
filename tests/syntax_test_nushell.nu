@@ -49,13 +49,6 @@ let a = 1 # Foo
 #       ^ constant.numeric.integer.nu
 #         ^^^^^ comment.line
 
-let-env a = 1 # Foo
-# <- keyword.other.nu
-#       ^ variable.name.nu
-#         ^ keyword.operator.assignment.nu
-#           ^ constant.numeric.integer.nu
-#             ^^^^^ comment.line
-
 mut a = 1 # Foo
 # <- keyword.other.nu
 #   ^ variable.name.nu
