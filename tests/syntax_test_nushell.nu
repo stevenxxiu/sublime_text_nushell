@@ -1068,6 +1068,16 @@ aaa 1|bbb|ccc 2
 #    ^^^ meta.group.nu meta.function-call.identifier.nu variable.function.nu
 #       ^ meta.group.nu punctuation.section.group.end.nu
 
+(FOO=BAR $env.FOO)
+# <- meta.group.nu punctuation.section.group.begin.nu
+# ^^ meta.group.nu variable.name.nu
+#   ^ meta.group.nu keyword.operator.assignment.nu
+#    ^^^ meta.group.nu string.environment-value.nu
+#        ^^^^ meta.group.nu variable.language.nu
+#            ^ meta.group.nu punctuation.accessor.nu
+#             ^^^ meta.group.nu meta.property.nu
+#                ^ meta.group.nu punctuation.section.group.end.nu
+
 (try { foo } catch { null })
 # <- meta.group.nu punctuation.section.group.begin.nu
 # ^^ meta.group.nu keyword.control.exception.try.nu

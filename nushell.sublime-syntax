@@ -166,6 +166,7 @@ contexts:
     - include: with-env-statement
 
   expression:
+    - include: assign-environment-variable
     - include: subexpression
     - include: statement
     - include: data-with-operators
@@ -208,6 +209,7 @@ contexts:
       push:
         - meta_scope: meta.group.nu
         - include: comment
+        - include: assign-environment-variable
         - include: statement
         - include: data-with-operators
         - include: function-call-inline
@@ -451,6 +453,13 @@ contexts:
         - include: expression
         - match: (?=.|$)
           pop: 1
+
+  assign-environment-variable:
+    - match: ({{var_name}})(=)(\S+)
+      captures:
+        1: variable.name.nu
+        2: keyword.operator.assignment.nu
+        3: string.environment-value.nu
 
   terminator:
     - match: ;
