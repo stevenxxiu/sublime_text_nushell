@@ -14,7 +14,10 @@ first_line_match: |-
   )
 
 variables:
-  var_name: '[A-Za-z\d_][A-Za-z\d\-_]*'
+  non_var_name_char: |-
+    \s!"#$&'()*+,\-./:;<=>?\[\]^`{|}
+  var_name: '[^{{non_var_name_char}}]+'
+  var_name_end: '(?=[{{non_var_name_char}}]|$)'
   long_flag: '--[A-Za-z\d\-_]*'
   short_flag: '-[A-Za-z\d_]?'
   number: '[+-]?\d+'
@@ -412,7 +415,7 @@ contexts:
       scope: string.flag.short.nu
 
   dollar-variable:
-    - match: \$(env|in|nothing|nu)
+    - match: \$(env|in|nothing|nu){{var_name_end}}
       scope: variable.language.nu
 
     - match: \${{var_name}}

@@ -25,6 +25,9 @@ $env $in $nothing $nu
 #        ^^^^^^^^ variable.language.nu
 #                 ^^^ variable.language.nu
 
+$in_
+# ^^ variable.other.nu
+
 $env.aaa.bbb?.ccc
 # ^^ variable.language.nu
 #   ^ punctuation.accessor.nu
