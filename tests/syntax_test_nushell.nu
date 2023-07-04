@@ -1072,11 +1072,24 @@ aaa 1|bbb|ccc 2
 # <- meta.group.nu punctuation.section.group.begin.nu
 # ^^ meta.group.nu variable.name.nu
 #   ^ meta.group.nu keyword.operator.assignment.nu
-#    ^^^ meta.group.nu string.environment-value.nu
+#    ^^^ meta.environment-value.nu string.bare.nu
 #        ^^^^ meta.group.nu variable.language.nu
 #            ^ meta.group.nu punctuation.accessor.nu
 #             ^^^ meta.group.nu meta.property.nu
 #                ^ meta.group.nu punctuation.section.group.end.nu
+
+(FOO=$'$(foo)bar' $env.FOO)
+# <- meta.group.nu punctuation.section.group.begin.nu
+# ^^ meta.group.nu variable.name.nu
+#   ^ meta.group.nu keyword.operator.assignment.nu
+#    ^^ meta.group.nu meta.string.interpolated.nu string.interpolated.single.nu punctuation.definition.string.interpolated.begin.nu
+#      ^^^^^^^^^^ meta.group.nu meta.string.interpolated.nu string.interpolated.single.nu
+#        ^^^ meta.group.nu meta.function-call.identifier.nu variable.function.nu
+#               ^ punctuation.definition.string.interpolated.end.nu
+#                 ^^^^ meta.group.nu variable.language.nu
+#                     ^ meta.group.nu punctuation.accessor.nu
+#                      ^^^ meta.group.nu meta.property.nu
+#                         ^ meta.group.nu punctuation.section.group.end.nu
 
 (try { foo } catch { null })
 # <- meta.group.nu punctuation.section.group.begin.nu

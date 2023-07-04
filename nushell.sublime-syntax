@@ -455,11 +455,16 @@ contexts:
           pop: 1
 
   assign-environment-variable:
-    - match: ({{var_name}})(=)(\S+)
+    - match: ({{var_name}})(=)
       captures:
         1: variable.name.nu
         2: keyword.operator.assignment.nu
-        3: string.environment-value.nu
+      push:
+        - meta_scope: meta.environment-value.nu
+        - include: string
+        - include: literal-bare-string
+        - match: (?=.|$)
+          pop: 1
 
   terminator:
     - match: ;
