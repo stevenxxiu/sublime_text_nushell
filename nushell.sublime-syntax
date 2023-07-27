@@ -765,7 +765,7 @@ contexts:
   extern:
     - match: (export\s+)?(extern)\s+
       captures:
-        1: keyword.extern.nu
+        1: keyword.export.nu
         2: keyword.extern.nu
       push:
         - meta_scope: meta.extern.nu
