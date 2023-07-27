@@ -921,6 +921,17 @@ match 1 {
 #                  ^ meta.block.nu punctuation.section.block.begin.nu
 #                    ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
 #                          ^ meta.block.nu punctuation.section.block.end.nu
+#
+  x if $x == 1 => { 'foo' },
+# ^ variable.name.nu
+#   ^^ keyword.control.conditional.if.nu
+#      ^^ variable.other.nu
+#         ^^ keyword.operator.nu
+#            ^ constant.numeric.integer.nu
+#              ^^ keyword.operator.arrow.nu
+#                 ^ meta.block.nu punctuation.section.block.begin.nu
+#                   ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#                         ^ meta.block.nu punctuation.section.block.end.nu
   _ => { 'foo' }
 # ^ variable.name.nu
 #   ^^ keyword.operator.arrow.nu

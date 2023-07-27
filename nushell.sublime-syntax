@@ -965,6 +965,15 @@ contexts:
           scope: punctuation.section.record.end.nu
           pop: 1
 
+    - match: ({{var_name}})\s+(if)
+      captures:
+        1: variable.name.nu
+        2: keyword.control.conditional.if.nu
+      push:
+        - include: expression-condition
+        - match: '(?==>)'
+          pop: 1
+
     - include: data-structure
 
     - match: ({{var_name}})
