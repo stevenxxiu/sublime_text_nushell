@@ -974,9 +974,9 @@ while $x < 10 {
 ##
 
 for i in 1..10 { print $i }
-# ^ variable.nu keyword.control.loop.for.nu
-#   ^ variable.nu variable.name.nu
-#     ^^ variable.nu keyword.control.loop.in.nu
+# ^ keyword.control.loop.for.nu
+#   ^ variable.name.nu
+#     ^^ keyword.control.loop.in.nu
 #        ^^^^^ constant.range.nu
 #              ^ meta.block.nu punctuation.section.block.begin.nu
 #                ^^^^^ meta.block.nu meta.function-call.identifier.nu support.function.nu
