@@ -967,8 +967,8 @@ contexts:
 
     - include: data-structure
 
-    - match: _
-      scope: keyword.match.any.nu
+    - match: ({{var_name}})
+      scope: variable.name.nu
 
   loop-statement:
     - match: loop

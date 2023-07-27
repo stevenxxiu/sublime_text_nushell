@@ -922,7 +922,7 @@ match 1 {
 #                    ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
 #                          ^ meta.block.nu punctuation.section.block.end.nu
   _ => { 'foo' }
-# ^ keyword.match.any.nu
+# ^ variable.name.nu
 #   ^^ keyword.operator.arrow.nu
 #      ^ meta.block.nu punctuation.section.block.begin.nu
 #        ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
