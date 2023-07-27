@@ -149,7 +149,7 @@ contexts:
   main:
     - include: assign-variable
     - include: comment
-    - include: curly-block
+    - include: closure-record
     - include: module
     - include: command
     - include: extern
@@ -234,7 +234,7 @@ contexts:
     - include: literal-null
 
     - include: list-table
-    - include: curly-block
+    - include: closure-record
 
   data-with-operators:
     - include: data-structure
@@ -499,28 +499,12 @@ contexts:
     - match: ','
       scope: punctuation.separator.comma.nu
 
-  curly-block:
+  closure-record:
     - match: (?=\{)
       branch_point: open-curly
       branch:
-        - block
         - closure
         - record
-
-  block:
-    - match: '\{'
-      scope: punctuation.section.block.begin.nu
-      push:
-        - meta_scope: meta.block.nu
-        - include: comment
-        - match: '(?=({{var_name}}|{{quoted_string}}):)'
-          fail: open-curly
-        - match: '(?=\|\s*({{var_name}}\s*,\s*)*{{var_name}}\s*\|)'
-          fail: open-curly
-        - include: main
-        - match: '\}'
-          scope: punctuation.section.block.end.nu
-          pop: 2
 
   closure:
     - match: '\{'
@@ -530,6 +514,7 @@ contexts:
         - include: comment
         - match: '(?=({{var_name}}|{{quoted_string}}):)'
           fail: open-curly
+        - match: \s
         - match: \|
           scope: punctuation.section.group.begin.nu
           push:
@@ -545,6 +530,12 @@ contexts:
                 - match: '\}'
                   scope: punctuation.section.closure.end.nu
                   pop: 3
+        - match: (?=.)
+          push:
+            - include: main
+            - match: '\}'
+              scope: punctuation.section.closure.end.nu
+              pop: 3
 
   record:
     - match: '\{'
@@ -571,7 +562,7 @@ contexts:
           scope: punctuation.section.list-table.end.nu
           pop: 1
 
-  code-block:
+  block:
     - match: '\{'
       scope: punctuation.section.block.begin.nu
       push:
@@ -621,7 +612,7 @@ contexts:
         - match: '{{var_name}}'
           scope: entity.name.module.nu
 
-        - include: code-block
+        - include: block
 
   parameter:
     - match: (\.\.\.)?({{var_name}})(\?)?
@@ -756,7 +747,7 @@ contexts:
           scope: entity.name.command.nu
           push: command-parameters
 
-        - include: code-block
+        - include: block
 
   extern-parameters:
     - meta_scope: meta.parameters.nu
