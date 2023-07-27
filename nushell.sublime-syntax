@@ -153,6 +153,7 @@ contexts:
     - include: module
     - include: command
     - include: extern
+    - include: extern-wrapped
     - include: expression
     - include: terminator
 
@@ -749,18 +750,56 @@ contexts:
 
         - include: block
 
+  extern-name:
+    - match: \'
+      scope: entity.name.extern.begin.nu
+      push:
+        - meta_scope: entity.name.extern.nu
+        - match: \'
+          scope: entity.name.extern.end.nu
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nu
+          pop: 1
+
+    - match: \`
+      scope: entity.name.extern.begin.nu
+      push:
+        - meta_scope: entity.name.extern.nu
+        - match: \`
+          scope: entity.name.extern.end.nu
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nu
+          pop: 1
+
+    - match: \"
+      scope: entity.name.extern.begin.nu
+      push:
+        - meta_scope: entity.name.extern.nu
+        - match: \"
+          scope: entity.name.extern.end.nu
+          pop: 1
+        - match: \n
+          scope: invalid.illegal.newline.nu
+          pop: 1
+        - include: double-quoted-string-content
+
+    - match: '{{var_name}}'
+      scope: entity.name.extern.nu
+
   extern-parameters:
-    - meta_scope: meta.parameters.nu
     - match: \[
       scope: punctuation.section.group.begin.nu
       push:
+        - meta_scope: meta.parameters.nu
         - include: parameter
         - match: \,
           scope: punctuation.separator.parameter.nu
         - include: comment
         - match: \]
           scope: punctuation.section.group.end.nu
-          pop: 3
+          pop: 2
 
   extern:
     - match: (export\s+)?(extern)\s+
@@ -769,46 +808,19 @@ contexts:
         2: keyword.extern.nu
       push:
         - meta_scope: meta.extern.nu
-        - match: \'
-          scope: entity.name.extern.begin.nu
-          push:
-            - meta_include_prototype: false
-            - meta_scope: entity.name.extern.nu
-            - match: \'
-              scope: entity.name.extern.end.nu
-              set: extern-parameters
-            - match: \n
-              scope: invalid.illegal.newline.nu
-              set: extern-parameters
+        - include: extern-name
+        - include: extern-parameters
 
-        - match: \`
-          scope: entity.name.extern.begin.nu
-          push:
-            - meta_include_prototype: false
-            - meta_scope: entity.name.extern.nu
-            - match: \`
-              scope: entity.name.extern.end.nu
-              set: extern-parameters
-            - match: \n
-              scope: invalid.illegal.newline.nu
-              set: extern-parameters
-
-        - match: \"
-          scope: entity.name.extern.begin.nu
-          push:
-            - meta_include_prototype: false
-            - meta_scope: entity.name.extern.nu
-            - match: \"
-              scope: entity.name.extern.end.nu
-              set: extern-parameters
-            - match: \n
-              scope: invalid.illegal.newline.nu
-              set: extern-parameters
-            - include: double-quoted-string-content
-
-        - match: '{{var_name}}'
-          scope: entity.name.extern.nu
-          push: extern-parameters
+  extern-wrapped:
+    - match: (export\s+)?(extern-wrapped)\s+
+      captures:
+        1: keyword.export.nu
+        2: keyword.extern-wrapped.nu
+      push:
+        - meta_scope: meta.extern-wrapped.nu
+        - include: extern-name
+        - include: extern-parameters
+        - include: block
 
   function-call:
     - include: special-call

@@ -658,7 +658,7 @@ extern "aaa\"bbb" [
 # <- meta.extern.nu keyword.extern.nu
 #      ^ meta.extern.nu entity.name.extern.nu entity.name.extern.begin.nu
 #          ^^ meta.extern.nu entity.name.extern.nu constant.character.escape.nu
-#               ^ meta.extern.nu entity.name.extern.nu meta.parameters.nu entity.name.extern.end.nu
+#               ^ meta.extern.nu entity.name.extern.nu entity.name.extern.end.nu
 #                 ^ meta.extern.nu meta.parameters.nu punctuation.section.group.begin.nu
   foo: string
 # ^ meta.extern.nu meta.parameters.nu variable.parameter.nu
@@ -683,6 +683,25 @@ extern "aaa\"bbb" [
 # ^^ meta.extern.nu meta.parameters.nu variable.parameter.short.nu
 #     ^^^^^^ meta.extern.nu meta.parameters.nu storage.type.nu
 ]
+# <- meta.extern.nu meta.parameters.nu punctuation.section.group.end.nu
+
+extern-wrapped foo [foo: string, ...rest] {
+# ^^^^^^^^^^^^ meta.extern-wrapped.nu keyword.extern-wrapped.nu
+#              ^^^ meta.extern-wrapped.nu entity.name.extern.nu
+#                  ^ meta.extern-wrapped.nu meta.parameters.nu punctuation.section.group.begin.nu
+#                   ^^^ meta.extern-wrapped.nu meta.parameters.nu variable.parameter.nu
+#                      ^ meta.extern-wrapped.nu meta.parameters.nu punctuation.separator.type.nu
+#                        ^^^^^^ meta.extern-wrapped.nu meta.parameters.nu storage.type.nu
+#                              ^ meta.extern-wrapped.nu meta.parameters.nu punctuation.separator.parameter.nu
+#                                ^^^ meta.extern-wrapped.nu meta.parameters.nu keyword.operator.spread.nu
+#                                   ^^^^ meta.extern-wrapped.nu meta.parameters.nu variable.parameter.nu
+#                                       ^ meta.extern-wrapped.nu meta.parameters.nu punctuation.section.group.end.nu
+#                                         ^ meta.closure.nu punctuation.section.closure.begin.nu
+  bar $rest
+# ^^^ meta.closure.nu meta.function-call.identifier.nu variable.function.nu
+#     ^^^^^ meta.closure.nu meta.function-call.arguments.nu variable.other.nu
+}
+# <- meta.closure.nu punctuation.section.closure.end.nu
 
 ##
 # Function Call
