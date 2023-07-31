@@ -103,8 +103,8 @@ variables:
       sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|where|window|wrap|zip|
       # formats
       decode\ hex|encode\ hex|from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|
-      from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|
-      to\ text|to\ toml|to\ tsv|to\ xml|to\ yaml|
+      from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|
+      to\ toml|to\ tsv|to\ xml|to\ yaml|
       # generators
       cal|seq\ char|seq\ date|
       # hash
