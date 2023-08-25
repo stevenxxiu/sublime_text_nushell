@@ -47,10 +47,11 @@ variables:
   row_condition_end: (?={{binary_logic_operator}}|[#);\]{}|]|$)
   core_native_command: |-
     (?x:
-      alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ def|
-      export\ def-env|export\ extern|export\ module|export\ use|extern|extern-wrapped|for|help\ aliases|help\ commands|
-      help\ externs|help\ modules|help\ operators|hide|hide-env|if|ignore|is-admin|lazy\ make|let|loop|match|module|mut|
-      overlay\ hide|overlay\ list|overlay\ new|overlay\ use|register|return|source|source-env|try|use|while
+      alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ const|
+      export\ def|export\ def-env|export\ extern|export\ extern-wrapped|export\ module|export\ use|extern|
+      extern-wrapped|for|help\ aliases|help\ commands|help\ externs|help\ modules|help\ operators|hide|hide-env|if|
+      ignore|is-admin|lazy\ make|let|loop|match|module|mut|overlay\ hide|overlay\ list|overlay\ new|overlay\ use|
+      register|return|source|source-env|try|use|version|while
     )
   native_command: |-
     (?x:
@@ -59,6 +60,8 @@ variables:
       # bytes
       bytes\ add|bytes\ at|bytes\ build|bytes\ collect|bytes\ ends-with|bytes\ index-of|bytes\ length|bytes\ remove|
       bytes\ replace|bytes\ reverse|bytes\ starts-with|
+      # chart
+      histogram|
       # conversions
       fill|fmt|into\ binary|into\ bits|into\ bool|into\ datetime|into\ decimal|into\ duration|into\ filesize|into\ int|
       into\ record|into\ sqlite|into\ string|
@@ -67,52 +70,46 @@ variables:
       # dataframe
       dfr\ all-false|dfr\ all-true|dfr\ append|dfr\ arg-max|dfr\ arg-min|dfr\ arg-sort|dfr\ arg-true|dfr\ arg-unique|
       dfr\ as-date|dfr\ as-datetime|dfr\ columns|dfr\ concatenate|dfr\ contains|dfr\ count-null|dfr\ cumulative|
-      dfr\ drop|dfr\ drop-duplicates|dfr\ drop-nulls|dfr\ dtypes|dfr\ dummies|dfr\ get|dfr\ get-day|dfr\ get-hour|
-      dfr\ get-minute|dfr\ get-month|dfr\ get-nanosecond|dfr\ get-ordinal|dfr\ get-second|dfr\ get-week|
-      dfr\ get-weekday|dfr\ get-year|dfr\ into-df|dfr\ is-duplicated|dfr\ is-unique|dfr\ lowercase|dfr\ ls|dfr\ melt|
-      dfr\ not|dfr\ open|dfr\ query|dfr\ replace|dfr\ replace-all|dfr\ rolling|dfr\ sample|dfr\ set|dfr\ set-with-idx|
-      dfr\ shape|dfr\ slice|dfr\ str-lengths|dfr\ str-slice|dfr\ strftime|dfr\ summary|dfr\ take|dfr\ to-arrow|
-      dfr\ to-csv|dfr\ to-jsonl|dfr\ to-parquet|dfr\ uppercase|dfr\ value-counts|
+      dfr\ drop|dfr\ drop-duplicates|dfr\ drop-nulls|dfr\ dtypes|dfr\ dummies|dfr\ first|dfr\ get|dfr\ get-day|
+      dfr\ get-hour|dfr\ get-minute|dfr\ get-month|dfr\ get-nanosecond|dfr\ get-ordinal|dfr\ get-second|dfr\ get-week|
+      dfr\ get-weekday|dfr\ get-year|dfr\ into-df|dfr\ into-nu|dfr\ is-duplicated|dfr\ is-not-null|dfr\ is-null|
+      dfr\ is-unique|dfr\ last|dfr\ lowercase|dfr\ ls|dfr\ melt|dfr\ n-unique|dfr\ not|dfr\ open|dfr\ query|
+      dfr\ replace|dfr\ replace-all|dfr\ rolling|dfr\ sample|dfr\ set|dfr\ set-with-idx|dfr\ shape|dfr\ slice|
+      dfr\ str-lengths|dfr\ str-slice|dfr\ strftime|dfr\ summary|dfr\ take|dfr\ to-arrow|dfr\ to-avro|dfr\ to-csv|
+      dfr\ to-jsonl|dfr\ to-parquet|dfr\ uppercase|dfr\ value-counts|
       # dataframe or lazyframe
       dfr\ filter-with|dfr\ rename|dfr\ shift|dfr\ unique|dfr\ with-column|
       # date
-      date\ format|date\ humanize|date\ list-timezone|date\ now|date\ to-record|date\ to-table|date\ to-timezone|
+      date\ humanize|date\ list-timezone|date\ now|date\ to-record|date\ to-table|date\ to-timezone|format\ date|
       # debug
       ast|debug|explain|inspect|metadata|profile|timeit|view\ files|view\ source|view\ span|
       # default
-      group-by|histogram|inc|join|path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|path\ parse|
-      path\ relative-to|path\ split|path\ type|reduce|split-by|str\ substring|str\ trim|str\ upcase|transpose|version|
-      # deprecated
-      hash\ base64|let-env|math\ eval|str\ collect|str\ find-replace|str\ lpad|str\ rpad|str\ to-datetime|
-      str\ to-decimal|str\ to-int|
+      inc|
       # env
       config\ env|config\ nu|config\ reset|export-env|with-env|
-      # experimental
-      from\ nuon|to\ nuon|
       # expression
-      dfr\ agg-groups|dfr\ arg-where|dfr\ as|dfr\ col|dfr\ concat-str|dfr\ count|dfr\ datepart|dfr\ explode|
-      dfr\ expr-not|dfr\ first|dfr\ flatten|dfr\ implode|dfr\ into-nu|dfr\ is-in|dfr\ is-not-null|dfr\ is-null|
-      dfr\ last|dfr\ lit|dfr\ n-unique|dfr\ otherwise|dfr\ when|
+      dfr\ agg-groups|dfr\ arg-where|dfr\ as|dfr\ col|dfr\ concat-str|dfr\ count|dfr\ datepart|dfr\ expr-not|
+      dfr\ implode|dfr\ is-in|dfr\ lit|dfr\ max|dfr\ mean|dfr\ min|dfr\ otherwise|dfr\ std|dfr\ sum|dfr\ var|dfr\ when|
       # filesystem
       cd|cp|glob|load-env|ls|mkdir|mv|open|rm|save|start|touch|watch|
       # filters
       all|any|append|collect|columns|compact|default|drop\ column|drop\ nth|each\ while|enumerate|every|filter|find|
-      first|flatten|get|group|headers|insert|is-empty|items|last|length|lines|merge|move|par-each|prepend|query\ json|
-      query\ xml|range|reject|rename|reverse|roll\ down|roll\ left|roll\ right|roll\ up|rotate|scope\ aliases|
-      scope\ commands|scope\ engine-stats|scope\ modules|scope\ variables|select|shuffle|skip\ until|skip\ while|sort|
-      sort-by|split\ list|take\ until|take\ while|uniq|uniq-by|update\ cells|upsert|values|where|window|wrap|zip|
+      first|flatten|get|group|group-by|headers|insert|is-empty|items|join|last|length|lines|merge|move|par-each|prepend|
+      query\ json|query\ xml|range|reduce|reject|rename|reverse|roll\ down|roll\ left|roll\ right|roll\ up|rotate|
+      scope\ aliases|scope\ commands|scope\ engine-stats|scope\ externs|scope\ modules|scope\ variables|select|shuffle|
+      skip\ until|skip\ while|sort|sort-by|split\ list|split-by|take\ until|take\ while|transpose|uniq|uniq-by|
+      update\ cells|upsert|values|where|window|wrap|zip|
       # formats
-      decode\ hex|encode\ hex|from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ ods|from\ ssv|from\ toml|
-      from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|to\ md|to\ text|
-      to\ toml|to\ tsv|to\ xml|to\ yaml|
+      decode\ hex|encode\ hex|from\ csv|from\ eml|from\ ics|from\ ini|from\ json|from\ nuon|from\ ods|from\ ssv|
+      from\ toml|from\ tsv|from\ url|from\ vcf|from\ xlsx|from\ xml|from\ yaml|from\ yml|to\ csv|to\ html|to\ json|
+      to\ md|to\ nuon|to\ text|to\ toml|to\ tsv|to\ xml|to\ yaml|
       # generators
       cal|seq\ char|seq\ date|
       # hash
       decode\ base64|encode\ base64|hash\ md5|hash\ sha256|
       # lazyframe
-      dfr\ agg|dfr\ cache|dfr\ collect|dfr\ fetch|dfr\ fill-nan|dfr\ fill-null|dfr\ filter|dfr\ group-by|dfr\ into-lazy|
-      dfr\ join|dfr\ max|dfr\ mean|dfr\ median|dfr\ min|dfr\ quantile|dfr\ reverse|dfr\ select|dfr\ sort-by|dfr\ std|
-      dfr\ sum|dfr\ var|
+      dfr\ agg|dfr\ cache|dfr\ collect|dfr\ explode|dfr\ fetch|dfr\ fill-nan|dfr\ fill-null|dfr\ filter|dfr\ flatten|
+      dfr\ group-by|dfr\ into-lazy|dfr\ join|dfr\ median|dfr\ quantile|dfr\ reverse|dfr\ select|dfr\ sort-by|
       # math
       math\ abs|math\ arccos|math\ arccosh|math\ arcsin|math\ arcsinh|math\ arctan|math\ arctanh|math\ avg|math\ ceil|
       math\ cos|math\ cosh|math\ e|math\ exp|math\ floor|math\ ln|math\ log|math\ max|math\ median|math\ min|math\ mode|
@@ -123,6 +120,9 @@ variables:
       # network
       http\ delete|http\ get|http\ head|http\ options|http\ patch|http\ post|http\ put|port|query\ web|url\ build-query|
       url\ join|url\ parse|
+      # path
+      path\ basename|path\ dirname|path\ exists|path\ expand|path\ join|path\ parse|path\ relative-to|path\ split|
+      path\ type|
       # platform
       ansi\ gradient|ansi\ link|ansi\ strip|clear|input\ list|input\ listen|keybindings\ default|keybindings\ list|
       keybindings\ listen|kill|sleep|term\ size|
@@ -133,10 +133,11 @@ variables:
       # shells
       enter|exit|g|n|p|shells|
       # strings
-      char|detect\ columns|format\ filesize|nu-check|nu-highlight|parse|print|size|split\ chars|split\ column|
-      split\ row|split\ words|str\ camel-case|str\ capitalize|str\ contains|str\ distance|str\ downcase|str\ ends-with|
-      str\ expand|str\ index-of|str\ join|str\ kebab-case|str\ length|str\ pascal-case|str\ replace|str\ reverse|
-      str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ title-case|url\ encode|
+      char|detect\ columns|format\ duration|format\ filesize|nu-check|nu-highlight|parse|print|size|split\ chars|
+      split\ column|split\ row|split\ words|str\ camel-case|str\ capitalize|str\ contains|str\ distance|str\ downcase|
+      str\ ends-with|str\ expand|str\ index-of|str\ join|str\ kebab-case|str\ length|str\ pascal-case|str\ replace|
+      str\ reverse|str\ screaming-snake-case|str\ snake-case|str\ starts-with|str\ substring|str\ title-case|str\ trim|
+      str\ upcase|url\ encode|
       # system
       complete|exec|ps|registry\ query|run-external|sys|which|
       # viewers
