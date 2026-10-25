@@ -787,16 +787,17 @@ where foo | null
 #           ^^^^ source.shell.nu constant.language.null.nu
 
 where foo == bar and foo == bar | null
-# <- meta.function-call.identifier.nu support.function.nu
-#     ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
-#         ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
-#            ^^^ meta.function-call.arguments.row-condition.nu string.bare.nu
-#                ^^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
-#                    ^^^ meta.function-call.arguments.row-condition.nu variable.name.nu
-#                        ^^ meta.function-call.arguments.row-condition.nu keyword.operator.nu
-#                           ^^^ meta.function-call.arguments.row-condition.nu string.bare.nu
-#                               ^ keyword.operator.pipe.nu
-#                                 ^^^^ source.shell.nu constant.language.null.nu
+# <-                                     meta.function-call.identifier.nu support.function.nu
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^         meta.function-call.arguments.row-condition.nu
+#     ^^^                                variable.name.nu
+#         ^^                             keyword.operator.nu
+#            ^^^                         string.bare.nu
+#                ^^^                     keyword.operator.nu
+#                    ^^^                 variable.name.nu
+#                        ^^              keyword.operator.nu
+#                           ^^^          string.bare.nu
+#                               ^        keyword.operator.pipe.nu
+#                                 ^^^^   source.shell.nu constant.language.null.nu
 
 where size > 10kb and size < 100kb | null
 # <- meta.function-call.identifier.nu support.function.nu
@@ -892,10 +893,10 @@ match 1 {
 #              ^ meta.block.nu punctuation.section.block.end.nu
   1..10 => { 'foo' }
 # ^^^^^ constant.range.nu
-#       ^^ keyword.operator.arrow.nu
-#          ^ meta.block.nu punctuation.section.block.begin.nu
-#            ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
-#                  ^ meta.block.nu punctuation.section.block.end.nu
+#       ^^                 keyword.operator.arrow.nu
+#          ^               meta.block.nu punctuation.section.block.begin.nu
+#            ^             meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
+#                  ^       meta.block.nu punctuation.section.block.end.nu
   [$head, ..$tail] => { 'foo' }
 # ^ punctuation.section.list.begin.nu
 #  ^^^^ variable.other.nu
@@ -939,6 +940,26 @@ match 1 {
 #        ^ meta.block.nu meta.string.nu string.quoted.single.nu punctuation.definition.string.begin.nu
 #              ^ meta.block.nu punctuation.section.block.end.nu
 }
+
+let PRE = ''
+#   ^^^ variable.name.nu
+def cmd_match [] {
+  let c = [black red yellow green purple blue indigo]
+  let m_c = match $c {
+  #         ^^^^^                                     keyword.control.match.nu
+    "black"                     => "classy"
+    "red"    | "green" | "blue" => "fundamental"
+    "yellow" | "purple"         => "vibrant"
+    _                           => "innovative"
+    #                              ^^^^^^^^^^^^       meta.block.nu
+    #                              ^^^^^^^^^^^^       meta.string.nu
+  }
+# ^                                                   meta.block.nu punctuation.section.match.end.nu
+}
+# <-                                                  meta.block.nu punctuation.section.block.end.nu
+let POS = ''
+# <-                                                - meta.block.nu
+#   ^^^ variable.name.nu
 
 ##
 # Loop
@@ -1152,3 +1173,15 @@ $var.1.bar
 #     ^^^ meta.property.nu
 #        ^ punctuation.accessor.nu
 #         ^^^ meta.property.nu
+
+
+def group_nl [] { # don't interupt scope inside a group on newlines
+  let $n = 1
+  let $t = 1
+  let $out1 = (if ($n == 1) and ($t == 2) { "" } else { "" })
+  #                         ^^^                                 meta.group.nu keyword.operator.nu
+  let $out2 = (if ($n == 1)
+    and       ($t == 2) { "" } else { "" })
+  # ^^^                                                         meta.group.nu keyword.operator.nu
+  return $out2
+}

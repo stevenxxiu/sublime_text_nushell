@@ -1,13 +1,9 @@
 %YAML 1.2
 ---
-# - https://www.sublimetext.com/docs/syntax.html
-# - https://www.nushell.sh/book/
-name: Nushell
-scope: source.shell.nu
-
-file_extensions:
-  - nu
-
+name             : Nushell # sublimetext.com/docs/syntax.html   nushell.sh/book
+file_extensions  : [nu]
+scope            : source.shell.nu
+version          : 2
 first_line_match: |-
   (?xi:
     ^ \#! .* \b(nu)\b            # shebang
@@ -15,36 +11,42 @@ first_line_match: |-
 
 variables:
   non_var_name_char: |-
-    \s!"#$&'()*+,\-./:;<=>?\[\]^`{|}
-  var_name: '[^{{non_var_name_char}}]+'
-  var_name_end: '(?=[{{non_var_name_char}}]|$)'
-  long_flag: '--[A-Za-z\d\-_]*'
-  short_flag: '-[A-Za-z\d_]?'
-  number: '[+-]?\d+'
-  pos_decimal: '\d+(\.\d*)?'
-  double_quoted_string_escape: '\\(["''\\/bfrnt]|u\{\h{1,6}\})'
-  quoted_string: '''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
-  bare_string: '[\w*+./@~]+'
-  pipe: '(^|(?<!\|))\|(?!\|)'
-  identifier_break: (?=\s|[#);\]{}|]|$)
-  expression_end: (?=\s*[#);\]{}|]|\s*$)
-  expression_break: (?=\s|{{expression_end}})
-  parameter_end: (?=[#,=\]|\n]|$)
-  parameter_type_end: (?=\s|[#,<=>@\]|\n])
-  binary_logic_operator: '(?<=^|\s)(?:and|or|xor){{identifier_break}}'
-  operator: |-
+    \s!"#$&'()\*+,\-./:;<=>?\[\]^`\{|\}
+  newline:                    	'(?>\r\n?|[\x{A}\x{B}\x{C}\x{85}\x{2028}\x{2029}])'       # \R
+  var_name:                   	  '[^{{non_var_name_char}}]+'
+  var_name_end:               	'(?=[{{non_var_name_char}}]|$)'
+  long_flag:                  	'--[A-Za-z\d\-_]*'
+  short_flag:                 	 '-[A-Za-z\d_]?'
+  number:                     	'[+-]?\d+'
+  pos_decimal:                	'\d+(\.\d*)?'
+  double_quoted_string_escape:	'\\(["''\\/bfrnt]|u\{\h{1,6}\})'
+  quoted_string:              	'''.*?''|"({{double_quoted_string_escape}}|.)*?"|`.*?`'
+  bare_string:                	'[\w*+./@~]+'
+  identifier_break:           	(?=\s|[#\);\]{}|]|$)
+  expression_end:             	(?=\s*[#\);\]{}|]|\s*$)
+  expression_break:           	(?=\s|{{expression_end}})
+  parameter_end:              	(?=[#,=\]|\n]|$)
+  parameter_type_end:         	(?=\s|[#,<=>@\]|\n])
+  cmd_type_end:               	(?=\{)
+  sp_pre:                     	'(?:^|\s)'
+  bin_op:                     	'(?:and|or|xor)'
+  type_comp:                  	'(?:list|record|table)'
+  type_enum:                  	'(?x:bool|int|float|string  |glob|filesize  |duration|date  |range  |record|list
+    |                         	     closure|error|binary  |cell-path  |nothing)' # enum Value @ /github.com/nushell/nushell/blob/main/crates/nu-protocol/src/value/mod.rs
+  type:                       	'{{type_enum}}|{{type_comp}}|any'
+  operator_conflicted_bare_pre: (?:\+|\*|/)
+  operator_non_bare_bin_pre: |-
     (?x:
-      (?:
-        \+|-|\*|/|//|mod|\*\*|
-        ==|!=|<|<=|>|>=|
-        =~|!~|
-        in|not-in|not|{{binary_logic_operator}}|
-        bit-or|bit-xor|bit-and|bit-shl|bit-shr|
-        starts-with|ends-with|
-        \+\+
-      ){{expression_break}}
+      -|//|mod|\*\*|
+      ==|!=|<|<=|>|>=|
+      =~|!~|
+      in|not-in|not|
+      bit-or|bit-xor|bit-and|bit-shl|bit-shr|
+      starts-with|ends-with|
+      \+\+
     )
-  row_condition_end: (?={{binary_logic_operator}}|[#);\]{}|]|$)
+  operator_non_bin_pre: '{{operator_conflicted_bare_pre}}|{{operator_non_bare_bin_pre}}'
+  row_condition_end: (?={{bin_op}}{{identifier_break}}|[#);\]{}|]|$)
   core_native_command: |-
     (?x:
       alias|break|commandline|const|continue|def|def-env|describe|do|du|echo|error\ make|export\ alias|export\ const|
@@ -53,6 +55,10 @@ variables:
       ignore|is-admin|lazy\ make|let|loop|match|module|mut|overlay\ hide|overlay\ list|overlay\ new|overlay\ use|
       register|return|source|source-env|try|use|version|while
     )
+  native_command_dfr_ext: |-
+    (?:all-false|all-true|append|arg-max|arg-min|arg-sort|arg-true|arg-unique|as-date|as-datetime|columns|concatenate|contains|count-null|cumulative|drop|drop-duplicates|drop-nulls|dtypes|dummies|first|get|get-day|get-hour|get-minute|get-month|get-nanosecond|get-ordinal|get-second|get-week|get-weekday|get-year|into-df|into-nu|is-duplicated|is-not-null|is-null|is-unique|last|lowercase|ls|melt|n-unique|not|open|query|replace|replace-all|rolling|sample|set|set-with-idx|shape|slice|str-lengths|str-slice|strftime|summary|take|to-arrow|to-avro|to-csv|to-jsonl|to-parquet|uppercase|value-counts)
+  native_command_date_ext: |-
+    (?:humanize|list-timezone|now|to-record|to-table|to-timezone)
   native_command: |-
     (?x:
       # bits
@@ -68,19 +74,11 @@ variables:
       # database
       query\ db|schema|
       # dataframe
-      dfr\ all-false|dfr\ all-true|dfr\ append|dfr\ arg-max|dfr\ arg-min|dfr\ arg-sort|dfr\ arg-true|dfr\ arg-unique|
-      dfr\ as-date|dfr\ as-datetime|dfr\ columns|dfr\ concatenate|dfr\ contains|dfr\ count-null|dfr\ cumulative|
-      dfr\ drop|dfr\ drop-duplicates|dfr\ drop-nulls|dfr\ dtypes|dfr\ dummies|dfr\ first|dfr\ get|dfr\ get-day|
-      dfr\ get-hour|dfr\ get-minute|dfr\ get-month|dfr\ get-nanosecond|dfr\ get-ordinal|dfr\ get-second|dfr\ get-week|
-      dfr\ get-weekday|dfr\ get-year|dfr\ into-df|dfr\ into-nu|dfr\ is-duplicated|dfr\ is-not-null|dfr\ is-null|
-      dfr\ is-unique|dfr\ last|dfr\ lowercase|dfr\ ls|dfr\ melt|dfr\ n-unique|dfr\ not|dfr\ open|dfr\ query|
-      dfr\ replace|dfr\ replace-all|dfr\ rolling|dfr\ sample|dfr\ set|dfr\ set-with-idx|dfr\ shape|dfr\ slice|
-      dfr\ str-lengths|dfr\ str-slice|dfr\ strftime|dfr\ summary|dfr\ take|dfr\ to-arrow|dfr\ to-avro|dfr\ to-csv|
-      dfr\ to-jsonl|dfr\ to-parquet|dfr\ uppercase|dfr\ value-counts|
+      dfr\ {{native_command_dfr_ext}}|
       # dataframe or lazyframe
       dfr\ filter-with|dfr\ rename|dfr\ shift|dfr\ unique|dfr\ with-column|
       # date
-      date\ humanize|date\ list-timezone|date\ now|date\ to-record|date\ to-table|date\ to-timezone|format\ date|
+      date\ {{native_command_date_ext}}|format\ date|
       # debug
       ast|debug|explain|inspect|metadata|profile|timeit|view\ files|view\ source|view\ span|
       # default
@@ -178,6 +176,9 @@ contexts:
     - include: function-call
     - include: dollar-variable
     - include: literal-bare-string
+  expression1:
+    - include: expression
+    - include: pop
 
   expression-parameter:
     - include: subexpression
@@ -201,6 +202,7 @@ contexts:
     - include: function-call
     - include: dollar-variable
     - include: literal-bare-string
+    - include: ␤
 
   expression-record-list-table:
     - include: subexpression
@@ -248,11 +250,42 @@ contexts:
     - include: pipe
 
   operator:
-    - match: '{{operator}}'
+    - match: '{{operator_non_bare_bin_pre}}' # no conflict first
       scope: keyword.operator.nu
+      push:
+        - match: '{{expression_break}}'
+          pop: 1
+    - match: '(?=(?:^|\s){{bin_op}})'
+      push:
+      - match: '{{bin_op}}{{identifier_break}}'
+        scope: keyword.operator.nu
+        push:
+          - include: id-break-pop
+          - include: S🛑
+      - include: pop
+    - match: '(?={{operator_conflicted_bare_pre}})'
+      branch_point        : ⸙1op∨str
+      branch              : #✗⁺⸙1op∨str
+        - operator-⸙1
+        - string-⸙1
+  operator-⸙1:
+    - match: '{{operator_conflicted_bare_pre}}'
+      scope: keyword.operator.nu
+      push:
+        - match: '{{expression_break}}'
+          pop: 2
+        - match: '{{bare_string}}'
+          fail : ⸙1op∨str
+  string-⸙1:
+    - include: literal-bare-string
+    - include: pop
 
   pipe:
-    - match: '{{pipe}}'
+    - match: '(\|)(\|)'
+      captures:
+        1: keyword.operator.pipe.nu # reminds that only a single pipe can be an operator
+        2: invalid.illegal.nu
+    - match: '(\|)'
       scope: keyword.operator.pipe.nu
 
   date:
@@ -752,7 +785,101 @@ contexts:
           scope: entity.name.command.nu
           push: command-parameters
 
+        - include: command-𝐓-signature
         - include: block
+  command-𝐓-variant:
+    - include: command-𝐓-combo-list
+    - include: command-𝐓-combo-record
+    - include: command-𝐓-combo-table
+    - include: command-𝐓-union
+    - include: command-𝐓
+  command-𝐓-signature:
+    - match: ':'
+      scope: punctuation.separator.type-signature.nu
+      push:
+        - meta_scope: meta.type.nu
+        - include: command-𝐓-variant
+        - match: ->
+          scope: punctuation.separator.type-signature.nu
+        - match: '{{cmd_type_end}}'
+          pop: 1
+        # - include: comment
+        # weird restrictions banning whitespace/comments, maybe will be removed in a future parser?
+        - match: '#'
+          scope: invalid.illegal.type-signature.nu
+        - match: '\n'
+          scope: invalid.illegal.muted.type-signature.nu
+  command-𝐓:
+    - match: '{{type}}'
+      scope: storage.type.nu
+  command-𝐓-1:
+    - match: '{{type}}'
+      scope: storage.type.nu #invalid.illegal.muted
+      pop  : 1
+  command-𝐓-inner-1:
+    - match: '{{type}}'
+      scope: storage.type.nu
+      push:
+        - match: '>'
+          scope: punctuation.definition.type.end.nu
+          pop: 2
+        - match: '[^\s]'
+          scope: invalid.illegal.nu
+  𝐓-end-pop:
+    - match: '>'
+      scope: punctuation.definition.type.end.nu
+      pop: 1
+  command-𝐓-combo-list:
+    - match: '(list)(\s*)(<)'
+      captures:
+        1: storage.type.list.nu
+        2: invalid.illegal.nu
+        3: punctuation.definition.type.begin.nu
+      push:
+        - include: 𝐓-end-pop
+        - include: command-𝐓-inner-1
+  record-𝐓-key:
+    - match: '({{var_name}})(:)'
+      captures:
+        1: entity.name.label.nu
+        2: punctuation.separator.key-value.nu
+    - match: (?=[^\s])
+      push: command-𝐓-1
+  command-𝐓-combo-record:
+    - match: '(record)(\s*)(<)'
+      captures:
+        1: storage.type.record.nu
+        2: invalid.illegal.nu
+        3: punctuation.definition.type.begin.nu
+      push:
+        - include: 𝐓-end-pop
+        - match: ','
+          scope: punctuation.separator.type.nu
+        - include: record-𝐓-key
+        - include: command-𝐓-inner-1
+  command-𝐓-combo-table:
+    - match: '(table)(\s*)(<)'
+      captures:
+        1: storage.type.table.nu
+        2: invalid.illegal.nu
+        3: punctuation.definition.type.begin.nu
+      push:
+        - include: 𝐓-end-pop
+        - match: ','
+          scope: punctuation.separator.type.nu
+        - include: record-𝐓-key
+        - include: command-𝐓-inner-1
+  command-𝐓-union:
+    - match: '(oneof)(\s*)(<)'
+      captures:
+        1: storage.type.union.nu keyword.declaration.union.nu
+        2: invalid.illegal.nu
+        3: punctuation.definition.type.begin.nu
+      push:
+        - include: 𝐓-end-pop
+        - match: ','
+          scope: punctuation.separator.type.nu
+        - include: command-𝐓-variant
 
   extern-name:
     - match: \'
@@ -828,7 +955,7 @@ contexts:
 
   function-call:
     - include: special-call
-    - match: (?<=^|[\s|])(?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s;|]|$)
+    - match: (?:({{core_native_command}})|({{native_command}})|(\^?{{var_name}}))(?=[\s;|]|$)
       captures:
         1: meta.function-call.identifier.nu keyword.other.nu
         2: meta.function-call.identifier.nu support.function.nu
@@ -881,11 +1008,17 @@ contexts:
           pop: 1
 
   row-condition:
-    - match: '{{binary_logic_operator}}'
-      scope: keyword.operator.nu
+    - match: '(?={{bin_op}})'
+      push:
+      - match: '{{bin_op}}'
+        scope: keyword.operator.nu invalid.illegal
+        push:
+          - include: id-break-pop
+          - include: S🛑
+      - include: pop
     - match: '{{var_name}}'
       scope: variable.name.nu
-    - match: '(?!{{binary_logic_operator}}){{operator}}'
+    - match: '({{operator_non_bin_pre}})'
       scope: keyword.operator.nu
       push:
         - include: subexpression
@@ -936,7 +1069,10 @@ contexts:
               - include: match-pattern
               - match: =>
                 scope: keyword.operator.arrow.nu
-                push: block
+                push:
+                  - match: '(?=\s*\{)'
+                    push: block
+                  - include: expression1
               - match: '\}'
                 scope: punctuation.section.match.end.nu
                 pop: 2
@@ -1032,3 +1168,60 @@ contexts:
               scope: punctuation.section.record.end.nu
               set: block
               pop: 2
+# Ending helpers
+  else-pop:
+    - match               : '(?=\S)'
+      pop                 : 1
+  else-pop1:
+    - match               : '(?=\S)'
+      pop                 : 1
+  else-pop2:
+    - match               : '(?=\S)'
+      pop                 : 2
+  else-pop3:
+    - match               : '(?=\S)'
+      pop                 : 3
+  pop:
+    - match               : ''
+      pop                 : 1
+  pop1:
+    - match               : ''
+      pop                 : 1
+  pop2:
+    - match               : ''
+      pop                 : 2
+  pop3:
+    - match               : ''
+      pop                 : 3
+  pop4:
+    - match               : ''
+      pop                 : 4
+  pop5:
+    - match               : ''
+      pop                 : 5
+  S🛑:
+    - match               : '(\S)'
+      scope               : invalid.illegal.position.nu #✗S🛑
+      pop                 : 1
+  S🛑s:
+    - match               : '(\S)'
+      scope               : invalid.illegal.position.nu #✗S🛑
+  id-break-pop:
+    - match               : '{{identifier_break}}'
+      pop                 : 1
+  else-pop-linebeg:
+    - match               : '(?=^)'
+      scope: invalid.illegal.else-pop-linebeg2
+      pop                 : 1
+  else-pop-linebeg2:
+    - match               : '(?=^)'
+      scope: invalid.illegal.else-pop-linebeg2
+      pop                 : 2
+  ␤s:
+    - match               : '{{newline}}'
+      #scope               : dbg✗␤s
+  ␤:
+    - match               : '{{newline}}'
+      #scope               : dbg✗␤
+      pop                 : 1
+
